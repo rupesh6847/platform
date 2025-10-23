@@ -1,0 +1,81 @@
+{
+  "name": "dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dashboard app with auto-update feature",
+  "author": "Rupesh",
+  "type": "module",
+  "homepage": "https://github.com/rupesh6847/platform",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rupesh6847/platform.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "electron": "electron .",
+    "build:main": "node ./scripts/build-electron.js",
+    "build:all": "npm run build && npm run build:main",
+    "electron:dev": "cross-env NODE_ENV=development VITE_DEV_SERVER_URL=http://localhost:5173 electron .",
+    "electron:pack": "npm run build:all && electron-builder --dir",
+    "dist": "npm run build:all && electron-builder --publish=never",
+    "release": "npm run build:all && electron-builder --publish=always",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^10.1.0",
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.25.11",
+    "tailwindcss": "^4.1.14",
+    "vite": "^5.0.0",
+    "wait-on": "^7.2.0"
+  },
+  "main": "dist-electron/main.js",
+  "build": {
+    "appId": "com.rupesh.dashboard",
+    "productName": "Dashboard",
+    "copyright": "Copyright © 2024",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "dist-electron/preload.js"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "rupesh6847",
+      "repo": "platform"
+    }
+  }
+}
