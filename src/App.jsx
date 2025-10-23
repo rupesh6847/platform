@@ -109,7 +109,7 @@ function App() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
-          Dashboard App App
+          Dashboard App App App
         </h1>
         <div className="mt-6 space-y-4">
           <div className="text-center">
