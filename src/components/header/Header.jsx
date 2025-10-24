@@ -76,12 +76,12 @@ const Header = ({ onClick, onToggle }) => {
           <Link to="/" className="lg:hidden">
             <img
               className="dark:hidden"
-              src="/platform-logo-blue.png"
+              src="https://www.dropbox.com/scl/fi/phsiae8um250td6lxujer/platform-logo-blue.png?rlkey=wedlkejuaaxnt7fq9l5r3ntsb&st=qc2zarn9&raw=1"
               alt="Logo"
             />
             <img
               className="hidden dark:block"
-              src="/platform-logo.png"
+              src="https://www.dropbox.com/scl/fi/7o2jmtz6t77ezt4f99oes/platform-logo.png?rlkey=au2w4hv692f2p63khar3w4mzx&st=yt7il86i&raw=1"
               alt="Logo"
             />
           </Link>

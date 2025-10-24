@@ -248,21 +248,21 @@ const AppSidebar = () => {
             <>
               <img
                 className="dark:hidden"
-                src="/platform-logo.png"
+                src="https://www.dropbox.com/scl/fi/7o2jmtz6t77ezt4f99oes/platform-logo.png?rlkey=au2w4hv692f2p63khar3w4mzx&st=wkmw6ike&raw=1"
                 alt="Logo"
                 width={150}
                 height={40}
               />
               <img
                 className="hidden dark:block"
-                src="/platform-logo-blue.png"
+                src="https://www.dropbox.com/scl/fi/phsiae8um250td6lxujer/platform-logo-blue.png?rlkey=wedlkejuaaxnt7fq9l5r3ntsb&st=naik8fsd&raw=1"
                 alt="Logo"
                 width={150}
                 height={40}
               />
             </>
           ) : (
-            <img src="/icon.png" alt="Logo" width={32} height={32} />
+            <img src="https://www.dropbox.com/scl/fi/z0xgu3pdum9quuh1l1a1i/icon.png?rlkey=muh6eoxi4t9ltlyaa5h79o7y6&st=s3y06eie&raw=1" alt="Logo" width={32} height={32} />
           )}
         </Link>
       </div>

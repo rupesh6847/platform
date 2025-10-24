@@ -82,10 +82,10 @@ const AppHeader = () => {
           </button>
 
           <Link to="/" className="lg:hidden">
-            <img className="dark:hidden h-14 w-14" src="/icon.png" alt="Logo" />
+            <img className="dark:hidden h-14 w-14" src="https://www.dropbox.com/scl/fi/z0xgu3pdum9quuh1l1a1i/icon.png?rlkey=muh6eoxi4t9ltlyaa5h79o7y6&st=106514i7&raw=1" alt="Logo" />
             <img
               className="hidden dark:block h-14 w-14"
-              src="/icon.png"
+              src="https://www.dropbox.com/scl/fi/z0xgu3pdum9quuh1l1a1i/icon.png?rlkey=muh6eoxi4t9ltlyaa5h79o7y6&st=106514i7&raw=1"
               alt="Logo"
             />
           </Link>

@@ -36,6 +36,9 @@ function createWindow() {
     },
     show: false,
   });
+  
+  // Remove menu
+  mainWindow.setMenu(null);
 
   if (isDev && VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(VITE_DEV_SERVER_URL);
