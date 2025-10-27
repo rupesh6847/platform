@@ -23,12 +23,14 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "electron-updater": "^6.6.2",
     "lucide-react": "^0.546.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^7.9.4"
+    "react-router-dom": "^7.9.4",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",

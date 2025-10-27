@@ -5,10 +5,7 @@ import PageMeta from "../../components/common/PageMeta";
 export default function NotFound() {
   return (
     <>
-      <PageMeta
-        title="404 Dashboard"
-        description="This is React.js 404 Dashboard page."
-      />
+      <PageMeta title="404 Dashboard" description="This is Dashboard page." />
       <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
         <GridShape />
         <div className="mx-auto w-full max-w-[242px] text-center sm:max-w-[472px]">
@@ -16,7 +13,11 @@ export default function NotFound() {
             ERROR
           </h1>
 
-          <img src="https://www.dropbox.com/scl/fi/08bunkevu4w88hyze7eys/404.svg?rlkey=k9d264v4f9xfgbit497c8ajkl&st=5rxrcflx&raw=1" alt="404" className="dark:hidden" />
+          <img
+            src="https://www.dropbox.com/scl/fi/08bunkevu4w88hyze7eys/404.svg?rlkey=k9d264v4f9xfgbit497c8ajkl&st=5rxrcflx&raw=1"
+            alt="404"
+            className="dark:hidden"
+          />
           <img
             src="https://www.dropbox.com/scl/fi/tdv7w0lf692rxq4hxqxnd/404-dark.svg?rlkey=7pvdja83mwwb4i7vpbi1ic2xu&st=vrtqy8bi&raw=1"
             alt="404"

@@ -15,11 +15,11 @@ const RENDERER_DIST = join(APP_ROOT, "dist");
 const preloadPath = isDev
   ? join(__dirname, "preload.js")
   : join(
-      process.resourcesPath,
-      "app.asar.unpacked",
-      "dist-electron",
-      "preload.js"
-    );
+    process.resourcesPath,
+    "app.asar.unpacked",
+    "dist-electron",
+    "preload.js"
+  );
 
 let mainWindow;
 
@@ -36,7 +36,7 @@ function createWindow() {
     },
     show: false,
   });
-  
+
   // Remove menu
   mainWindow.setMenu(null);
 

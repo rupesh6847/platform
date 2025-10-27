@@ -1,7 +1,6 @@
-
 import { Link } from "react-router";
 
-export const DropdownItem= ({
+export const DropdownItem = ({
   tag = "button",
   to,
   onClick,

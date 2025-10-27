@@ -1,3 +1,167 @@
+// import { useState, useEffect } from "react";
+
+// export default function CheckUpdate() {
+//   const [updateStatus, setUpdateStatus] = useState("");
+//   const [progress, setProgress] = useState(0);
+//   const [appVersion, setAppVersion] = useState("");
+
+//   useEffect(() => {
+//     const getVersion = async () => {
+//       if (window.electronAPI?.getAppVersion) {
+//         try {
+//           const version = await window.electronAPI.getAppVersion();
+//           setAppVersion(version);
+//         } catch (error) {
+//           console.error("Failed to get app version:", error);
+//         }
+//       }
+//     };
+
+//     getVersion();
+//   }, []);
+
+//   useEffect(() => {
+//     console.log(window.electronAPI, "window.electronAPI");
+
+//     if (!window.electronAPI) return;
+
+//     const handleUpdateAvailable = () => {
+//       setUpdateStatus("update-available");
+//     };
+
+//     const handleUpdateNotAvailable = () => {
+//       setUpdateStatus("update-not-available");
+//     };
+
+//     const handleUpdateDownloaded = () => {
+//       setUpdateStatus("update-downloaded");
+//     };
+
+//     const handleUpdateError = (_, error) => {
+//       setUpdateStatus(`error: ${error}`);
+//     };
+
+//     const handleDownloadProgress = (_, progressObj) => {
+//       setProgress(Math.round(progressObj.percent));
+//     };
+
+//     window.electronAPI.onUpdateAvailable(handleUpdateAvailable);
+//     window.electronAPI.onUpdateNotAvailable(handleUpdateNotAvailable);
+//     window.electronAPI.onUpdateDownloaded(handleUpdateDownloaded);
+//     window.electronAPI.onUpdateError(handleUpdateError);
+//     window.electronAPI.onDownloadProgress(handleDownloadProgress);
+
+//     return () => {
+//       window.electronAPI.removeAllListeners("update-available");
+//       window.electronAPI.removeAllListeners("update-not-available");
+//       window.electronAPI.removeAllListeners("update-downloaded");
+//       window.electronAPI.removeAllListeners("update-error");
+//       window.electronAPI.removeAllListeners("download-progress");
+//     };
+//   }, []);
+
+//   const checkUpdates = async () => {
+//     if (!window.electronAPI) {
+//       setUpdateStatus("Electron API not available");
+//       return;
+//     }
+
+//     setUpdateStatus("checking...");
+//     const result = await window.electronAPI.checkForUpdates();
+
+//     if (result.status === "dev") {
+//       setUpdateStatus("Running in development mode - updates disabled");
+//     } else if (result.status === "checked") {
+//       setUpdateStatus("Update check completed");
+//     } else {
+//       setUpdateStatus(`Check failed: ${result.error}`);
+//     }
+//   };
+
+//   const downloadUpdate = async () => {
+//     setUpdateStatus("downloading...");
+//     setProgress(0);
+//     await window.electronAPI.downloadUpdate();
+//   };
+
+//   const installUpdate = () => {
+//     window.electronAPI.quitAndInstall();
+//   };
+
+//   const getStatusMessage = () => {
+//     switch (updateStatus) {
+//       case "update-available":
+//         return "New update available! Click Download to get the latest version.";
+//       case "update-not-available":
+//         return "You have the latest version.";
+//       case "update-downloaded":
+//         return "Update downloaded! Click Install to restart and apply the update.";
+//       case "checking...":
+//         return "Checking for updates...";
+//       case "downloading...":
+//         return `Downloading update... ${progress}%`;
+//       default:
+//         return updateStatus;
+//     }
+//   };
+//   return (
+//     <div
+//       className={`
+//         mx-auto mb-10 w-full max-w-60 rounded-2xl bg-gray-50 px-4 py-5 text-center dark:bg-white/3`}
+//     >
+//       <div className="text-center">
+//         <p className="dark:text-gray-400 text-gray-600 mb-4">
+//           Current Version: {appVersion}
+//         </p>
+//         <p
+//           className={`text-sm ${
+//             updateStatus.includes("error")
+//               ? "text-red-600"
+//               : updateStatus.includes("available")
+//               ? "text-green-600"
+//               : "text-gray-600"
+//           }`}
+//         >
+//           {getStatusMessage()}
+//         </p>
+
+//         {progress > 0 && updateStatus.includes("downloading") && (
+//           <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+//             <div
+//               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+//               style={{ width: `${progress}%` }}
+//             />
+//           </div>
+//         )}
+//       </div>
+//       <button
+//         className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-brand-500 text-theme-sm hover:bg-brand-600"
+//         onClick={checkUpdates}
+//         disabled={updateStatus === "checking..."}
+//       >
+//         Check for Updates
+//       </button>
+
+//       {updateStatus === "update-available" && (
+//         <button
+//           className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-green-500 text-theme-sm hover:bg-green-600"
+//           onClick={downloadUpdate}
+//         >
+//           Download Update
+//         </button>
+//       )}
+
+//       {updateStatus === "update-downloaded" && (
+//         <button
+//           className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-purple-500 text-theme-sm hover:bg-purple-600"
+//           onClick={installUpdate}
+//         >
+//           Install and Restart
+//         </button>
+//       )}
+//     </div>
+//   );
+// }
 import { useState, useEffect } from "react";
 
 export default function CheckUpdate() {
@@ -16,34 +180,19 @@ export default function CheckUpdate() {
         }
       }
     };
-
     getVersion();
   }, []);
 
   useEffect(() => {
-    console.log(window.electronAPI, "window.electronAPI");
-
     if (!window.electronAPI) return;
 
-    const handleUpdateAvailable = () => {
-      setUpdateStatus("update-available");
-    };
-
-    const handleUpdateNotAvailable = () => {
+    const handleUpdateAvailable = () => setUpdateStatus("update-available");
+    const handleUpdateNotAvailable = () =>
       setUpdateStatus("update-not-available");
-    };
-
-    const handleUpdateDownloaded = () => {
-      setUpdateStatus("update-downloaded");
-    };
-
-    const handleUpdateError = (_, error) => {
-      setUpdateStatus(`error: ${error}`);
-    };
-
-    const handleDownloadProgress = (_, progressObj) => {
+    const handleUpdateDownloaded = () => setUpdateStatus("update-downloaded");
+    const handleUpdateError = (_, error) => setUpdateStatus(`error: ${error}`);
+    const handleDownloadProgress = (_, progressObj) =>
       setProgress(Math.round(progressObj.percent));
-    };
 
     window.electronAPI.onUpdateAvailable(handleUpdateAvailable);
     window.electronAPI.onUpdateNotAvailable(handleUpdateNotAvailable);
@@ -69,13 +218,11 @@ export default function CheckUpdate() {
     setUpdateStatus("checking...");
     const result = await window.electronAPI.checkForUpdates();
 
-    if (result.status === "dev") {
+    if (result.status === "dev")
       setUpdateStatus("Running in development mode - updates disabled");
-    } else if (result.status === "checked") {
+    else if (result.status === "checked")
       setUpdateStatus("Update check completed");
-    } else {
-      setUpdateStatus(`Check failed: ${result.error}`);
-    }
+    else setUpdateStatus(`Check failed: ${result.error}`);
   };
 
   const downloadUpdate = async () => {
@@ -91,11 +238,11 @@ export default function CheckUpdate() {
   const getStatusMessage = () => {
     switch (updateStatus) {
       case "update-available":
-        return "New update available! Click Download to get the latest version.";
+        return "A new update is available! Click below to download it.";
       case "update-not-available":
-        return "You have the latest version.";
+        return "You’re already on the latest version.";
       case "update-downloaded":
-        return "Update downloaded! Click Install to restart and apply the update.";
+        return "Update downloaded! Click Install to restart and apply.";
       case "checking...":
         return "Checking for updates...";
       case "downloading...":
@@ -104,59 +251,74 @@ export default function CheckUpdate() {
         return updateStatus;
     }
   };
+
   return (
-    <div
-      className={`
-        mx-auto mb-10 w-full max-w-60 rounded-2xl bg-gray-50 px-4 py-5 text-center dark:bg-white/3`}
-    >
-      <div className="text-center">
-        <p className="dark:text-gray-400 text-gray-600 mb-4">Current Version: {appVersion}</p>
-        <p
-          className={`text-sm ${
-            updateStatus.includes("error")
-              ? "text-red-600"
-              : updateStatus.includes("available")
-              ? "text-green-600"
-              : "text-gray-600"
+    <div className="mx-auto my-8 w-full max-w-sm rounded-2xl border border-gray-200 bg-white px-6 py-6 text-center  dark:border-gray-700 dark:bg-gray-900 transition-all duration-300">
+      {/* Version */}
+      <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
+        Current Version:{" "}
+        <span className="font-medium text-gray-800 dark:text-gray-200">
+          {appVersion}
+        </span>
+      </p>
+
+      {/* Status Message */}
+      <p
+        className={`mb-4 text-sm font-medium transition-all duration-300 ${
+          updateStatus.includes("error")
+            ? "text-red-500"
+            : updateStatus.includes("available")
+            ? "text-green-500"
+            : updateStatus.includes("downloading")
+            ? "text-blue-500"
+            : "text-gray-500 dark:text-gray-400"
+        }`}
+      >
+        {getStatusMessage()}
+      </p>
+
+      {/* Progress Bar */}
+      {updateStatus === "downloading..." && (
+        <div className="mb-4 w-full rounded-full bg-gray-200 dark:bg-gray-700 h-2 overflow-hidden">
+          <div
+            className="h-2 bg-blue-600 rounded-full transition-all duration-300 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      )}
+
+      {/* Buttons */}
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={checkUpdates}
+          disabled={updateStatus === "checking..."}
+          className={`w-full rounded-lg px-4 py-2 text-sm font-medium transition-all ${
+            updateStatus === "checking..."
+              ? "bg-gray-400 text-white cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
           }`}
         >
-          {getStatusMessage()}
-        </p>
+          {updateStatus === "checking..." ? "Checking..." : "Check for Updates"}
+        </button>
 
-        {progress > 0 && updateStatus.includes("downloading") && (
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-            <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+        {updateStatus === "update-available" && (
+          <button
+            onClick={downloadUpdate}
+            className="w-full rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition-all"
+          >
+            Download Update
+          </button>
+        )}
+
+        {updateStatus === "update-downloaded" && (
+          <button
+            onClick={installUpdate}
+            className="w-full rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition-all"
+          >
+            Install & Restart
+          </button>
         )}
       </div>
-      <button
-        className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-brand-500 text-theme-sm hover:bg-brand-600"
-        onClick={checkUpdates}
-        disabled={updateStatus === "checking..."}
-      >
-        Check for Updates
-      </button>
-
-      {updateStatus === "update-available" && (
-        <button
-          className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-green-500 text-theme-sm hover:bg-green-600"
-          onClick={downloadUpdate}
-        >
-          Download Update
-        </button>
-      )}
-
-      {updateStatus === "update-downloaded" && (
-        <button
-          className="w-full flex items-center justify-center p-2 font-medium text-white rounded-lg bg-purple-500 text-theme-sm hover:bg-purple-600"
-          onClick={installUpdate}
-        >
-          Install and Restart
-        </button>
-      )}
     </div>
   );
 }

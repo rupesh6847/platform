@@ -3,37 +3,40 @@ import { Link, useLocation } from "react-router-dom";
 import { useSidebar } from "../context/SidebarContext";
 import CheckUpdate from "./CheckUpdate";
 import {
-  Calendar,
-  ChartColumnDecreasing,
   ChevronDown,
   GitCommitHorizontal,
   LayoutGrid,
+  LogIn,
+  UserCircleIcon,
 } from "lucide-react";
 
 const navItems = [
   {
     icon: <LayoutGrid />,
     name: "Tasks",
+
     subItems: [
-      { name: "Campaigns", path: "/", pro: false },
-      { name: "Briefs", path: "/", pro: false },
+      { name: "Campaigns", path: "/" },
+      { name: "Briefs", path: "/tasks/briefs" },
     ],
   },
   {
-    icon: <Calendar />,
-    name: "Label",
-    path: "/",
+    icon: <UserCircleIcon />,
+    name: "User Profile",
+    path: "/profile",
   },
 ];
 
 const othersItems = [
   {
-    icon: <ChartColumnDecreasing />,
-    name: "Dropdown",
-    subItems: [
-      { name: "Dropdown-1", path: "/", pro: false },
-      { name: "Dropdown-2", path: "/", pro: false },
-    ],
+    icon: <UserCircleIcon />,
+    name: "Attendance",
+    path: "/attendance",
+  },
+  {
+    icon: <LogIn />,
+    name: "Signin",
+    path: "/signin",
   },
 ];
 
@@ -262,7 +265,12 @@ const AppSidebar = () => {
               />
             </>
           ) : (
-            <img src="https://www.dropbox.com/scl/fi/z0xgu3pdum9quuh1l1a1i/icon.png?rlkey=muh6eoxi4t9ltlyaa5h79o7y6&st=s3y06eie&raw=1" alt="Logo" width={32} height={32} />
+            <img
+              src="https://www.dropbox.com/scl/fi/z0xgu3pdum9quuh1l1a1i/icon.png?rlkey=muh6eoxi4t9ltlyaa5h79o7y6&st=s3y06eie&raw=1"
+              alt="Logo"
+              width={32}
+              height={32}
+            />
           )}
         </Link>
       </div>
