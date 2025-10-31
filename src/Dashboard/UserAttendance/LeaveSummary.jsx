@@ -1,64 +1,64 @@
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle } from 'lucide-react';
 import {
   Table,
   TableBody,
   TableCell,
   TableHeader,
   TableRow,
-} from "../../components/ui/table";
+} from '../../components/ui/table';
 
 const leaveHistory = [
   {
     id: 1,
-    type: "Casual Leave",
-    from: "Oct 15, 2025",
-    to: "Oct 16, 2025",
-    status: "Approved",
-    reason: "Personal work",
+    type: 'Casual Leave',
+    from: 'Oct 15, 2025',
+    to: 'Oct 16, 2025',
+    status: 'Approved',
+    reason: 'Personal work',
   },
   {
     id: 2,
-    type: "Sick Leave",
-    from: "Oct 5, 2025",
-    to: "Oct 5, 2025",
-    status: "Approved",
-    reason: "Flu",
+    type: 'Sick Leave',
+    from: 'Oct 5, 2025',
+    to: 'Oct 5, 2025',
+    status: 'Approved',
+    reason: 'Flu',
   },
   {
     id: 3,
-    type: "Casual Leave",
-    from: "Sep 20, 2025",
-    to: "Sep 22, 2025",
-    status: "Rejected",
-    reason: "Family vacation",
-    rejectionReason: "Peak project period",
+    type: 'Casual Leave',
+    from: 'Sep 20, 2025',
+    to: 'Sep 22, 2025',
+    status: 'Rejected',
+    reason: 'Family vacation',
+    rejectionReason: 'Peak project period',
   },
 ];
 const LeaveSummary = () => {
   const leaveTypes = [
     {
-      label: "Casual Leave",
+      label: 'Casual Leave',
       available: 8,
       total: 12,
-      color: "bg-blue-500",
+      color: 'bg-blue-500',
     },
     {
-      label: "Sick Leave",
+      label: 'Sick Leave',
       available: 10,
       total: 12,
-      color: "bg-red-500",
+      color: 'bg-red-500',
     },
     {
-      label: "Annual Leave",
+      label: 'Annual Leave',
       available: 15,
       total: 20,
-      color: "bg-green-500",
+      color: 'bg-green-500',
     },
     {
-      label: "Unpaid Leave",
+      label: 'Unpaid Leave',
       available: 5,
       total: 5,
-      color: "bg-gray-500",
+      color: 'bg-gray-500',
     },
   ];
 
@@ -74,12 +74,12 @@ const LeaveSummary = () => {
   const StatusBadge = ({ status }) => {
     const getStatusStyles = () => {
       switch (status) {
-        case "Approved":
-          return "bg-green-100 text-green-800 border-green-200";
-        case "Rejected":
-          return "bg-red-100 text-red-800 border-red-200";
+        case 'Approved':
+          return 'bg-green-100 text-green-800 border-green-200';
+        case 'Rejected':
+          return 'bg-red-100 text-red-800 border-red-200';
         default:
-          return "bg-gray-100 text-gray-800 border-gray-200";
+          return 'bg-gray-100 text-gray-800 border-gray-200';
       }
     };
 
@@ -87,10 +87,10 @@ const LeaveSummary = () => {
       <span
         className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles()}`}
       >
-        {status === "Approved" && (
+        {status === 'Approved' && (
           <CheckCircle2 className="w-3 h-3 inline mr-1" />
         )}
-        {status === "Rejected" && <XCircle className="w-3 h-3 inline mr-1" />}
+        {status === 'Rejected' && <XCircle className="w-3 h-3 inline mr-1" />}
         {status}
       </span>
     );

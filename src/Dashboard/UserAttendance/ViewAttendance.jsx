@@ -1,42 +1,42 @@
-import { Clock } from "lucide-react";
-import Chart from "react-apexcharts";
+import { Clock } from 'lucide-react';
+import Chart from 'react-apexcharts';
 
 const attendanceData = [
-  { day: "Mon", hours: 8.5 },
-  { day: "Tue", hours: 9.0 },
-  { day: "Wed", hours: 8.0 },
-  { day: "Thu", hours: 8.5 },
-  { day: "Fri", hours: 7.5 },
-  { day: "Sat", hours: 4.0 },
-  { day: "Sun", hours: 0.0 },
+  { day: 'Mon', hours: 8.5 },
+  { day: 'Tue', hours: 9.0 },
+  { day: 'Wed', hours: 8.0 },
+  { day: 'Thu', hours: 8.5 },
+  { day: 'Fri', hours: 7.5 },
+  { day: 'Sat', hours: 4.0 },
+  { day: 'Sun', hours: 0.0 },
 ];
 
 const ViewAttendance = () => {
   const options = {
-    colors: ["#3b82f6"],
+    colors: ['#3b82f6'],
     chart: {
-      fontFamily: "Outfit, sans-serif",
-      type: "bar",
+      fontFamily: 'Outfit, sans-serif',
+      type: 'bar',
       height: 250,
       toolbar: { show: false },
     },
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "45%",
+        columnWidth: '45%',
         borderRadius: 6,
-        borderRadiusApplication: "end",
+        borderRadiusApplication: 'end',
       },
     },
     dataLabels: { enabled: false },
-    stroke: { show: true, width: 3, colors: ["transparent"] },
+    stroke: { show: true, width: 3, colors: ['transparent'] },
     xaxis: {
       categories: attendanceData.map((d) => d.day),
       axisBorder: { show: false },
       axisTicks: { show: false },
     },
     yaxis: {
-      title: { text: "Hours" },
+      title: { text: 'Hours' },
       min: 0,
       max: 10,
       tickAmount: 5,
@@ -54,7 +54,7 @@ const ViewAttendance = () => {
 
   const series = [
     {
-      name: "Hours Worked",
+      name: 'Hours Worked',
       data: attendanceData.map((d) => d.hours),
     },
   ];

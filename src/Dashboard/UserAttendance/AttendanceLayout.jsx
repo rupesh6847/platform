@@ -1,54 +1,54 @@
-import { useState } from "react";
-import { Coffee, Heart, UserCheck, Users } from "lucide-react";
-import ApplyLeave from "./ApplyLeave";
-import ViewAttendance from "./ViewAttendance";
-import LeaveSummary from "./LeaveSummary";
-import MonthCalendar from "./MonthCalendar";
+import { useState } from 'react';
+import { Coffee, Heart, UserCheck, Users } from 'lucide-react';
+import ApplyLeave from './ApplyLeave';
+import ViewAttendance from './ViewAttendance';
+import LeaveSummary from './LeaveSummary';
+import MonthCalendar from './MonthCalendar';
 
 const stats = [
   {
-    title: "Total Present Today",
-    value: "253",
-    subtext: "out of 257 employees",
+    title: 'Total Present Today',
+    value: '253',
+    subtext: 'out of 257 employees',
     icon: UserCheck,
-    color: "text-green-600",
-    bgColor: "bg-green-50",
+    color: 'text-green-600',
+    bgColor: 'bg-green-50',
   },
   {
-    title: "On Casual Leave",
-    value: "8",
-    subtext: "2 pending approval",
+    title: 'On Casual Leave',
+    value: '8',
+    subtext: '2 pending approval',
     icon: Users,
-    color: "text-blue-600",
-    bgColor: "bg-blue-50",
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
   },
   {
-    title: "On Sick Leave",
-    value: "4",
-    subtext: "1 pending approval",
+    title: 'On Sick Leave',
+    value: '4',
+    subtext: '1 pending approval',
     icon: Heart,
-    color: "text-red-600",
-    bgColor: "bg-red-50",
+    color: 'text-red-600',
+    bgColor: 'bg-red-50',
   },
   {
-    title: "On Break",
-    value: "12",
-    subtext: "Currently active",
+    title: 'On Break',
+    value: '12',
+    subtext: 'Currently active',
     icon: Coffee,
-    color: "text-orange-600",
-    bgColor: "bg-orange-50",
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
   },
 ];
 
 const quickActions = [
-  { label: "Apply Leave", id: "apply-leave" },
-  { label: "View My Attendance", id: "view-attendance" },
-  { label: "Leave Summary", id: "leave-summary" },
-  { label: "Calendar", id: "calendar" },
+  { label: 'Apply Leave', id: 'apply-leave' },
+  { label: 'View My Attendance', id: 'view-attendance' },
+  { label: 'Leave Summary', id: 'leave-summary' },
+  { label: 'Calendar', id: 'calendar' },
 ];
 
 const AttendanceLayout = () => {
-  const [activeSection, setActiveSection] = useState("apply-leave");
+  const [activeSection, setActiveSection] = useState('apply-leave');
 
   const handleQuickAction = (actionId) => {
     setActiveSection(activeSection === actionId ? null : actionId);
@@ -56,13 +56,13 @@ const AttendanceLayout = () => {
 
   const renderActiveSection = () => {
     switch (activeSection) {
-      case "apply-leave":
+      case 'apply-leave':
         return <ApplyLeave />;
-      case "view-attendance":
+      case 'view-attendance':
         return <ViewAttendance />;
-      case "leave-summary":
+      case 'leave-summary':
         return <LeaveSummary />;
-      case "calendar":
+      case 'calendar':
         return <MonthCalendar />;
 
       default:
@@ -115,8 +115,8 @@ const AttendanceLayout = () => {
                 onClick={() => handleQuickAction(action.id)}
                 className={`rounded-2xl border px-6 py-3 transition-colors ${
                   activeSection === action.id
-                    ? "border-blue-500 bg-blue-50 text-blue-700"
-                    : "border-gray-200 bg-white hover:bg-gray-50 text-gray-700"
+                    ? 'border-blue-500 bg-blue-50 text-blue-700'
+                    : 'border-gray-200 bg-white hover:bg-gray-50 text-gray-700'
                 }`}
               >
                 {action.label}

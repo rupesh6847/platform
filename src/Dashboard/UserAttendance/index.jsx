@@ -1,6 +1,6 @@
-import PageBreadcrumb from "../../components/common/PageBreadCrumb";
-import PageMeta from "../../components/common/PageMeta";
-import AttendanceLayout from "./AttendanceLayout";
+import PageBreadcrumb from '../../components/common/PageBreadCrumb';
+import PageMeta from '../../components/common/PageMeta';
+import AttendanceLayout from './AttendanceLayout';
 
 export default function Attendance() {
   return (

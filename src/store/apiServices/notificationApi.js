@@ -1,13 +1,13 @@
-import { baseApi } from "./baseApi";
+import { baseApi } from './baseApi';
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getNotificationsByUserId: builder.query({
       query: (role) => ({
         url: `/notifications/role?name=${role}`,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["Notifications"],
+      providesTags: ['Notifications'],
     }),
   }),
   overrideExisting: false,

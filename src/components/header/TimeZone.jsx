@@ -67,12 +67,12 @@
 // };
 
 // export default TimeZone;
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const timezones = [
-  { label: "UK (London)", tz: "Europe/London", shortLabel: "LON" },
-  { label: "US (NY)", tz: "America/New_York", shortLabel: "NY" },
-  { label: "India (Pune)", tz: "Asia/Kolkata", shortLabel: "MUM" },
+  { label: 'UK (London)', tz: 'Europe/London', shortLabel: 'LON' },
+  { label: 'US (NY)', tz: 'America/New_York', shortLabel: 'NY' },
+  { label: 'India (Pune)', tz: 'Asia/Kolkata', shortLabel: 'MUM' },
 ];
 
 const TimeZone = ({ mobile = false }) => {
@@ -82,25 +82,25 @@ const TimeZone = ({ mobile = false }) => {
     const date = new Date();
     const options = {
       timeZone: tz,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
       hour12: true,
-      weekday: mobile ? undefined : "short",
-      day: mobile ? undefined : "numeric",
-      month: mobile ? undefined : "short",
-      year: mobile ? undefined : "numeric",
+      weekday: mobile ? undefined : 'short',
+      day: mobile ? undefined : 'numeric',
+      month: mobile ? undefined : 'short',
+      year: mobile ? undefined : 'numeric',
     };
 
     let localeString = date
-      .toLocaleString("en-GB", options)
+      .toLocaleString('en-GB', options)
       .replace(/\b(am|pm)\b/g, (m) => m.toUpperCase());
 
     if (mobile) {
-      return localeString.split(" ")[0]; // Just time for mobile
+      return localeString.split(' ')[0]; // Just time for mobile
     }
 
-    const [datePart, timePart] = localeString.split(", ").slice(-2);
+    const [datePart, timePart] = localeString.split(', ').slice(-2);
     return `${datePart} | ${timePart}`;
   };
 
@@ -125,9 +125,9 @@ const TimeZone = ({ mobile = false }) => {
           <div key={index} className="text-xs">
             <span className="font-medium text-gray-700 dark:text-gray-300">
               {t.shortLabel}:
-            </span>{" "}
+            </span>{' '}
             <span className="text-gray-600 dark:text-gray-400 font-mono tabular-nums">
-              {times[t.tz] || "..."}
+              {times[t.tz] || '...'}
             </span>
           </div>
         ))}
@@ -148,9 +148,9 @@ const TimeZone = ({ mobile = false }) => {
           <div className="text-xs text-gray-600 dark:text-gray-400 font-mono tabular-nums min-w-[120px]">
             {times[t.tz] ? (
               <>
-                {times[t.tz].split(" | ")[0]}{" "}
+                {times[t.tz].split(' | ')[0]}{' '}
                 <span className="font-bold text-gray-900 dark:text-white">
-                  {times[t.tz].split(" | ")[1]}
+                  {times[t.tz].split(' | ')[1]}
                 </span>
               </>
             ) : (

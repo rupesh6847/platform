@@ -1,41 +1,41 @@
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import Select from "react-select"; // ✅ fixed import
+import { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import Select from 'react-select'; // ✅ fixed import
 
 const dayOptions = [
-  { value: "Monday", label: "Monday" },
-  { value: "Tuesday", label: "Tuesday" },
-  { value: "Wednesday", label: "Wednesday" },
-  { value: "Thursday", label: "Thursday" },
-  { value: "Friday", label: "Friday" },
-  { value: "Saturday", label: "Saturday" },
-  { value: "Sunday", label: "Sunday" },
+  { value: 'Monday', label: 'Monday' },
+  { value: 'Tuesday', label: 'Tuesday' },
+  { value: 'Wednesday', label: 'Wednesday' },
+  { value: 'Thursday', label: 'Thursday' },
+  { value: 'Friday', label: 'Friday' },
+  { value: 'Saturday', label: 'Saturday' },
+  { value: 'Sunday', label: 'Sunday' },
 ];
 
 const clients = [
-  { value: "PH", label: "PH" },
-  { value: "LPM", label: "LPM" },
+  { value: 'PH', label: 'PH' },
+  { value: 'LPM', label: 'LPM' },
 ];
 
 const CampaignBuilder = () => {
   const [campaign, setCampaign] = useState({
     id: Date.now(),
-    CampaignName: "",
-    Code: "",
-    LeadGoal: "",
-    Volumes: [{ key: "", value: "" }],
-    Deadline: "",
-    FirstUploadDate: "",
+    CampaignName: '',
+    Code: '',
+    LeadGoal: '',
+    Volumes: [{ key: '', value: '' }],
+    Deadline: '',
+    FirstUploadDate: '',
     WeeklyUploadDay: [],
     clients: [],
-    ContactsPerCompany: "",
-    Pacing: "Even",
+    ContactsPerCompany: '',
+    Pacing: 'Even',
     ClientSelect: 1,
-    Content: [{ category: "", titles: [""] }],
-    AdditionalInformation: "",
-    Files: [{ name: "", link: "", date: "" }],
-    DescriptionOfFilesAttached: "",
+    Content: [{ category: '', titles: [''] }],
+    AdditionalInformation: '',
+    Files: [{ name: '', link: '', date: '' }],
+    DescriptionOfFilesAttached: '',
   });
 
   const handleChange = (field, value) => {
@@ -61,20 +61,20 @@ const CampaignBuilder = () => {
   };
 
   const addField = (key) => {
-    if (key === "Volumes")
+    if (key === 'Volumes')
       setCampaign({
         ...campaign,
-        Volumes: [...campaign.Volumes, { key: "", value: "" }],
+        Volumes: [...campaign.Volumes, { key: '', value: '' }],
       });
-    if (key === "Content")
+    if (key === 'Content')
       setCampaign({
         ...campaign,
-        Content: [...campaign.Content, { category: "", titles: [""] }],
+        Content: [...campaign.Content, { category: '', titles: [''] }],
       });
-    if (key === "Files")
+    if (key === 'Files')
       setCampaign({
         ...campaign,
-        Files: [...campaign.Files, { name: "", link: "", date: "" }],
+        Files: [...campaign.Files, { name: '', link: '', date: '' }],
       });
   };
 
@@ -87,7 +87,7 @@ const CampaignBuilder = () => {
 
   const addTitle = (contentIndex) => {
     const newContent = [...campaign.Content];
-    newContent[contentIndex].titles.push("");
+    newContent[contentIndex].titles.push('');
     setCampaign({ ...campaign, Content: newContent });
   };
 
@@ -112,11 +112,11 @@ const CampaignBuilder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Campaign created successfully!");
-    console.log("Final Campaign Data:", campaign);
+    alert('Campaign created successfully!');
+    console.log('Final Campaign Data:', campaign);
   };
 
-  console.log(campaign, "campaign");
+  console.log(campaign, 'campaign');
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -130,28 +130,28 @@ const CampaignBuilder = () => {
             placeholder="Campaign Name"
             className="border p-2 rounded"
             value={campaign.CampaignName}
-            onChange={(e) => handleChange("CampaignName", e.target.value)}
+            onChange={(e) => handleChange('CampaignName', e.target.value)}
           />
           <input
             type="text"
             placeholder="Code"
             className="border p-2 rounded"
             value={campaign.Code}
-            onChange={(e) => handleChange("Code", e.target.value)}
+            onChange={(e) => handleChange('Code', e.target.value)}
           />
           <input
             type="number"
             placeholder="Lead Goal"
             className="border p-2 rounded"
             value={campaign.LeadGoal}
-            onChange={(e) => handleChange("LeadGoal", e.target.value)}
+            onChange={(e) => handleChange('LeadGoal', e.target.value)}
           />
           <input
             type="number"
             placeholder="Contacts per Company"
             className="border p-2 rounded"
             value={campaign.ContactsPerCompany}
-            onChange={(e) => handleChange("ContactsPerCompany", e.target.value)}
+            onChange={(e) => handleChange('ContactsPerCompany', e.target.value)}
           />
 
           {/* Weekly Upload Days */}
@@ -167,7 +167,7 @@ const CampaignBuilder = () => {
               value={clients.filter((d) => campaign.clients?.includes(d.value))}
               onChange={(selected) =>
                 handleChange(
-                  "clients",
+                  'clients',
                   selected ? selected.map((s) => s.value) : []
                 )
               }
@@ -183,7 +183,7 @@ const CampaignBuilder = () => {
               type="date"
               className="border p-2 rounded w-full"
               value={campaign.Deadline}
-              onChange={(e) => handleChange("Deadline", e.target.value)}
+              onChange={(e) => handleChange('Deadline', e.target.value)}
             />
           </label>
           <label className="text-sm">
@@ -192,7 +192,7 @@ const CampaignBuilder = () => {
               type="date"
               className="border p-2 rounded w-full"
               value={campaign.FirstUploadDate}
-              onChange={(e) => handleChange("FirstUploadDate", e.target.value)}
+              onChange={(e) => handleChange('FirstUploadDate', e.target.value)}
             />
           </label>
         </div>
@@ -212,7 +212,7 @@ const CampaignBuilder = () => {
             )}
             onChange={(selected) =>
               handleChange(
-                "WeeklyUploadDay",
+                'WeeklyUploadDay',
                 selected ? selected.map((s) => s.value) : []
               )
             }
@@ -225,7 +225,7 @@ const CampaignBuilder = () => {
             <h3 className="font-medium">Volumes</h3>
             <button
               type="button"
-              onClick={() => addField("Volumes")}
+              onClick={() => addField('Volumes')}
               className="text-blue-500 text-sm"
             >
               + Add
@@ -237,18 +237,18 @@ const CampaignBuilder = () => {
                 placeholder="Key (e.g. Japan-AI)"
                 value={v.key}
                 className="border p-2 rounded w-1/2"
-                onChange={(e) => handleVolumeChange(i, "key", e.target.value)}
+                onChange={(e) => handleVolumeChange(i, 'key', e.target.value)}
               />
               <input
                 placeholder="Value"
                 value={v.value}
                 className="border p-2 rounded w-1/2"
-                onChange={(e) => handleVolumeChange(i, "value", e.target.value)}
+                onChange={(e) => handleVolumeChange(i, 'value', e.target.value)}
               />
               {i > 0 && (
                 <button
                   type="button"
-                  onClick={() => removeField("Volumes", i)}
+                  onClick={() => removeField('Volumes', i)}
                   className="text-red-500"
                 >
                   ✕
@@ -264,7 +264,7 @@ const CampaignBuilder = () => {
             <h3 className="font-medium">Content</h3>
             <button
               type="button"
-              onClick={() => addField("Content")}
+              onClick={() => addField('Content')}
               className="text-blue-500 text-sm"
             >
               + Add
@@ -277,7 +277,7 @@ const CampaignBuilder = () => {
                 value={c.category}
                 className="border p-2 rounded w-full"
                 onChange={(e) =>
-                  handleContentChange(i, "category", e.target.value)
+                  handleContentChange(i, 'category', e.target.value)
                 }
               />
               {c.titles.map((t, ti) => (
@@ -316,7 +316,7 @@ const CampaignBuilder = () => {
               {i > 0 && (
                 <button
                   type="button"
-                  onClick={() => removeField("Content", i)}
+                  onClick={() => removeField('Content', i)}
                   className="text-red-500 text-sm ml-2"
                 >
                   Remove Category
@@ -382,7 +382,7 @@ const CampaignBuilder = () => {
           <ReactQuill
             theme="snow"
             value={campaign.AdditionalInformation}
-            onChange={(value) => handleChange("AdditionalInformation", value)}
+            onChange={(value) => handleChange('AdditionalInformation', value)}
             className="bg-white rounded"
             placeholder="Type or paste formatted content..."
           />
@@ -394,7 +394,7 @@ const CampaignBuilder = () => {
             theme="snow"
             value={campaign.DescriptionOfFilesAttached}
             onChange={(value) =>
-              handleChange("DescriptionOfFilesAttached", value)
+              handleChange('DescriptionOfFilesAttached', value)
             }
             className="bg-white rounded"
             placeholder="Type or paste formatted content..."

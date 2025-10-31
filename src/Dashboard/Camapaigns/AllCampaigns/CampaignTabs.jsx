@@ -1,14 +1,14 @@
 const tabs = [
-  "New",
-  "Due Today",
-  "Overdue",
-  "Upcoming",
-  "Recently Update",
-  "Active",
-  "Completed",
-  "Paused",
-  "All",
-  "Retouch",
+  'New',
+  'Due Today',
+  'Overdue',
+  'Upcoming',
+  'Recently Update',
+  'Active',
+  'Completed',
+  'Paused',
+  'All',
+  'Retouch',
 ];
 
 export default function CampaignTabs({ selected, onSelect }) {
@@ -25,8 +25,8 @@ export default function CampaignTabs({ selected, onSelect }) {
             className={`pb-3 text-xs sm:text-sm font-medium transition-colors duration-150 
               ${
                 selected === tab
-                  ? "text-black dark:text-white border-b-2 border-black dark:border-white"
-                  : "text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white"
+                  ? 'text-black dark:text-white border-b-2 border-black dark:border-white'
+                  : 'text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white'
               }`}
           >
             <div className="flex items-center whitespace-nowrap">
@@ -35,8 +35,8 @@ export default function CampaignTabs({ selected, onSelect }) {
                 className={`ml-1 rounded-full px-2 text-[10px] sm:text-xs
                   ${
                     selected === tab
-                      ? "bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-                      : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400"
+                      ? 'bg-gray-200 text-black dark:bg-gray-600 dark:text-white'
+                      : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                   }`}
               >
                 0

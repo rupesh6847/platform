@@ -1,17 +1,17 @@
-import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
+import { CalendarIcon } from 'lucide-react';
+import { useState } from 'react';
 
 const ApplyLeave = () => {
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [leaveType, setLeaveType] = useState("");
-  const [duration, setDuration] = useState("");
-  const [reason, setReason] = useState("");
+  const [leaveType, setLeaveType] = useState('');
+  const [duration, setDuration] = useState('');
+  const [reason, setReason] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    alert("Leave application submitted!");
+    alert('Leave application submitted!');
   };
 
   return (

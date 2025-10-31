@@ -1,11 +1,11 @@
-import { useState } from "react";
-import CampaignTabs from "./CampaignTabs";
-import PageBreadcrumb from "../../../components/common/PageBreadCrumb";
-import PageMeta from "../../../components/common/PageMeta";
-import CampaignFilter from "./CampaignFilter";
+import { useState } from 'react';
+import CampaignTabs from './CampaignTabs';
+import PageBreadcrumb from '../../../components/common/PageBreadCrumb';
+import PageMeta from '../../../components/common/PageMeta';
+import CampaignFilter from './CampaignFilter';
 
 export default function CampaignLayout() {
-  const [selectedTab, setSelectedTab] = useState("Overdue");
+  const [selectedTab, setSelectedTab] = useState('Overdue');
 
   return (
     <>

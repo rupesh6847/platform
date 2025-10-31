@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const authorizedRoles = ["admin", "superAdmin"];
+const authorizedRoles = ['admin', 'superAdmin'];
 
 const initialState = {
   value: null,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     login: (state, action) => {

@@ -1,54 +1,54 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import {
   Table,
   TableBody,
   TableCell,
   TableHeader,
   TableRow,
-} from "../../../components/ui/table";
-import AppTooltip from "../../../lib/Tooltip";
-import { Slicestring } from "../../../lib/slicestring";
-import { StatusBadge } from "../../../components/ui/badge/StatusBadge";
+} from '../../../components/ui/table';
+import AppTooltip from '../../../lib/Tooltip';
+import { Slicestring } from '../../../lib/slicestring';
+import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
 
 const tableData = [
   {
-    program: "Legrand Cabinets & Containment | Q4 Campaign",
-    programType: "Email Campaign",
-    reference: "LPM/NA/16107",
-    status: "Active",
+    program: 'Legrand Cabinets & Containment | Q4 Campaign',
+    programType: 'Email Campaign',
+    reference: 'LPM/NA/16107',
+    status: 'Active',
     total: 75,
     accepted: 0,
     remaining: 0,
     working: 0,
-    assignTo: "John Doe",
+    assignTo: 'John Doe',
     pocs: 1,
-    overdueBy: "0 days",
+    overdueBy: '0 days',
   },
   {
-    program: "Legrand Cabinets & Containment | Q4 Campaign",
-    programType: "Email Campaign",
-    reference: "LPM/NA/16108",
-    status: "Paused",
+    program: 'Legrand Cabinets & Containment | Q4 Campaign',
+    programType: 'Email Campaign',
+    reference: 'LPM/NA/16108',
+    status: 'Paused',
     total: 50,
     accepted: 10,
     remaining: 20,
     working: 5,
-    assignTo: "Jane Smith",
+    assignTo: 'Jane Smith',
     pocs: 2,
-    overdueBy: "2 days",
+    overdueBy: '2 days',
   },
   {
-    program: "Legrand Cabinets & Containment | Q4 Campaign",
-    programType: "Email Campaign",
-    reference: "LPM/NA/16109",
-    status: "Active",
+    program: 'Legrand Cabinets & Containment | Q4 Campaign',
+    programType: 'Email Campaign',
+    reference: 'LPM/NA/16109',
+    status: 'Active',
     total: 100,
     accepted: 25,
     remaining: 60,
     working: 10,
-    assignTo: "John Doe",
+    assignTo: 'John Doe',
     pocs: 1,
-    overdueBy: "0 days",
+    overdueBy: '0 days',
   },
 ];
 
@@ -62,18 +62,18 @@ export default function CampaignTable() {
           <TableHeader className="border-b border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-gray-800/50">
             <TableRow>
               {[
-                "Program",
-                "Type",
-                "Reference",
-                "Status",
-                "Total",
-                "Accepted",
-                "Remaining",
-                "Working",
-                "Assign To",
-                "POCs",
-                "Overdue",
-                "Action",
+                'Program',
+                'Type',
+                'Reference',
+                'Status',
+                'Total',
+                'Accepted',
+                'Remaining',
+                'Working',
+                'Assign To',
+                'POCs',
+                'Overdue',
+                'Action',
               ].map((header) => (
                 <th
                   key={header}
@@ -98,7 +98,7 @@ export default function CampaignTable() {
                   <AppTooltip message={row.program}>
                     <p className="font-medium text-gray-800 dark:text-white truncate">
                       {Slicestring(row.program, 1, 25)}
-                      {row.program.length > 25 && "..."}
+                      {row.program.length > 25 && '...'}
                     </p>
                   </AppTooltip>
                 </TableCell>

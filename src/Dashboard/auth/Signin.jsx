@@ -1,16 +1,16 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useLoginApiMutation } from "../../store/apiServices/authApi";
-import { useState } from "react";
-import { login } from "../../store/user/userSlice";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useLoginApiMutation } from '../../store/apiServices/authApi';
+import { useState } from 'react';
+import { login } from '../../store/user/userSlice';
 
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginApi, { isLoading, error }] = useLoginApiMutation();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,9 +25,9 @@ const Signin = () => {
           role: response.role,
         })
       );
-      navigate("/");
+      navigate('/');
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error('Login failed:', err);
     }
   };
 
@@ -86,14 +86,14 @@ const Signin = () => {
               disabled={isLoading}
               className="mt-3 w-full bg-[#5B5B5B] text-white dark:bg-gray-100 dark:text-[#1A1A1A] py-2 rounded-full text-sm font-medium hover:bg-[#5B5B5B]/90 dark:hover:bg-gray-200 transition"
             >
-              {isLoading ? "Signing in..." : " Sign in With Email"}
+              {isLoading ? 'Signing in...' : ' Sign in With Email'}
             </button>
           </form>
 
           {/* Error */}
           {error && (
             <p className="text-center text-red-500">
-              {error?.data?.message || "Invalid login credentials"}
+              {error?.data?.message || 'Invalid login credentials'}
             </p>
           )}
         </div>

@@ -20,7 +20,7 @@ const TableRow = ({ children, className }) => {
 
 // TableCell Component
 const TableCell = ({ children, isHeader = false, className }) => {
-  const CellTag = isHeader ? "th" : "td";
+  const CellTag = isHeader ? 'th' : 'td';
   return <CellTag className={` ${className}`}>{children}</CellTag>;
 };
 

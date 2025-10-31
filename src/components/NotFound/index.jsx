@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import PageMeta from "../common/PageMeta";
+import { Link } from 'react-router-dom';
+import PageMeta from '../common/PageMeta';
 
 export default function NotFound() {
   return (

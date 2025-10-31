@@ -1,71 +1,71 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   ChevronRight,
   CirclePause,
   Download,
   Star,
   Upload,
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import { Slicestring } from "../../../lib/slicestring";
-import AppTooltip from "../../../lib/Tooltip";
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Slicestring } from '../../../lib/slicestring';
+import AppTooltip from '../../../lib/Tooltip';
 
 const CampaignDetailPage = () => {
   const [files] = useState([
-    "TAL_CENTRAL_WorkOS_PL_PTBA-1 P198",
-    "TAL_NORTH_WorkOS_PL_PTBA-4 359",
+    'TAL_CENTRAL_WorkOS_PL_PTBA-1 P198',
+    'TAL_NORTH_WorkOS_PL_PTBA-4 359',
   ]);
   const activities = [
     {
-      date: "SEPTEMBER 5, 2025 | 03:47 PM (IST)",
-      message: "Lead allocation or due dates have been updated",
+      date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
+      message: 'Lead allocation or due dates have been updated',
     },
     {
-      date: "SEPTEMBER 5, 2025 | 03:47 PM (IST)",
-      message: "Lead allocation or due dates have been updated",
+      date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
+      message: 'Lead allocation or due dates have been updated',
     },
     {
-      date: "SEPTEMBER 5, 2025 | 03:47 PM (IST)",
-      message: "Lead allocation or due dates have been updated",
+      date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
+      message: 'Lead allocation or due dates have been updated',
     },
   ];
 
   const uploads = [
     {
-      name: "1st Delivery - Slack Double touch - NAM/26563174060",
-      time: "SEPTEMBER 5. 20241 11:42 PM (IST)",
+      name: '1st Delivery - Slack Double touch - NAM/26563174060',
+      time: 'SEPTEMBER 5. 20241 11:42 PM (IST)',
       submitted: 29,
       accepted: 13,
       errors: 5,
       rejections: 9,
     },
     {
-      name: "2nd Delivery-Slack-Double touch-NAM/26563174060",
-      time: "SEPTEMBER 5, 2024 11:42 PM (ST)",
+      name: '2nd Delivery-Slack-Double touch-NAM/26563174060',
+      time: 'SEPTEMBER 5, 2024 11:42 PM (ST)',
       submitted: 74,
       accepted: 35,
       errors: 0,
       rejections: 38,
     },
     {
-      name: "3rd Delivery - Slack-Double touch-NAM/26563174060",
-      time: "SEPTEMBER 5. 2024 11:42 PM (IST)",
+      name: '3rd Delivery - Slack-Double touch-NAM/26563174060',
+      time: 'SEPTEMBER 5. 2024 11:42 PM (IST)',
       submitted: 32,
       accepted: 8,
       errors: 2,
       rejections: 22,
     },
     {
-      name: "4th Delivery-Slack-Double touch- NAM/26563174060",
-      time: "SEPTEMBER 5, 20241 11:42 PM (IST)",
+      name: '4th Delivery-Slack-Double touch- NAM/26563174060',
+      time: 'SEPTEMBER 5, 20241 11:42 PM (IST)',
       submitted: 35,
       accepted: 13,
       errors: 3,
       rejections: 9,
     },
     {
-      name: "5th Delivery - Slack-Double touch-NAM/26563174060",
-      time: "SEPTEMBER 5. 2024 | 11:42 PM (IST)",
+      name: '5th Delivery - Slack-Double touch-NAM/26563174060',
+      time: 'SEPTEMBER 5. 2024 | 11:42 PM (IST)',
       submitted: 21,
       accepted: 10,
       errors: 0,
@@ -114,11 +114,11 @@ const CampaignDetailPage = () => {
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-5 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm  dark:bg-gray-800 justify-center  ">
             {[
-              { label: "SUBMITTED", value: 191 },
-              { label: "PENDING REVIEW", value: 0 },
-              { label: "ACCEPTED", value: 79 },
-              { label: "UPLOAD ERRORS", value: 10 },
-              { label: "REJECTIONS", value: 99 },
+              { label: 'SUBMITTED', value: 191 },
+              { label: 'PENDING REVIEW', value: 0 },
+              { label: 'ACCEPTED', value: 79 },
+              { label: 'UPLOAD ERRORS', value: 10 },
+              { label: 'REJECTIONS', value: 99 },
             ].map((item) => (
               <div
                 key={item.label}
@@ -140,8 +140,8 @@ const CampaignDetailPage = () => {
           </h4>
           <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4">
             {[
-              "Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25",
-              "Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25",
+              'Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25',
+              'Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25',
             ].map((delivery, i) => (
               <div
                 key={i}
@@ -153,7 +153,7 @@ const CampaignDetailPage = () => {
                       <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
                         {/* {task.program} */}
                         {Slicestring(delivery, 1, 25)}
-                        {delivery.length > 25 && "..."}
+                        {delivery.length > 25 && '...'}
                       </p>
                     </AppTooltip>
                   </p>
@@ -361,7 +361,7 @@ const CampaignDetailPage = () => {
                             <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
                               {/* {task.program} */}
                               {Slicestring(u.name, 1, 25)}
-                              {u.name.length > 25 && "..."}
+                              {u.name.length > 25 && '...'}
                             </p>
                           </AppTooltip>
                           <span className="text-gray-500 dark:text-gray-400 text-xs mt-1">

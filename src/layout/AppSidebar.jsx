@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSidebar } from "../context/SidebarContext";
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSidebar } from '../context/SidebarContext';
 import {
   ChevronDownIcon,
   Ellipsis,
@@ -16,43 +16,43 @@ import {
   PanelRightClose,
   PanelRightOpen,
   Calendar1,
-} from "lucide-react";
+} from 'lucide-react';
 
 const navItems = [
   {
     icon: <House />,
-    name: "Home",
-    path: "/",
+    name: 'Home',
+    path: '/',
     subItems: [
       {
         icon: <Calendar1 size={16} />,
-        name: "Attendance",
-        path: "/attendance",
+        name: 'Attendance',
+        path: '/attendance',
       },
     ],
   },
-  { icon: <GitCompareArrows />, name: "Process", path: "/process" },
-  { icon: <Megaphone />, name: "Campaigns", path: "/campaigns" },
-  { icon: <FileSpreadsheet />, name: "Briefs", path: "/briefs" },
-  { icon: <FolderSync />, name: "Training", path: "/training" },
+  { icon: <GitCompareArrows />, name: 'Process', path: '/process' },
+  { icon: <Megaphone />, name: 'Campaigns', path: '/campaigns' },
+  { icon: <FileSpreadsheet />, name: 'Briefs', path: '/briefs' },
+  { icon: <FolderSync />, name: 'Training', path: '/training' },
 ];
 
 const othersItems = [
   {
     icon: <SlidersHorizontal />,
-    name: "Setting",
+    name: 'Setting',
     subItems: [
-      // {
-      //   icon: <MonitorCheck size={16} />,
-      //   name: "Check Update",
-      //   path: "/checkupdate",
-      // },
+      {
+        icon: <MonitorCheck size={16} />,
+        name: "Check Update",
+        path: "/checkupdate",
+      },
       {
         icon: <UserCircleIcon size={16} />,
-        name: "User Profile",
-        path: "/profile",
+        name: 'User Profile',
+        path: '/profile',
       },
-      { icon: <LogIn size={16} />, name: "SignOut", path: "/signin" },
+      { icon: <LogIn size={16} />, name: 'SignOut', path: '/signin' },
     ],
   },
 ];
@@ -81,9 +81,9 @@ const AppSidebar = () => {
   // ✅ Listen for external mobile sidebar toggle
   useEffect(() => {
     const onToggleMobile = () => toggleMobileSidebar();
-    window.addEventListener("toggleMobileSidebar", onToggleMobile);
+    window.addEventListener('toggleMobileSidebar', onToggleMobile);
     return () =>
-      window.removeEventListener("toggleMobileSidebar", onToggleMobile);
+      window.removeEventListener('toggleMobileSidebar', onToggleMobile);
   }, [toggleMobileSidebar]);
 
   // ✅ Highlight open submenu when route changes
@@ -94,7 +94,7 @@ const AppSidebar = () => {
       if (nav.subItems) {
         nav.subItems.forEach((subItem) => {
           if (isActive(subItem.path)) {
-            setOpenSubmenu({ type: "main", index });
+            setOpenSubmenu({ type: 'main', index });
             submenuMatched = true;
           }
         });
@@ -131,7 +131,7 @@ const AppSidebar = () => {
   };
 
   const handleHomeClick = (nav, index, menuType) => {
-    if (nav.path === "/" && nav.subItems) {
+    if (nav.path === '/' && nav.subItems) {
       navigate(nav.path);
 
       setTimeout(() => {
@@ -157,20 +157,20 @@ const AppSidebar = () => {
                   className={`menu-item group flex-1 ${
                     openSubmenu?.type === menuType &&
                     openSubmenu?.index === index
-                      ? "menu-item-active"
-                      : "menu-item-inactive"
+                      ? 'menu-item-active'
+                      : 'menu-item-inactive'
                   } cursor-pointer ${
                     !isExpanded && !isHovered
-                      ? "lg:justify-center"
-                      : "lg:justify-start"
+                      ? 'lg:justify-center'
+                      : 'lg:justify-start'
                   }`}
                 >
                   <span
                     className={`menu-item-icon-size  ${
                       openSubmenu?.type === menuType &&
                       openSubmenu?.index === index
-                        ? "menu-item-icon-active"
-                        : "menu-item-icon-inactive"
+                        ? 'menu-item-icon-active'
+                        : 'menu-item-icon-inactive'
                     }`}
                   >
                     {nav.icon}
@@ -185,20 +185,20 @@ const AppSidebar = () => {
                   className={`menu-item group flex-1 ${
                     openSubmenu?.type === menuType &&
                     openSubmenu?.index === index
-                      ? "menu-item-active"
-                      : "menu-item-inactive"
+                      ? 'menu-item-active'
+                      : 'menu-item-inactive'
                   } cursor-pointer ${
                     !isExpanded && !isHovered
-                      ? "lg:justify-center"
-                      : "lg:justify-start"
+                      ? 'lg:justify-center'
+                      : 'lg:justify-start'
                   }`}
                 >
                   <span
                     className={`menu-item-icon-size  ${
                       openSubmenu?.type === menuType &&
                       openSubmenu?.index === index
-                        ? "menu-item-icon-active"
-                        : "menu-item-icon-inactive"
+                        ? 'menu-item-icon-active'
+                        : 'menu-item-icon-inactive'
                     }`}
                   >
                     {nav.icon}
@@ -218,8 +218,8 @@ const AppSidebar = () => {
                     className={`w-4 h-4 transition-transform duration-200 ${
                       openSubmenu?.type === menuType &&
                       openSubmenu?.index === index
-                        ? "rotate-180 text-brand-500"
-                        : ""
+                        ? 'rotate-180 text-brand-500'
+                        : ''
                     }`}
                   />
                 </button>
@@ -230,14 +230,14 @@ const AppSidebar = () => {
               <Link
                 to={nav.path}
                 className={`menu-item group ${
-                  isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
+                  isActive(nav.path) ? 'menu-item-active' : 'menu-item-inactive'
                 }`}
               >
                 <span
                   className={`menu-item-icon-size ${
                     isActive(nav.path)
-                      ? "menu-item-icon-active"
-                      : "menu-item-icon-inactive"
+                      ? 'menu-item-icon-active'
+                      : 'menu-item-icon-inactive'
                   }`}
                 >
                   {nav.icon}
@@ -254,20 +254,20 @@ const AppSidebar = () => {
                 subMenuRefs.current[`${menuType}-${index}`] = el;
               }}
               className={`overflow-hidden transition-all duration-300 ${
-                menuType === "others"
-                  ? "absolute  bottom-16 ml-1 bg-white dark:bg-gray-900 rounded-md     border-gray-200 dark:border-gray-700 min-w-[180px] z-10"
-                  : ""
+                menuType === 'others'
+                  ? 'absolute  bottom-16 ml-1 bg-white dark:bg-gray-900 rounded-md     border-gray-200 dark:border-gray-700 min-w-[180px] z-10'
+                  : ''
               }`}
               style={{
                 height:
                   openSubmenu?.type === menuType && openSubmenu?.index === index
                     ? `${subMenuHeight[`${menuType}-${index}`]}px`
-                    : "0px",
+                    : '0px',
               }}
             >
               <ul
                 className={`space-y-1 ${
-                  menuType === "others" ? "p-2" : "mt-2 ml-9"
+                  menuType === 'others' ? 'p-2' : 'mt-2 ml-9'
                 }`}
               >
                 {nav.subItems.map((subItem) => (
@@ -276,9 +276,9 @@ const AppSidebar = () => {
                       to={subItem.path}
                       className={`menu-dropdown-item text-xs ${
                         isActive(subItem.path)
-                          ? "menu-dropdown-item-active"
-                          : "menu-dropdown-item-inactive"
-                      } ${menuType === "others" ? "px-3 py-2 rounded-md" : ""}`}
+                          ? 'menu-dropdown-item-active'
+                          : 'menu-dropdown-item-inactive'
+                      } ${menuType === 'others' ? 'px-3 py-2 rounded-md' : ''}`}
                     >
                       <span className="flex items-center gap-2">
                         {subItem.icon}
@@ -298,8 +298,8 @@ const AppSidebar = () => {
   return (
     <aside
       className={`fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 text-xs
-        ${isExpanded || isMobileOpen ? "w-60" : isHovered ? "w-60" : "w-20"}
-        ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+        ${isExpanded || isMobileOpen ? 'w-60' : isHovered ? 'w-60' : 'w-20'}
+        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0`}
       onMouseEnter={() => !isExpanded && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -307,7 +307,7 @@ const AppSidebar = () => {
       {/* === HEADER LOGO & TOGGLE === */}
       <div
         className={`py-6 flex ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "justify-between"
+          !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-between'
         }`}
       >
         <Link to="/">
@@ -344,7 +344,7 @@ const AppSidebar = () => {
             onClick={handleToggle}
             aria-label="Toggle sidebar"
             className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-            title={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+            title={isExpanded ? 'Collapse sidebar' : 'Expand sidebar'}
           >
             {isExpanded ? (
               // <ChevronLeft size={18} />
@@ -366,17 +366,17 @@ const AppSidebar = () => {
               <h2
                 className={`mb-3 text-xs uppercase flex leading-4 text-gray-400 ${
                   !isExpanded && !isHovered
-                    ? "lg:justify-center"
-                    : "justify-start"
+                    ? 'lg:justify-center'
+                    : 'justify-start'
                 }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Menu"
+                  'Menu'
                 ) : (
                   <Ellipsis className="size-5" />
                 )}
               </h2>
-              {renderMenuItems(navItems, "main")}
+              {renderMenuItems(navItems, 'main')}
             </div>
           </div>
         </nav>
@@ -386,17 +386,17 @@ const AppSidebar = () => {
             <h2
               className={`mb-3 text-xs uppercase flex leading-4 text-gray-400 ${
                 !isExpanded && !isHovered
-                  ? "lg:justify-center"
-                  : "justify-start"
+                  ? 'lg:justify-center'
+                  : 'justify-start'
               }`}
             >
               {isExpanded || isHovered || isMobileOpen ? (
-                ""
+                ''
               ) : (
                 <Ellipsis size={18} />
               )}
             </h2>
-            {renderMenuItems(othersItems, "others")}
+            {renderMenuItems(othersItems, 'others')}
           </div>
         )}
       </div>

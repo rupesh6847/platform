@@ -1,9 +1,9 @@
-import PageMeta from "../../components/common/PageMeta";
-import CompletedTasks from "./CompletedTasks";
-import MonthlyTasks from "./MonthlyTasks";
-import RandomQuote from "./RandomQuote";
-import TempCampaignBuilder from "./TempCampaignBuilder";
-import TodayTasks from "./TodayTasks";
+import PageMeta from '../../components/common/PageMeta';
+import CompletedTasks from './CompletedTasks';
+import MonthlyTasks from './MonthlyTasks';
+import RandomQuote from './RandomQuote';
+import TempCampaignBuilder from './TempCampaignBuilder';
+import TodayTasks from './TodayTasks';
 
 export default function HomePage() {
   return (

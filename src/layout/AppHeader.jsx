@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import TimeZone from "../components/header/TimeZone";
-import { Grip } from "lucide-react";
+import { useEffect, useRef, useState } from 'react';
+import TimeZone from '../components/header/TimeZone';
+import { Grip } from 'lucide-react';
 const AppHeader = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
@@ -12,16 +12,16 @@ const AppHeader = () => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
         event.preventDefault();
         inputRef.current?.focus();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
   return (
@@ -42,7 +42,7 @@ const AppHeader = () => {
         </div>
         <div
           className={`${
-            isApplicationMenuOpen ? "flex" : "hidden"
+            isApplicationMenuOpen ? 'flex' : 'hidden'
           } items-center justify-between w-full gap-4 px-5 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none   `}
         >
           <TimeZone />

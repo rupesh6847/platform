@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const RandomQuote = () => {
-  const [quote, setQuote] = useState("");
-  const [author, setAuthor] = useState("");
+  const [quote, setQuote] = useState('');
+  const [author, setAuthor] = useState('');
   const [error, setError] = useState(false);
 
   const fetchQuote = async () => {
     try {
       const res = await fetch(
-        "https://api.api-ninjas.com/v1/quotes?categories=success,wisdom",
+        'https://api.api-ninjas.com/v1/quotes?categories=success,wisdom',
         {
           headers: {
-            "X-Api-Key": "g4kIvpBbHGVxf9XHKO7tug==TXbMTbKvuuNe42v7",
+            'X-Api-Key': 'g4kIvpBbHGVxf9XHKO7tug==TXbMTbKvuuNe42v7',
           },
         }
       );
-      if (!res.ok) throw new Error("API request failed");
+      if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       if (data && data.length > 0) {
         const newQuote = {
@@ -24,18 +24,18 @@ const RandomQuote = () => {
           timestamp: Date.now(),
         };
         // Save to localStorage for reuse
-        localStorage.setItem("dailyQuote", JSON.stringify(newQuote));
+        localStorage.setItem('dailyQuote', JSON.stringify(newQuote));
         setQuote(newQuote.text);
         setAuthor(newQuote.author);
       }
     } catch (err) {
-      console.error("Quote fetch error:", err);
+      console.error('Quote fetch error:', err);
       setError(true);
     }
   };
 
   useEffect(() => {
-    const storedQuote = localStorage.getItem("dailyQuote");
+    const storedQuote = localStorage.getItem('dailyQuote');
 
     if (storedQuote) {
       const parsed = JSON.parse(storedQuote);

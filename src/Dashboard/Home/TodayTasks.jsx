@@ -1,33 +1,33 @@
-import { Link } from "react-router-dom";
-import { StatusBadge } from "../../components/ui/badge/StatusBadge";
+import { Link } from 'react-router-dom';
+import { StatusBadge } from '../../components/ui/badge/StatusBadge';
 import {
   Table,
   TableBody,
   TableCell,
   TableHeader,
   TableRow,
-} from "../../components/ui/table";
-import { Slicestring } from "../../lib/slicestring";
-import AppTooltip from "../../lib/Tooltip";
+} from '../../components/ui/table';
+import { Slicestring } from '../../lib/slicestring';
+import AppTooltip from '../../lib/Tooltip';
 
 const tableData = [
   {
     id: 1,
-    program: "Legrand Cabinets & Containment | Q4 Campaign",
-    type: "Campaign",
-    assignedto: "You & Rahul",
-    level: "urgent",
-    remark: "35 leads by 5.00 PM (IST)",
-    progress: "Not Started",
+    program: 'Legrand Cabinets & Containment | Q4 Campaign',
+    type: 'Campaign',
+    assignedto: 'You & Rahul',
+    level: 'urgent',
+    remark: '35 leads by 5.00 PM (IST)',
+    progress: 'Not Started',
   },
   {
     id: 2,
-    program: "29846592635926",
-    type: "Brief",
-    assignedto: "You & Vijay",
-    level: "Very Urgent",
-    remark: "Completed by 5.30 PM (IST)",
-    progress: "Completed",
+    program: '29846592635926',
+    type: 'Brief',
+    assignedto: 'You & Vijay',
+    level: 'Very Urgent',
+    remark: 'Completed by 5.30 PM (IST)',
+    progress: 'Completed',
   },
 ];
 
@@ -57,13 +57,13 @@ export default function TodayTasks() {
           <TableHeader className="border-y border-gray-100 dark:border-gray-800">
             <TableRow>
               {[
-                "Task",
-                "Type",
-                "Assign To",
-                "Level",
-                "Remark",
-                "Progress",
-                "Action",
+                'Task',
+                'Type',
+                'Assign To',
+                'Level',
+                'Remark',
+                'Progress',
+                'Action',
               ].map((header) => (
                 <TableCell
                   key={header}
@@ -83,7 +83,7 @@ export default function TodayTasks() {
                   <AppTooltip message={task.program}>
                     <div className="truncate cursor-pointer text-sm font-medium text-zinc-800 dark:text-gray-200">
                       {Slicestring(task.program, 1, 25)}
-                      {task.program.length > 25 && "..."}
+                      {task.program.length > 25 && '...'}
                     </div>
                   </AppTooltip>
                 </TableCell>
@@ -103,7 +103,7 @@ export default function TodayTasks() {
                   <AppTooltip message={task.remark}>
                     <div className="truncate cursor-pointer text-sm font-medium text-zinc-800 dark:text-gray-200">
                       {Slicestring(task.remark, 1, 25)}
-                      {task.remark.length > 25 && "..."}
+                      {task.remark.length > 25 && '...'}
                     </div>
                   </AppTooltip>
                 </TableCell>

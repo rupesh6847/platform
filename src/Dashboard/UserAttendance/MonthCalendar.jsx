@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay } from "date-fns";
-import { enUS } from "date-fns/locale";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { format, parse, startOfWeek, getDay } from 'date-fns';
+import { enUS } from 'date-fns/locale';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const locales = {
-  "en-US": enUS,
+  'en-US': enUS,
 };
 
 const localizer = dateFnsLocalizer({
@@ -19,13 +19,13 @@ const localizer = dateFnsLocalizer({
 export default function MonthCalendar() {
   const [events, setEvents] = useState([
     {
-      title: "Workshop",
+      title: 'Workshop',
       start: new Date(2025, 9, 30),
       end: new Date(2025, 9, 30),
       allDay: true,
     },
     {
-      title: "Team Meeting",
+      title: 'Team Meeting',
       start: new Date(2025, 10, 2),
       end: new Date(2025, 10, 2),
       allDay: true,
@@ -33,7 +33,7 @@ export default function MonthCalendar() {
   ]);
 
   const handleSelectSlot = (slotInfo) => {
-    const title = prompt("Enter event title:");
+    const title = prompt('Enter event title:');
     if (title) {
       const newEvent = {
         title,
@@ -56,7 +56,7 @@ export default function MonthCalendar() {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 600 }}
-        views={["month"]}
+        views={['month']}
         selectable
         onSelectEvent={(event) => alert(event.title)}
         onSelectSlot={handleSelectSlot}

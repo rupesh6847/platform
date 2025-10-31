@@ -1,5 +1,5 @@
-import { ListFilter, Search, SlidersHorizontal, X } from "lucide-react";
-import CampaignTable from "./CampaignTable";
+import { ListFilter, Search, SlidersHorizontal, X } from 'lucide-react';
+import CampaignTable from './CampaignTable';
 
 export default function CampaignFilter() {
   return (
