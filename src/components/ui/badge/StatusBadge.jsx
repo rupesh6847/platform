@@ -7,7 +7,11 @@ export const StatusBadge = ({ status = "" }) => {
     switch (normalized) {
       case "approved":
         return "bg-green-100 text-green-700 border-green-200";
+      case "active":
+        return "bg-green-100 text-green-700 border-green-200";
       case "rejected":
+        return "bg-red-100 text-red-700 border-red-200";
+      case "paused":
         return "bg-red-100 text-red-700 border-red-200";
       case "urgent":
         return "bg-orange-100 text-orange-700 border-orange-200";

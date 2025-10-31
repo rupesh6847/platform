@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSidebar } from "../context/SidebarContext";
 import {
   ChevronDownIcon,
@@ -42,11 +42,11 @@ const othersItems = [
     icon: <SlidersHorizontal />,
     name: "Setting",
     subItems: [
-      {
-        icon: <MonitorCheck size={16} />,
-        name: "Check Update",
-        path: "/checkupdate",
-      },
+      // {
+      //   icon: <MonitorCheck size={16} />,
+      //   name: "Check Update",
+      //   path: "/checkupdate",
+      // },
       {
         icon: <UserCircleIcon size={16} />,
         name: "User Profile",
@@ -68,6 +68,7 @@ const AppSidebar = () => {
   } = useSidebar();
 
   const location = useLocation();
+  const navigate = useNavigate();
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [subMenuHeight, setSubMenuHeight] = useState({});
   const subMenuRefs = useRef({});
@@ -129,12 +130,10 @@ const AppSidebar = () => {
     });
   };
 
-  // ✅ Handle home menu click - navigate first, then open submenu
   const handleHomeClick = (nav, index, menuType) => {
     if (nav.path === "/" && nav.subItems) {
-      // Navigate to home first
-      window.location.href = nav.path;
-      // Then open submenu after a small delay to ensure navigation
+      navigate(nav.path);
+
       setTimeout(() => {
         setOpenSubmenu((prev) => {
           if (prev && prev.type === menuType && prev.index === index)
@@ -256,7 +255,7 @@ const AppSidebar = () => {
               }}
               className={`overflow-hidden transition-all duration-300 ${
                 menuType === "others"
-                  ? "absolute left-full bottom-0 ml-1 bg-white dark:bg-gray-900 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 min-w-[180px] z-10"
+                  ? "absolute  bottom-16 ml-1 bg-white dark:bg-gray-900 rounded-md     border-gray-200 dark:border-gray-700 min-w-[180px] z-10"
                   : ""
               }`}
               style={{
@@ -316,14 +315,14 @@ const AppSidebar = () => {
             <>
               <img
                 className="dark:hidden"
-                src="https://www.dropbox.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz&st=08ndvvcv&raw=1"
+                src="https://www.dropbox.com/scl/fi/hsdob0q1w5c5152hfp1fw/Nerua-Logo.png?rlkey=ipvozips4aecfbhcat4k2qn7v&st=qrm7jrvy&raw=1"
                 alt="Logo"
                 width={120}
                 height={30}
               />
               <img
                 className="hidden dark:block"
-                src="https://www.dropbox.com/scl/fi/x06lq503q564254zn5370/Main-logo.svg?rlkey=gn7njrmr1bcixpl3atgkobjaz&st=08ndvvcv&raw=1"
+                src="https://www.dropbox.com/scl/fi/hsdob0q1w5c5152hfp1fw/Nerua-Logo.png?rlkey=ipvozips4aecfbhcat4k2qn7v&st=qrm7jrvy&raw=1"
                 alt="Logo"
                 width={120}
                 height={30}
@@ -392,7 +391,7 @@ const AppSidebar = () => {
               }`}
             >
               {isExpanded || isHovered || isMobileOpen ? (
-                "Others"
+                ""
               ) : (
                 <Ellipsis size={18} />
               )}

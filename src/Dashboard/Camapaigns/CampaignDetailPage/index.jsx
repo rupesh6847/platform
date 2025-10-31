@@ -7,6 +7,8 @@ import {
   Upload,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Slicestring } from "../../../lib/slicestring";
+import AppTooltip from "../../../lib/Tooltip";
 
 const CampaignDetailPage = () => {
   const [files] = useState([
@@ -72,7 +74,7 @@ const CampaignDetailPage = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-gray-900 min-h-screen">
+    <div className=" dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-8 p-4 lg:p-0">
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
@@ -80,7 +82,7 @@ const CampaignDetailPage = () => {
             to="/campaigns"
             className="flex items-center text-sm text-gray-500 dark:text-gray-400"
           >
-            Campaigns <ChevronRight size={20} strokeWidth={1} />{" "}
+            Campaigns <ChevronRight size={20} strokeWidth={1} />
           </Link>
 
           <span className="font-medium text-gray-700 dark:text-gray-300">
@@ -94,7 +96,7 @@ const CampaignDetailPage = () => {
           Slack | Double Touch | NAM/26563174060
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-          Total Leads:{" "}
+          Total Leads:
           <span className="font-semibold text-gray-700 dark:text-gray-300">
             1091
           </span>
@@ -103,14 +105,14 @@ const CampaignDetailPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 px-4 lg:px-0">
         {/* Left Content */}
-        <div className="lg:col-span-3 space-y-6 p-4 lg:p-6 min-h-screen rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="lg:col-span-3 space-y-6 p-4 lg:p-6 min-h-screen rounded-2xl border border-gray-200 dark:border-gray-700  dark:bg-gray-800">
           {/* Program Info */}
 
           {/* Lead Totals */}
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Lead Totals
           </h4>
-          <div className="grid grid-cols-2 md:grid-cols-5 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm bg-white dark:bg-gray-800">
+          <div className="grid grid-cols-2 md:grid-cols-5 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm  dark:bg-gray-800 justify-center  ">
             {[
               { label: "SUBMITTED", value: 191 },
               { label: "PENDING REVIEW", value: 0 },
@@ -120,9 +122,9 @@ const CampaignDetailPage = () => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border-r border-gray-200 dark:border-gray-700 last:border-none py-3 px-4 lg:px-6"
+                className="border-r border-gray-200 dark:border-gray-700 last:border-none py-3 px-4 lg:px-4 "
               >
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 dark:text-gray-400 ">
                   {item.label}
                 </p>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -136,21 +138,27 @@ const CampaignDetailPage = () => {
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Delivery Schedule
           </h4>
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4">
             {[
               "Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25",
               "Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25",
             ].map((delivery, i) => (
               <div
                 key={i}
-                className="border-b border-gray-200 dark:border-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+                className="border-b border-gray-200 dark:border-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4"
               >
-                <div className="flex items-center gap-4">
-                  <p className="text-xs font-medium text-gray-900 dark:text-white mb-2 lg:mb-0">
-                    {delivery}
+                <div className="flex items-center gap-2">
+                  <p className="text-xs font-medium text-gray-900 dark:text-white mb-2 lg:mb-0  ">
+                    <AppTooltip message={delivery}>
+                      <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
+                        {/* {task.program} */}
+                        {Slicestring(delivery, 1, 25)}
+                        {delivery.length > 25 && "..."}
+                      </p>
+                    </AppTooltip>
                   </p>
-                  <div className="grid grid-cols-4 gap-2 lg:gap-3 text-sm text-center    mt-2">
-                    <div className="border-x border-gray-200 dark:border-gray-700">
+                  <div className="grid grid-cols-4 gap-2 lg:gap-4 text-sm text-center    mt-2">
+                    <div className="border-x border-gray-200 dark:border-gray-700 px-2">
                       <p className="text-gray-500 dark:text-gray-400 text-xs">
                         VALID
                       </p>
@@ -184,8 +192,8 @@ const CampaignDetailPage = () => {
                     </div>
                   </div>
                 </div>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-[#5B5B5B] text-white hover:bg-[#5B5B5B]/80 w-full lg:w-auto">
-                  <Upload size={16} /> Upload File
+                <button className="flex items-center justify-center gap-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-xs bg-[#5B5B5B] text-white hover:bg-[#5B5B5B]/80 w-full lg:w-auto">
+                  <Upload size={14} /> Upload File
                 </button>
               </div>
             ))}
@@ -195,7 +203,7 @@ const CampaignDetailPage = () => {
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Files Attached (2)
           </h4>
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6">
             <ul className="space-y-3 text-sm">
               {files.map((f, i) => (
                 <li
@@ -217,12 +225,12 @@ const CampaignDetailPage = () => {
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Content (5)
           </h4>
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4 text-sm">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4 text-sm">
             <div>
               <p className="font-medium text-gray-900 dark:text-white">
                 Central EMEA:-
               </p>
-              <ol className="list-decimal ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
+              <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
                 <li>Mit Slack ineffektive Meetings zu ersetzen</li>
                 <li>Was ist Slack?</li>
               </ol>
@@ -231,7 +239,7 @@ const CampaignDetailPage = () => {
               <p className="font-medium text-gray-900 dark:text-white mt-4">
                 North EMEA:-
               </p>
-              <ol className="list-decimal ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
+              <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
                 <li>
                   IDC MarketScape Worldwide Team Collaboration Applications 2024
                   Vendor Assessment
@@ -249,30 +257,29 @@ const CampaignDetailPage = () => {
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Additional Information
           </h4>
-
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
             <p className="text-gray-700 dark:text-gray-300">
               <span className="font-medium text-gray-900 dark:text-white">
                 Audience:
-              </span>{" "}
+              </span>
               IT, Operations, Sales, Service, Developer
             </p>
             <p className="text-gray-700 dark:text-gray-300">
               <span className="font-medium text-gray-900 dark:text-white">
                 Employee Size:
-              </span>{" "}
+              </span>
               Qualification: TAL
             </p>
             <p className="text-gray-700 dark:text-gray-300">
               <span className="font-medium text-gray-900 dark:text-white">
                 Industry Qualifier:
-              </span>{" "}
+              </span>
               TAL
             </p>
             <p className="text-gray-700 dark:text-gray-300">
               <span className="font-medium text-gray-900 dark:text-white">
                 Job Title Qualifier:
-              </span>{" "}
+              </span>
               Director+
             </p>
 
@@ -317,7 +324,7 @@ const CampaignDetailPage = () => {
                   </li>
                   <li>
                     -No current needs-just keeping up with the latest tools,
-                    features, and best practices (DNQ){" "}
+                    features, and best practices (DNQ)
                   </li>
                 </ul>
               </div>
@@ -328,7 +335,7 @@ const CampaignDetailPage = () => {
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Uploads
           </h4>
-          <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm p-4 lg:p-6">
+          <div className="rounded-lg border border-gray-200 dark:border-gray-700  dark:bg-gray-800 text-sm p-4 lg:p-6">
             <div className="overflow-x-auto">
               <table className="w-full rounded-lg   dark:border-gray-700 text-left text-sm">
                 <thead className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs">
@@ -350,9 +357,13 @@ const CampaignDetailPage = () => {
                     >
                       <td className="p-3">
                         <div className="flex flex-col">
-                          <span className="text-gray-900 dark:text-white font-medium">
-                            {u.name}
-                          </span>
+                          <AppTooltip message={u.name}>
+                            <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
+                              {/* {task.program} */}
+                              {Slicestring(u.name, 1, 25)}
+                              {u.name.length > 25 && "..."}
+                            </p>
+                          </AppTooltip>
                           <span className="text-gray-500 dark:text-gray-400 text-xs mt-1">
                             {u.time}
                           </span>
@@ -385,9 +396,9 @@ const CampaignDetailPage = () => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="space-y-6">
+        <div className="space-y-6 sticky">
           {/* Program Status */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
             <div>
               <h3 className="font-semibold text-gray-800 dark:text-white">
                 Program Status
@@ -456,7 +467,7 @@ const CampaignDetailPage = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm">
+          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm">
             <h3 className="font-semibold text-gray-700 dark:text-white mb-4">
               Activity
             </h3>

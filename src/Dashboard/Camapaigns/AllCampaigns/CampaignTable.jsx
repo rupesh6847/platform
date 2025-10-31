@@ -6,6 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
+import AppTooltip from "../../../lib/Tooltip";
+import { Slicestring } from "../../../lib/slicestring";
+import { StatusBadge } from "../../../components/ui/badge/StatusBadge";
 
 const tableData = [
   {
@@ -21,86 +24,125 @@ const tableData = [
     pocs: 1,
     overdueBy: "0 days",
   },
+  {
+    program: "Legrand Cabinets & Containment | Q4 Campaign",
+    programType: "Email Campaign",
+    reference: "LPM/NA/16108",
+    status: "Paused",
+    total: 50,
+    accepted: 10,
+    remaining: 20,
+    working: 5,
+    assignTo: "Jane Smith",
+    pocs: 2,
+    overdueBy: "2 days",
+  },
+  {
+    program: "Legrand Cabinets & Containment | Q4 Campaign",
+    programType: "Email Campaign",
+    reference: "LPM/NA/16109",
+    status: "Active",
+    total: 100,
+    accepted: 25,
+    remaining: 60,
+    working: 10,
+    assignTo: "John Doe",
+    pocs: 1,
+    overdueBy: "0 days",
+  },
 ];
 
 export default function CampaignTable() {
   return (
     <>
-      <div className="overflow-  rounded-xl border border-gray-200 bg-white dark:border-white/5 dark:bg-white/3">
-        <div className="max-w-full overflow-x-auto">
-          <Table>
-            {/* Table Header */}
-            <TableHeader className="border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-gray-800/20">
-              <TableRow>
-                {[
-                  "Program",
-                  "Type",
-                  "Reference",
-                  "Status",
-                  "Total",
-                  "Accepted",
-                  "Remaining",
-                  "Working",
-                  "Assign To",
-                  "POCs",
-                  "Overdue",
-                  "Action",
-                ].map((header) => (
-                  <TableCell
-                    key={header}
-                    isHeader
-                    className="px-5 py-3 font-medium text-gray-500 text-start text-xs uppercase dark:text-gray-400"
-                  >
-                    {header}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHeader>
-
-            {/* Table Body */}
-            <TableBody className="divide-y divide-gray-100 dark:divide-white/5">
-              {tableData.map((row, i) => (
-                <TableRow key={row.reference || i}>
-                  <TableCell className="px-5 py-3 text-gray-700 dark:text-gray-300 font-medium">
-                    {row.program}
-                  </TableCell>
-                  <TableCell className="px-5 py-3 text-gray-500 dark:text-gray-400">
-                    {row.programType}
-                  </TableCell>
-                  <TableCell className="px-5 py-3 text-gray-500 dark:text-gray-400">
-                    {row.reference}
-                  </TableCell>
-                  <TableCell className="px-5 py-3">
-                    <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                        row.status === "Active"
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                          : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                      }`}
-                    >
-                      {row.status}
-                    </span>
-                  </TableCell>
-                  <TableCell className="px-5 py-3">{row.total}</TableCell>
-                  <TableCell className="px-5 py-3">{row.accepted}</TableCell>
-                  <TableCell className="px-5 py-3">{row.remaining}</TableCell>
-                  <TableCell className="px-5 py-3">{row.working}</TableCell>
-                  <TableCell className="px-5 py-3">{row.assignTo}</TableCell>
-                  <TableCell className="px-5 py-3">{row.pocs}</TableCell>
-                  <TableCell className="px-5 py-3">{row.overdueBy}</TableCell>
-                  <TableCell className="px-5 py-3">
-                    <Link
-                      to={`/campaigns/1`}
-                      className="text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      View
-                    </Link>
-                  </TableCell>
-                </TableRow>
+      {/* Table Container */}
+      <div className="overflow-x-auto rounded  border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900/50">
+        <Table className="min-w-full">
+          {/* Header */}
+          <TableHeader className="border-b border-gray-100 dark:border-white/10 bg-gray-50 dark:bg-gray-800/50">
+            <TableRow>
+              {[
+                "Program",
+                "Type",
+                "Reference",
+                "Status",
+                "Total",
+                "Accepted",
+                "Remaining",
+                "Working",
+                "Assign To",
+                "POCs",
+                "Overdue",
+                "Action",
+              ].map((header) => (
+                <th
+                  key={header}
+                  className="p-2 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap"
+                >
+                  <AppTooltip message={header}>
+                    <span>{header}</span>
+                  </AppTooltip>
+                </th>
               ))}
-            </TableBody>
-          </Table>
-        </div>
+            </TableRow>
+          </TableHeader>
+
+          {/* Body */}
+          <TableBody className="divide-y divide-gray-100 dark:divide-white/10 text-xs">
+            {tableData.map((row, i) => (
+              <TableRow
+                key={row.reference || i}
+                className="hover:bg-gray-50/70 dark:hover:bg-gray-800/60"
+              >
+                <TableCell className="p-2 w-[200px]">
+                  <AppTooltip message={row.program}>
+                    <p className="font-medium text-gray-800 dark:text-white truncate">
+                      {Slicestring(row.program, 1, 25)}
+                      {row.program.length > 25 && "..."}
+                    </p>
+                  </AppTooltip>
+                </TableCell>
+
+                <TableCell className="p-2">{row.programType}</TableCell>
+
+                <TableCell className="p-2">
+                  <AppTooltip message={row.reference}>
+                    <span>{row.reference}</span>
+                  </AppTooltip>
+                </TableCell>
+
+                <TableCell className="p-2 text-center">
+                  <StatusBadge status={row.status} />
+                </TableCell>
+
+                <TableCell className="p-2 text-center">{row.total}</TableCell>
+                <TableCell className="p-2 text-center">
+                  {row.accepted}
+                </TableCell>
+                <TableCell className="p-2 text-center">
+                  {row.remaining}
+                </TableCell>
+                <TableCell className="p-2 text-center">{row.working}</TableCell>
+                <TableCell className="p-2 text-center">
+                  {row.assignTo}
+                </TableCell>
+                <TableCell className="p-2 text-center">{row.pocs}</TableCell>
+                <TableCell className="p-2 text-center">
+                  {row.overdueBy}
+                </TableCell>
+
+                <TableCell className="p-2 text-center">
+                  <Link
+                    to={`/campaigns/${i + 1}`}
+                    className="text-blue-600 hover:underline dark:text-blue-400"
+                  >
+                    View
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
 
       {/* Pagination */}
@@ -109,7 +151,7 @@ export default function CampaignTable() {
           <label htmlFor="pageSize">Page Size:</label>
           <select
             id="pageSize"
-            className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
+            className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-400 dark:focus:ring-blue-600"
           >
             <option>10</option>
             <option>20</option>
@@ -117,7 +159,10 @@ export default function CampaignTable() {
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="border rounded-md px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">
+          <button
+            disabled
+            className="border rounded-md px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             «
           </button>
           <span>Page 1 of 2</span>

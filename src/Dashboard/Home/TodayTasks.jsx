@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { StatusBadge } from "../../components/ui/badge/StatusBadge";
 import {
   Table,
@@ -55,17 +56,23 @@ export default function TodayTasks() {
         <Table>
           <TableHeader className="border-y border-gray-100 dark:border-gray-800">
             <TableRow>
-              {["Task", "Type", "Assign To", "Level", "Remark", "Progress"].map(
-                (header) => (
-                  <TableCell
-                    key={header}
-                    isHeader
-                    className="py-3 font-medium text-gray-800 text-start text-theme-xs dark:text-gray-400"
-                  >
-                    {header}
-                  </TableCell>
-                )
-              )}
+              {[
+                "Task",
+                "Type",
+                "Assign To",
+                "Level",
+                "Remark",
+                "Progress",
+                "Action",
+              ].map((header) => (
+                <TableCell
+                  key={header}
+                  isHeader
+                  className="py-3 font-medium text-gray-800 text-start text-theme-xs dark:text-gray-400"
+                >
+                  {header}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHeader>
 
@@ -91,10 +98,25 @@ export default function TodayTasks() {
                   <StatusBadge status={task.level} />
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
-                  {task.remark}
+                  {/* {task.remark} */}
+
+                  <AppTooltip message={task.remark}>
+                    <div className="truncate cursor-pointer text-sm font-medium text-zinc-800 dark:text-gray-200">
+                      {Slicestring(task.remark, 1, 25)}
+                      {task.remark.length > 25 && "..."}
+                    </div>
+                  </AppTooltip>
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
                   {task.progress}
+                </TableCell>
+                <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
+                  <Link
+                    to={`/campaigns/1`}
+                    className="text-blue-600 hover:underline dark:text-blue-400"
+                  >
+                    Work
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

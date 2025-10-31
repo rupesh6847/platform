@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.11",
   "description": "Dashboard app with auto-update feature",
-  "author": "Rupesh",
+  "author": "Revvknew Media",
   "type": "module",
   "homepage": "https://github.com/rupesh6847/platform",
   "repository": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/rupesh6847/platform.git"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "electron": "electron .",
     "build:main": "node ./scripts/build-electron.js",
@@ -35,8 +35,10 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hot-toast": "^2.6.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.4",
+    "react-select": "^5.10.2",
     "redux-persist": "^6.0.0",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.3.1"
@@ -55,7 +57,7 @@
   },
   "main": "dist-electron/main.js",
   "build": {
-    "appId": "com.rupesh.dashboard",
+    "appId": "com.revvknew.dashboard",
     "productName": "Dashboard",
     "copyright": "Copyright © 2024",
     "directories": {

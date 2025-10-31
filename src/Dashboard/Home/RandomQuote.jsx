@@ -8,7 +8,7 @@ const RandomQuote = () => {
   const fetchQuote = async () => {
     try {
       const res = await fetch(
-        "https://api.api-ninjas.com/v2/quotes?categories=success,wisdom",
+        "https://api.api-ninjas.com/v1/quotes?categories=success,wisdom",
         {
           headers: {
             "X-Api-Key": "g4kIvpBbHGVxf9XHKO7tug==TXbMTbKvuuNe42v7",
@@ -62,7 +62,7 @@ const RandomQuote = () => {
         <p>Unable to fetch quote right now.</p>
       ) : quote ? (
         <p className="  text-gray-800 text-3xl lg:text-xl">
-          “{quote}”{" "}
+          “{quote}”
           <span className="not-italic font-medium text-gray-600">
             — {author}
           </span>

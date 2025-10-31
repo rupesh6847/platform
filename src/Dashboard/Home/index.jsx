@@ -2,6 +2,7 @@ import PageMeta from "../../components/common/PageMeta";
 import CompletedTasks from "./CompletedTasks";
 import MonthlyTasks from "./MonthlyTasks";
 import RandomQuote from "./RandomQuote";
+import TempCampaignBuilder from "./TempCampaignBuilder";
 import TodayTasks from "./TodayTasks";
 
 export default function HomePage() {
@@ -12,27 +13,19 @@ export default function HomePage() {
         <div className="col-span-12">
           <RandomQuote />
         </div>
-        <div className="col-span-12 space-y-6 xl:col-span-8">
+        <div className="col-span-12 space-y-6 xl:col-span-12">
           <TodayTasks />
-
-          {/* <MonthlySalesChart /> */}
-
+        </div>
+        <div className="col-span-12 space-y-6 xl:col-span-7">
+          <CompletedTasks />
+        </div>
+        <div className="col-span-12 xl:col-span-5">
           <MonthlyTasks />
         </div>
 
-        <div className="col-span-12 xl:col-span-4">
-          <CompletedTasks />
-        </div>
-
-        <div className="col-span-12">{/* <StatisticsChart /> */}</div>
-
-        <div className="col-span-12 xl:col-span-5">
-          {/* <DemographicCard /> */}
-        </div>
-
-        <div className="col-span-12 xl:col-span-7">
-          {/* <RecentOrders /> */}
-        </div>
+        {/* <div className="col-span-12">
+          <TempCampaignBuilder />
+        </div> */}
       </div>
     </>
   );

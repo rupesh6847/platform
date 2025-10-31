@@ -10,7 +10,7 @@ const ApplyLeave = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ leaveType, duration, fromDate, toDate, reason });
+
     alert("Leave application submitted!");
   };
 
@@ -30,9 +30,6 @@ const ApplyLeave = () => {
             >
               <option value="">Select leave type</option>
               <option value="casual">Casual Leave</option>
-              <option value="sick">Sick Leave</option>
-              <option value="annual">Annual Leave</option>
-              <option value="unpaid">Unpaid Leave</option>
             </select>
           </div>
 
@@ -46,7 +43,6 @@ const ApplyLeave = () => {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select duration</option>
-              <option value="half">Half Day</option>
               <option value="full">Full Day</option>
               <option value="multiple">Multiple Days</option>
             </select>

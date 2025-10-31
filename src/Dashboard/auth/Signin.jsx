@@ -97,6 +97,9 @@ const Signin = () => {
             </p>
           )}
         </div>
+        <div>
+          <a href="/">Go Back</a>
+        </div>
       </div>
     </div>
   );

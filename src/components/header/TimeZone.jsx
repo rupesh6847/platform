@@ -72,7 +72,7 @@ import { useEffect, useState } from "react";
 const timezones = [
   { label: "UK (London)", tz: "Europe/London", shortLabel: "LON" },
   { label: "US (NY)", tz: "America/New_York", shortLabel: "NY" },
-  { label: "India (Mumbai)", tz: "Asia/Kolkata", shortLabel: "MUM" },
+  { label: "India (Pune)", tz: "Asia/Kolkata", shortLabel: "MUM" },
 ];
 
 const TimeZone = ({ mobile = false }) => {
@@ -126,7 +126,7 @@ const TimeZone = ({ mobile = false }) => {
             <span className="font-medium text-gray-700 dark:text-gray-300">
               {t.shortLabel}:
             </span>{" "}
-            <span className="text-gray-600 dark:text-gray-400">
+            <span className="text-gray-600 dark:text-gray-400 font-mono tabular-nums">
               {times[t.tz] || "..."}
             </span>
           </div>
@@ -136,13 +136,16 @@ const TimeZone = ({ mobile = false }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 text-start divide-y md:divide-y-0 md:divide-x divide-gray-300 dark:divide-gray-700 overflow-hidden rounded-lg  border-gray-200 dark:border-gray-700 dark:bg-gray-800 ">
+    <div className="grid grid-cols-1 md:grid-cols-3 text-start divide-y md:divide-y-0 md:divide-x divide-gray-300 dark:divide-gray-700 overflow-hidden border-r border-gray-200 dark:border-gray-700 dark:bg-gray-800  ">
       {timezones.map((t, index) => (
-        <div key={index} className="p-2">
-          <div className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
+        <div
+          key={index}
+          className="px-6 py-4 flex flex-col justify-center gap-1 min-h-14"
+        >
+          <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">
             {t.label}
           </div>
-          <div className="text-xs text-gray-600 dark:text-gray-400">
+          <div className="text-xs text-gray-600 dark:text-gray-400 font-mono tabular-nums min-w-[120px]">
             {times[t.tz] ? (
               <>
                 {times[t.tz].split(" | ")[0]}{" "}
@@ -151,7 +154,7 @@ const TimeZone = ({ mobile = false }) => {
                 </span>
               </>
             ) : (
-              "Loading..."
+              <span className="opacity-70">Loading...</span>
             )}
           </div>
         </div>

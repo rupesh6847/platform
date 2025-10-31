@@ -20,6 +20,15 @@ const tableData = [
     remark: "Completed by 5.30 PM (IST)",
     progress: "Completed",
   },
+  {
+    id: 2,
+    program: "29846592635926",
+    type: "Brief",
+    assignedto: "You & Vijay",
+    level: "Very Urgent",
+    remark: "Completed by 5.30 PM (IST)",
+    progress: "Completed",
+  },
 ];
 
 export default function CompletedTasks() {
@@ -37,14 +46,8 @@ export default function CompletedTasks() {
           </button>
         </div>
       </div>
-      <div className="px-4 py-6 my-6 overflow-hidden border border-gary-200 rounded-2xl dark:border-gray-800 sm:px-6">
-        <div
-          id="mapOne"
-          className="mapOne map-btn -mx-4 -my-6 h-[212px] w-[252px] 2xsm:w-[307px] xsm:w-[358px] sm:-mx-6 md:w-[668px] lg:w-[634px] xl:w-[393px] 2xl:w-[554px]"
-        ></div>
-      </div>
 
-      <div className="space-y-5">
+      <div className="space-y-4 mt-4">
         {tableData.map((task) => {
           return (
             <div className="flex items-center justify-between" key={task.id}>
@@ -53,8 +56,8 @@ export default function CompletedTasks() {
                   <AppTooltip message={task.program}>
                     <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
                       {/* {task.program} */}
-                      {Slicestring(task.program, 1, 25)}
-                      {task.program.length > 25 && "..."}
+                      {Slicestring(task.program, 1, 40)}
+                      {task.program.length > 40 && "..."}
                     </p>
                   </AppTooltip>
                   <span className="block text-gray-500 text-theme-xs dark:text-gray-400">

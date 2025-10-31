@@ -13,7 +13,7 @@ const tabs = [
 
 export default function CampaignTabs({ selected, onSelect }) {
   return (
-    <div className="">
+    <div>
       <div
         className="flex flex-wrap items-center gap-2 px-3 
                     sm:gap-3 sm:px-4   md:gap-4 md:px-3 border-b border-gray-200 dark:border-gray-700"
