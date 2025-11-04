@@ -112,7 +112,7 @@ export default function TodayTasks() {
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
                   <Link
-                    to={`/campaigns/1`}
+                    to={`/tasks/1`}
                     className="text-blue-600 hover:underline dark:text-blue-400"
                   >
                     Work

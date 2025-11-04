@@ -32,7 +32,7 @@ const navItems = [
     ],
   },
   { icon: <GitCompareArrows />, name: 'Process', path: '/process' },
-  { icon: <Megaphone />, name: 'Campaigns', path: '/campaigns' },
+  { icon: <Megaphone />, name: 'Program', path: '/campaigns' },
   { icon: <FileSpreadsheet />, name: 'Briefs', path: '/briefs' },
   { icon: <FolderSync />, name: 'Training', path: '/training' },
 ];
@@ -42,11 +42,11 @@ const othersItems = [
     icon: <SlidersHorizontal />,
     name: 'Setting',
     subItems: [
-      {
-        icon: <MonitorCheck size={16} />,
-        name: "Check Update",
-        path: "/checkupdate",
-      },
+      // {
+      //   icon: <MonitorCheck size={16} />,
+      //   name: 'Check Update',
+      //   path: '/checkupdate',
+      // },
       {
         icon: <UserCircleIcon size={16} />,
         name: 'User Profile',

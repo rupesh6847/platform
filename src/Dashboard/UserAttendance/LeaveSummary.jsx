@@ -48,12 +48,12 @@ const LeaveSummary = () => {
       total: 12,
       color: 'bg-red-500',
     },
-    {
-      label: 'Annual Leave',
-      available: 15,
-      total: 20,
-      color: 'bg-green-500',
-    },
+    // {
+    //   label: 'Annual Leave',
+    //   available: 15,
+    //   total: 20,
+    //   color: 'bg-green-500',
+    // },
     {
       label: 'Unpaid Leave',
       available: 5,

@@ -103,35 +103,27 @@ export default function CampaignTable() {
                   </AppTooltip>
                 </TableCell>
 
-                <TableCell className="p-2">{row.programType}</TableCell>
+                <TableCell className="p-2 ">{row.programType}</TableCell>
 
-                <TableCell className="p-2">
+                <TableCell className="p-2 ">
                   <AppTooltip message={row.reference}>
                     <span>{row.reference}</span>
                   </AppTooltip>
                 </TableCell>
 
-                <TableCell className="p-2 text-center">
+                <TableCell className="p-2 ">
                   <StatusBadge status={row.status} />
                 </TableCell>
 
-                <TableCell className="p-2 text-center">{row.total}</TableCell>
-                <TableCell className="p-2 text-center">
-                  {row.accepted}
-                </TableCell>
-                <TableCell className="p-2 text-center">
-                  {row.remaining}
-                </TableCell>
-                <TableCell className="p-2 text-center">{row.working}</TableCell>
-                <TableCell className="p-2 text-center">
-                  {row.assignTo}
-                </TableCell>
-                <TableCell className="p-2 text-center">{row.pocs}</TableCell>
-                <TableCell className="p-2 text-center">
-                  {row.overdueBy}
-                </TableCell>
+                <TableCell className="p-2 ">{row.total}</TableCell>
+                <TableCell className="p-2 ">{row.accepted}</TableCell>
+                <TableCell className="p-2 ">{row.remaining}</TableCell>
+                <TableCell className="p-2 ">{row.working}</TableCell>
+                <TableCell className="p-2 ">{row.assignTo}</TableCell>
+                <TableCell className="p-2 ">{row.pocs}</TableCell>
+                <TableCell className="p-2 ">{row.overdueBy}</TableCell>
 
-                <TableCell className="p-2 text-center">
+                <TableCell className="p-2 ">
                   <Link
                     to={`/campaigns/${i + 1}`}
                     className="text-blue-600 hover:underline dark:text-blue-400"

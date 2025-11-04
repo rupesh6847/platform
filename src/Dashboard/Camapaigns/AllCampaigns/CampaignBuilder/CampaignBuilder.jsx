@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import Select from 'react-select'; // ✅ fixed import
+import Select from 'react-select';
 
 const dayOptions = [
   { value: 'Monday', label: 'Monday' },

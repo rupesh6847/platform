@@ -15,6 +15,9 @@ import CampaignDetailPage from './Dashboard/Camapaigns/CampaignDetailPage';
 import Signin from './Dashboard/auth/Signin';
 import CheckUpdate from './Dashboard/CheckUpdate';
 
+import HomeLayout from './Dashboard/Home/HomeLayout';
+import Task from './Dashboard/Home/Tasks';
+
 function App() {
   return (
     <>
@@ -24,7 +27,10 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           {/* <Route element={<AuthRequired />}> */}
           <Route element={<AppLayout />}>
-            <Route index path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />}>
+              <Route index element={<HomeLayout />} />
+              <Route path="/tasks/:taskId" element={<Task />} />
+            </Route>
 
             <Route path="campaigns" element={<CampaignsPage />}>
               <Route index element={<CampaignLayout />} />
