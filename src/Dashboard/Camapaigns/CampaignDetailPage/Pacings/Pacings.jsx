@@ -52,7 +52,9 @@ const Pacings = ({selectedVolumeId,onBack}) => {
       <PageMeta title="Pacings" description="This is Pacings page." />
       <PageBreadcrumb pageTitle="" />
      
-   
+       <button>
+           <h1 onClick={(()=>{onBack()})}>Back</h1>
+       </button>
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/3 lg:p-6">
         {/* STATUS GROUP BLOCKS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

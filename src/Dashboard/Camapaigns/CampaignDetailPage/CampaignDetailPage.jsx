@@ -67,20 +67,6 @@ const CampaignDetailPage = ({ campaignId }) => {
   const [content, setContent] = useState([]);
   //   const [openPacings, setOpenPacings] = useState(false);
   const [selectedVolumeId, setSelectedVolumeId] = useState(null);
-
- 
-
-  if (selectedVolumeId) {
-    return (
-      <Pacings
-        volumeId={selectedVolumeId}
-        onBack={() => {
-          setSelectedVolumeId(null);
-        }}
-      />
-    );
-  }
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -118,6 +104,18 @@ const CampaignDetailPage = ({ campaignId }) => {
       message: 'Lead allocatijfgjgjdon or due dates have been updated',
     },
   ];
+
+
+ 
+
+  if (selectedVolumeId) {
+    return (
+      <Pacings
+        volumeId={selectedVolumeId}
+        onBack={(()=>{setSelectedVolumeId(null)})}
+      />
+    );
+  }
 
   const uploads = [
     {
