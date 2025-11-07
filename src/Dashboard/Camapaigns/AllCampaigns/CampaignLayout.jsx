@@ -89,7 +89,7 @@ function CampaignDrawer({ open, setOpen }) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             transition={{ ease: 'easeInOut', duration: 0.3 }}
-            className="absolute right-0 top-0 h-full w-full max-w-6xl overflow-hidden bg-white dark:bg-neutral-900 shadow-xl"
+            className="absolute right-0 top-0 h-full w-full max-w-6xl overflow-hidden bg-white dark:bg-neutral-900"
             style={{ x }}
             drag="x"
             dragControls={controls}

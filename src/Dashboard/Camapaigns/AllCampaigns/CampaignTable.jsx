@@ -9,50 +9,105 @@ import {
 import AppTooltip from '../../../lib/Tooltip';
 import { Slicestring } from '../../../lib/slicestring';
 import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
+import { useEffect, useState } from 'react';
 
-const tableData = [
-  {
-    program: 'Legrand Cabinets & Containment | Q4 Campaign',
-    programType: 'Email Campaign',
-    reference: 'LPM/NA/16107',
-    status: 'Active',
-    total: 75,
-    accepted: 0,
-    remaining: 0,
-    working: 0,
-    assignTo: 'John Doe',
-    pocs: 1,
-    overdueBy: '0 days',
-  },
-  {
-    program: 'Legrand Cabinets & Containment | Q4 Campaign',
-    programType: 'Email Campaign',
-    reference: 'LPM/NA/16108',
-    status: 'Paused',
-    total: 50,
-    accepted: 10,
-    remaining: 20,
-    working: 5,
-    assignTo: 'Jane Smith',
-    pocs: 2,
-    overdueBy: '2 days',
-  },
-  {
-    program: 'Legrand Cabinets & Containment | Q4 Campaign',
-    programType: 'Email Campaign',
-    reference: 'LPM/NA/16109',
-    status: 'Active',
-    total: 100,
-    accepted: 25,
-    remaining: 60,
-    working: 10,
-    assignTo: 'John Doe',
-    pocs: 1,
-    overdueBy: '0 days',
-  },
-];
+// const tableData = [
+//   {
+//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
+//     programType: 'Email Campaign',
+//     reference: 'LPM/NA/16107',
+//     status: 'Active',
+//     total: 75,
+//     accepted: 0,
+//     remaining: 0,
+//     working: 0,
+//     assignTo: 'John Doe',
+//     pocs: 1,
+//     overdueBy: '0 days',
+//   },
+//   {
+//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
+//     programType: 'Email Campaign',
+//     reference: 'LPM/NA/16108',
+//     status: 'Paused',
+//     total: 50,
+//     accepted: 10,
+//     remaining: 20,
+//     working: 5,
+//     assignTo: 'Jane Smith',
+//     pocs: 2,
+//     overdueBy: '2 days',
+//   },
+//   {
+//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
+//     programType: 'Email Campaign',
+//     reference: 'LPM/NA/16109',
+//     status: 'Active',
+//     total: 100,
+//     accepted: 25,
+//     remaining: 60,
+//     working: 10,
+//     assignTo: 'John Doe',
+//     pocs: 1,
+//     overdueBy: '0 days',
+//   },
+// ];
 
 export default function CampaignTable() {
+
+
+
+  const [allCampaigns, setAllCamapigns] = useState([])
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
+  const fetchData = async () => {
+    const res = await fetch("http://192.168.29.121:3000/campaigns");
+    const response = await res.json();
+
+    console.log(response.data, "allCampaigns")
+    setAllCamapigns(response.data)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // useEffect(()=>{
+
+
+
+
+
+
+
+  //   fetch("http://localhost:3000/campaigns").then((res)=>{
+  //     const data = req.json().then((res) =>{
+  //       setAllCamapigns(res.data)
+  //     })
+  //   })
+  // },[])
+
+
+
+
+
+
   return (
     <>
       {/* Table Container */}
@@ -63,15 +118,15 @@ export default function CampaignTable() {
             <TableRow>
               {[
                 'Program',
-                'Type',
+                // 'Type',
                 'Reference',
                 'Status',
                 'Total',
                 'Accepted',
                 'Remaining',
-                'Working',
+                // 'Working',
                 'Assign To',
-                'POCs',
+                // 'POCs',
                 'Overdue',
                 'Action',
               ].map((header) => (
@@ -89,25 +144,25 @@ export default function CampaignTable() {
 
           {/* Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/10 text-xs">
-            {tableData.map((row, i) => (
+            {allCampaigns?.map((row, i) => (
               <TableRow
-                key={row.reference || i}
+                key={i}
                 className="hover:bg-gray-50/70 dark:hover:bg-gray-800/60"
               >
                 <TableCell className="p-2 w-[200px]">
-                  <AppTooltip message={row.program}>
+                  <AppTooltip message={row.name}>
                     <p className="font-medium text-gray-800 dark:text-white truncate">
-                      {Slicestring(row.program, 1, 25)}
-                      {row.program.length > 25 && '...'}
+                      {Slicestring(row.name, 1, 25)}
+                      {row.name.length > 25 && '...'}
                     </p>
                   </AppTooltip>
                 </TableCell>
 
-                <TableCell className="p-2 ">{row.programType}</TableCell>
+                {/* <TableCell className="p-2 ">{row.programType}</TableCell> */}
 
                 <TableCell className="p-2 ">
-                  <AppTooltip message={row.reference}>
-                    <span>{row.reference}</span>
+                  <AppTooltip message={`${row.client.name}/${row.code}`}>
+                    <span>{row.client.name}/{row.code}</span>
                   </AppTooltip>
                 </TableCell>
 
@@ -115,17 +170,19 @@ export default function CampaignTable() {
                   <StatusBadge status={row.status} />
                 </TableCell>
 
-                <TableCell className="p-2 ">{row.total}</TableCell>
-                <TableCell className="p-2 ">{row.accepted}</TableCell>
-                <TableCell className="p-2 ">{row.remaining}</TableCell>
-                <TableCell className="p-2 ">{row.working}</TableCell>
-                <TableCell className="p-2 ">{row.assignTo}</TableCell>
-                <TableCell className="p-2 ">{row.pocs}</TableCell>
-                <TableCell className="p-2 ">{row.overdueBy}</TableCell>
+                <TableCell className="p-2 ">{row.leadgoal}</TableCell>
+                <TableCell className="p-2 ">{row.completed}</TableCell>
+                <TableCell className="p-2 ">{row.pending}</TableCell>
+                {/* <TableCell className="p-2 ">{row.working}</TableCell> */}
+                <TableCell className="p-2 "> {row.assignTo?.length
+                  ? row.assignTo.join(", ")
+                  : "-"}</TableCell>
+                {/* <TableCell className="p-2 ">{row.pocs}</TableCell> */}
+                <TableCell className="p-2 ">{row.duedate}</TableCell>
 
                 <TableCell className="p-2 ">
                   <Link
-                    to={`/campaigns/${i + 1}`}
+                    to={`/campaigns/${row.id}`}
                     className="text-blue-600 hover:underline dark:text-blue-400"
                   >
                     View

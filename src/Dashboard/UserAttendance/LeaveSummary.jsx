@@ -102,10 +102,7 @@ const LeaveSummary = () => {
         {leaveTypes.map((leave, index) => {
           const percentage = (leave.available / leave.total) * 100;
           return (
-            <div
-              key={index}
-              className="hover:shadow-md transition-shadow border rounded-2xl bg-white p-6"
-            >
+            <div key={index} className="border rounded-2xl bg-white p-6">
               <p className="text-sm text-gray-600 mb-3">{leave.label}</p>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 {leave.available}/{leave.total}

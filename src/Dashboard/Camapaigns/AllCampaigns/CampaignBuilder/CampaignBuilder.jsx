@@ -342,7 +342,7 @@ const CampaignBuilder = () => {
               }}
             >
               <p className="text-gray-600">
-                Drag & drop files here or
+                Drag & drop files here or{' '}
                 <label className="text-blue-600 cursor-pointer underline">
                   browse
                   <input

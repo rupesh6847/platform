@@ -130,7 +130,7 @@ function BriefDrawer({ brief, open, setOpen }) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             transition={{ ease: 'easeInOut' }}
-            className="absolute right-0 top-0 h-full w-full max-w-4xl overflow-hidden bg-white dark:bg-neutral-900 shadow-xl"
+            className="absolute right-0 top-0 h-full w-full max-w-4xl overflow-hidden bg-white dark:bg-neutral-900 "
             style={{ x }}
             drag="x"
             dragControls={controls}
@@ -150,171 +150,154 @@ function BriefDrawer({ brief, open, setOpen }) {
             </div>
 
             {/* Drawer Content */}
-            <div className="relative z-0 h-full overflow-y-scroll p-3 pt-6 space-y-3">
-              <div className="flex justify-between items-start">
+            {/* Drawer Content */}
+            <div className="relative z-0 h-full overflow-y-auto p-6 space-y-6">
+              {/* Header */}
+              <div className="flex flex-wrap justify-between items-start gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
                     {brief?.briefName}
                   </h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                     Client Code:{' '}
-                    <span className="px-2 py-1 border rounded-lg">
+                    <span className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
                       {brief?.clientCode}
                     </span>
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                   <Clock className="h-4 w-4" />
                   <span>Last Updated: {brief.lastUpdated}</span>
                 </div>
               </div>
 
               {/* Content Sections */}
-              <div className="grid grid-cols-12 gap-4 md:gap-6">
-                <div className="col-span-12 space-y-6 xl:col-span-6">
-                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-4 mb-10">
-                    <h1 className="font-semibold text-gray-800 dark:text-white">
+              <div className="grid grid-cols-12 gap-6">
+                {/* Basic Information */}
+                <div className="col-span-12 xl:col-span-6">
+                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-6  space-y-4">
+                    <h1 className="font-semibold text-gray-800 dark:text-white text-lg mb-4">
                       Basic Information
                     </h1>
 
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Arrived On (IST):
-                        </span>
-                        <span className="text-sm">
-                          {brief.arrivedOnIST || brief.arrivedOn}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Due At (UK Time):
-                        </span>
-                        <span className="text-sm">{brief.dueAt || 'N/A'}</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">Status:</span>
-                        {brief.status}
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">Priority:</span>
-                        {brief.status}
-                      </div>
-                      <div className="flex justify-between items-center py-2">
-                        <span className="text-sm text-gray-600">
-                          Assigned To:
-                        </span>
-                        <span className="text-sm">{brief.assignedTo}</span>
-                      </div>
+                    <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                      {[
+                        {
+                          label: 'Arrived On (IST):',
+                          value: brief.arrivedOnIST || brief.arrivedOn,
+                        },
+                        {
+                          label: 'Due At (UK Time):',
+                          value: brief.dueAt || 'N/A',
+                        },
+                        { label: 'Status:', value: brief.status },
+                        { label: 'Priority:', value: brief.priority },
+                        { label: 'Assigned To:', value: brief.assignedTo },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex justify-between items-center py-3"
+                        >
+                          <span className="text-sm text-gray-600 dark:text-gray-400">
+                            {item.label}
+                          </span>
+                          <span className="text-sm text-gray-800 dark:text-gray-200">
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
+
+                {/* Lead Details */}
                 <div className="col-span-12 xl:col-span-6">
-                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-4 mb-10">
-                    <h1 className="font-semibold text-gray-800 dark:text-white">
+                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-6  space-y-4">
+                    <h1 className="font-semibold text-gray-800 dark:text-white text-lg mb-4">
                       Lead Details
                     </h1>
 
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Lead Type:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.leadType || '—'}
-                        </span>
-                      </div>
-                      {brief.regions && brief.regions.length > 0 && (
-                        <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                          <span className="text-sm text-gray-600 flex items-center gap-1">
-                            <Globe className="h-3 w-3" />
-                            Regions:
+                    <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                      {[
+                        { label: 'Lead Type:', value: brief.leadType || '—' },
+                        {
+                          label: 'Qualifier (MQL): Job Title:',
+                          value: brief.qualifierJobTitle || 'N/A',
+                        },
+                        {
+                          label: 'Qualifier (MQL): Employee Size:',
+                          value: brief.qualifierEmployeeSize || 'N/A',
+                        },
+                        {
+                          label: 'Qualifier (MQL): Industry:',
+                          value: brief.qualifierIndustrySector || 'N/A',
+                        },
+                        {
+                          label: 'Qualifier: Other(s):',
+                          value: brief.qualifierOthers || 'N/A',
+                        },
+                        {
+                          label: 'Profiler(s):',
+                          value: brief.profilers || 'N/A',
+                        },
+                        {
+                          label: 'Deadline / Timeframe:',
+                          value: brief.deadline || 'N/A',
+                        },
+                        {
+                          label: 'File attached:',
+                          value: brief.fileAttached || 'N/A',
+                          icon: <FileText className="h-3 w-3" />,
+                        },
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex justify-between items-start py-3"
+                        >
+                          <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                            {item.icon}
+                            {item.label}
                           </span>
-                          <span className="text-sm text-right">
+                          <span className="text-sm text-right text-gray-800 dark:text-gray-200">
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
+
+                      {brief.regions?.length > 0 && (
+                        <div className="flex justify-between items-start py-3">
+                          <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                            <Globe className="h-3 w-3" /> Regions:
+                          </span>
+                          <span className="text-sm text-right text-gray-800 dark:text-gray-200">
                             {brief.regions.join(', ')}
                           </span>
                         </div>
                       )}
-                      {brief.audiences && brief.audiences.length > 0 && (
-                        <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                          <span className="text-sm text-gray-600">
+
+                      {brief.audiences?.length > 0 && (
+                        <div className="flex justify-between items-start py-3">
+                          <span className="text-sm text-gray-600 dark:text-gray-400">
                             Audience(s):
                           </span>
-                          <span className="text-sm text-right">
+                          <span className="text-sm text-right text-gray-800 dark:text-gray-200">
                             {brief.audiences.join(', ')}
                           </span>
                         </div>
                       )}
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Qualifier (MQL): Job Title:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.qualifierJobTitle || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Qualifier (MQL): Employee Size:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.qualifierEmployeeSize || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Qualifier (MQL): Industry:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.qualifierIndustrySector || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Qualifier: Other(s):
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.qualifierOthers || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Profiler(s):
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.profilers || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2 border-b border-gray-100">
-                        <span className="text-sm text-gray-600">
-                          Deadline / Timeframe:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.deadline || 'N/A'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-start py-2">
-                        <span className="text-sm text-gray-600 flex items-center gap-1">
-                          <FileText className="h-3 w-3" />
-                          File attached:
-                        </span>
-                        <span className="text-sm text-right">
-                          {brief.fileAttached || 'N/A'}
-                        </span>
-                      </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Quotes Timeline */}
                 <div className="col-span-12">
-                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-6 mb-10 ">
-                    <h1 className="font-semibold text-gray-800 dark:text-white flex items-center gap-2 mb-8 text-lg">
+                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-6  space-y-6">
+                    <h1 className="font-semibold text-gray-800 dark:text-white flex items-center gap-2 text-lg">
                       <Watch /> Quotes Timeline
                     </h1>
 
                     <div className="space-y-6">
-                      {/* Timeline Info */}
                       <p className="text-gray-700 dark:text-gray-300">
                         <span className="bg-gray-800 text-white px-3 py-1 rounded-md mr-2 text-sm">
                           1st Quoted
@@ -327,111 +310,102 @@ function BriefDrawer({ brief, open, setOpen }) {
                         <span className="text-indigo-600 font-bold">3,300</span>
                       </h1>
 
-                      {/* Lead Count Section */}
-                      <h4 className="text-md font-medium text-gray-700 dark:text-gray-200">
-                        Lead Count Details:
-                      </h4>
+                      <div className="space-y-3">
+                        <h4 className="text-md font-medium text-gray-700 dark:text-gray-200">
+                          Lead Count Details:
+                        </h4>
 
-                      <div className="grid grid-cols-12 gap-4 md:gap-6">
-                        {[
-                          {
-                            label: 'ST',
-                            value: '1,200',
-                            color: 'bg-indigo-50 text-indigo-800',
-                          },
-                          {
-                            label: 'AB',
-                            value: '900',
-                            color: 'bg-green-50 text-green-800',
-                          },
-                          {
-                            label: 'CD',
-                            value: '600',
-                            color: 'bg-pink-50 text-pink-800',
-                          },
-                          {
-                            label: 'EF',
-                            value: '400',
-                            color: 'bg-yellow-50 text-yellow-800',
-                          },
-                          {
-                            label: 'GH',
-                            value: '300',
-                            color: 'bg-blue-50 text-blue-800',
-                          },
-                          {
-                            label: 'IJ',
-                            value: '200',
-                            color: 'bg-purple-50 text-purple-800',
-                          },
-                          {
-                            label: 'KL',
-                            value: '150',
-                            color: 'bg-rose-50 text-rose-800',
-                          },
-                          {
-                            label: 'MN',
-                            value: '100',
-                            color: 'bg-teal-50 text-teal-800',
-                          },
-                        ].map((item, i) => (
-                          <div
-                            key={i}
-                            className={`col-span-12 xl:col-span-3 p-2 border  transition-all ${item.color}`}
-                          >
-                            <p className="font-medium">{item.label}</p>
-                            <p className="text-lg font-semibold">
-                              {item.value}
-                            </p>
-                          </div>
-                        ))}
+                        <div className="grid grid-cols-12 gap-4 md:gap-6">
+                          {[
+                            {
+                              label: 'ST',
+                              value: '1,200',
+                              color: 'bg-indigo-50 text-indigo-800',
+                            },
+                            {
+                              label: 'ST+ PQ',
+                              value: '800',
+                              color: 'bg-green-50 text-green-800',
+                            },
+                            {
+                              label: 'ST+ QQ',
+                              value: '600',
+                              color: 'bg-pink-50 text-pink-800',
+                            },
+                            {
+                              label: 'BANT',
+                              value: '150',
+                              color: 'bg-yellow-50 text-yellow-800',
+                            },
+                            {
+                              label: 'DT',
+                              value: '450',
+                              color: 'bg-blue-50 text-blue-800',
+                            },
+                            {
+                              label: 'DT+ PQ',
+                              value: '300',
+                              color: 'bg-purple-50 text-purple-800',
+                            },
+                            {
+                              label: 'DT+ QQ',
+                              value: '200',
+                              color: 'bg-rose-50 text-rose-800',
+                            },
+                          ].map((item, i) => (
+                            <div
+                              key={i}
+                              className={`col-span-6 md:col-span-4 xl:col-span-3 p-3 rounded-xl border border-gray-100 dark:border-gray-700 text-center ${item.color}`}
+                            >
+                              <p className="font-medium">{item.label}</p>
+                              <p className="text-lg font-semibold">
+                                {item.value}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Additional Info */}
                 <div className="col-span-12">
-                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-4 mb-10">
-                    <h1 className="font-semibold text-gray-800 dark:text-white">
+                  <div className="border rounded-2xl border-gray-200 bg-white dark:bg-gray-800 p-6 space-y-6">
+                    <h1 className="font-semibold text-gray-800 dark:text-white text-lg mb-4">
                       Additional Information
                     </h1>
 
-                    <div className="space-y-6">
-                      {brief.campaign && (
-                        <div>
-                          <div className="text-sm text-gray-600 mb-1">
-                            Campaign
-                          </div>
-                          <div className="text-sm">{brief.campaign}</div>
+                    {brief.campaign && (
+                      <div className="space-y-1">
+                        <div className="text-sm text-gray-500">Campaign</div>
+                        <div className="text-sm text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-700 px-3 py-2 rounded-md">
+                          {brief.campaign}
                         </div>
-                      )}
-                      {brief.remarks && (
-                        <div>
-                          <div className="text-sm text-gray-600 mb-1">
-                            Remarks
-                          </div>
-                          <div className="bg-gray-50 p-3 rounded-lg text-sm">
-                            {brief.remarks}
-                          </div>
+                      </div>
+                    )}
+
+                    {brief.remarks && (
+                      <div className="space-y-1">
+                        <div className="text-sm text-gray-500">Remarks</div>
+                        <div className="bg-gray-50 dark:bg-gray-700 p-3 rounded-md text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
+                          {brief.remarks}
                         </div>
-                      )}
-                      {brief.briefLink && (
-                        <div>
-                          <div className="text-sm text-gray-600 mb-2">
-                            Brief Link
-                          </div>
-                          <button
-                            className="border p-2 border-gray-400 flex items-center gap-2 rounded-lg"
-                            onClick={() =>
-                              window.open(brief.briefLink, '_blank')
-                            }
-                          >
-                            <FileText className="h-4 w-4 mr-2" />
-                            Open Brief
-                          </button>
-                        </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
+
+                    {brief.briefLink && (
+                      <div className="space-y-2">
+                        <div className="text-sm text-gray-500">Brief Link</div>
+                        <button
+                          className="border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 text-gray-800 dark:text-gray-200"
+                          onClick={() => window.open(brief.briefLink, '_blank')}
+                        >
+                          <FileText className="h-4 w-4" />
+                          Open Brief
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

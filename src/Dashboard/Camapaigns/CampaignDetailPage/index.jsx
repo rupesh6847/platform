@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChevronRight,
   CirclePause,
@@ -6,11 +6,48 @@ import {
   Star,
   Upload,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Slicestring } from '../../../lib/slicestring';
 import AppTooltip from '../../../lib/Tooltip';
 
 const CampaignDetailPage = () => {
+
+
+const {campaignId} = useParams()
+
+// console.log(campaignId,"campaignId")
+
+  const [campaign, setCamapign] = useState([])
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
+  const fetchData = async () => {
+    const res = await fetch(`http://192.168.29.121:3000/campaigns/${campaignId}`);
+    const response = await res.json();
+
+    console.log(response.data, "campaign")
+    setCamapign(response.data)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [files] = useState([
     'TAL_CENTRAL_WorkOS_PL_PTBA-1 P198',
     'TAL_NORTH_WorkOS_PL_PTBA-4 359',
@@ -18,15 +55,15 @@ const CampaignDetailPage = () => {
   const activities = [
     {
       date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
-      message: 'Lead allocation or due dates have been updated',
+      message: 'Lead allofhdhfdfhdhcation or due dates have been updated',
     },
     {
-      date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
-      message: 'Lead allocation or due dates have been updated',
+      date: 'SEPTEMBER 6, 2025 | 03:47 PM (IST)',
+      message: 'Lead allocjdfjdfdjation or due dates have been updated',
     },
     {
-      date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
-      message: 'Lead allocation or due dates have been updated',
+      date: 'SEPTEMBER 7, 2025 | 03:47 PM (IST)',
+      message: 'Lead allocatijfgjgjdon or due dates have been updated',
     },
   ];
 
@@ -72,6 +109,48 @@ const CampaignDetailPage = () => {
       rejections: 11,
     },
   ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className=" dark:bg-gray-900 min-h-screen">
@@ -370,7 +449,24 @@ const CampaignDetailPage = () => {
                         </div>
                       </td>
                       <td className="p-3 text-center text-gray-400">
-                        <Star size={16} color="#ffd500" strokeWidth={3} />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          x="0px"
+                          y="0px"
+                          width="30"
+                          height="30"
+                          viewBox="0 0 48 48"
+                        >
+                          <path
+                            fill="#00D100"
+                            d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
+                          ></path>
+
+                          <path
+                            fill="#ffffff"
+                            d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z"
+                          ></path>
+                        </svg>
                       </td>
                       <td className="p-3 text-center text-gray-900 dark:text-white">
                         {u.submitted}

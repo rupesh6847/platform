@@ -7,14 +7,11 @@ const RandomQuote = () => {
 
   const fetchQuote = async () => {
     try {
-      const res = await fetch(
-        'https://api.api-ninjas.com/v1/quotes?categories=success,wisdom',
-        {
-          headers: {
-            'X-Api-Key': 'g4kIvpBbHGVxf9XHKO7tug==TXbMTbKvuuNe42v7',
-          },
-        }
-      );
+      const res = await fetch('https://api.api-ninjas.com/v2/quoteoftheday', {
+        headers: {
+          'X-Api-Key': 'g4kIvpBbHGVxf9XHKO7tug==TXbMTbKvuuNe42v7',
+        },
+      });
       if (!res.ok) throw new Error('API request failed');
       const data = await res.json();
       if (data && data.length > 0) {
@@ -23,7 +20,6 @@ const RandomQuote = () => {
           author: data[0].author,
           timestamp: Date.now(),
         };
-        // Save to localStorage for reuse
         localStorage.setItem('dailyQuote', JSON.stringify(newQuote));
         setQuote(newQuote.text);
         setAuthor(newQuote.author);
@@ -44,14 +40,12 @@ const RandomQuote = () => {
       const oneDay = 24 * 60 * 60 * 1000;
 
       if (age < oneDay) {
-        // Use cached quote
         setQuote(parsed.text);
         setAuthor(parsed.author);
         return;
       }
     }
 
-    // Fetch new quote if none or older than 24h
     fetchQuote();
   }, []);
 
@@ -61,12 +55,13 @@ const RandomQuote = () => {
       {error ? (
         <p>Unable to fetch quote right now.</p>
       ) : quote ? (
-        <p className="  text-gray-800 text-3xl lg:text-xl">
-          “{quote}”
-          <span className="not-italic font-medium text-gray-600">
-            — {author}
+        <>
+          <p className="text-gray-800 text-3xl lg:text-xl">“{quote}”</p>
+          <span className=" font-normal text-gray-600 italic mt-2 ">
+            {' '}
+            —{author}
           </span>
-        </p>
+        </>
       ) : (
         <p>Loading...</p>
       )}

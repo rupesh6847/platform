@@ -63,7 +63,7 @@ const ViewAttendance = () => {
     <div className="mt-6 space-y-6">
       {/* Top Summary Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="hover:shadow-md transition-shadow border rounded-2xl bg-white p-6">
+        <div className=" border rounded-2xl bg-white p-6">
           <div className="flex items-center gap-3 mb-2">
             <Clock className="w-5 h-5 text-green-600" />
             <p className="text-sm text-gray-600">Login Time</p>
@@ -72,7 +72,7 @@ const ViewAttendance = () => {
           <p className="text-xs text-gray-500 mt-1">Today, Oct 23, 2025</p>
         </div>
 
-        <div className="hover:shadow-md transition-shadow border rounded-2xl bg-white p-6">
+        <div className=" border rounded-2xl bg-white p-6">
           <div className="flex items-center gap-3 mb-2">
             <Clock className="w-5 h-5 text-orange-600" />
             <p className="text-sm text-gray-600">Logout Time</p>
@@ -81,7 +81,7 @@ const ViewAttendance = () => {
           <p className="text-xs text-gray-500 mt-1">Expected</p>
         </div>
 
-        <div className="hover:shadow-md transition-shadow border rounded-2xl bg-white p-6">
+        <div className=" border rounded-2xl bg-white p-6">
           <div className="flex items-center gap-3 mb-2">
             <Clock className="w-5 h-5 text-blue-600" />
             <p className="text-sm text-gray-600">Break Duration</p>

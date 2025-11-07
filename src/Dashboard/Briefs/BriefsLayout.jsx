@@ -81,10 +81,7 @@ const BriefsLayout = () => {
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div
-              key={index}
-              className="hover:shadow-md transition-shadow border rounded-2xl bg-white"
-            >
+            <div key={index} className=" border rounded-2xl bg-white">
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div>

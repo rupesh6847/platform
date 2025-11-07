@@ -22,12 +22,12 @@ const tableData = [
   },
   {
     id: 2,
-    program: '29846592635926',
-    type: 'Brief',
+    program: '29846592sdfasdfasf635926',
+    type: 'Briedfgdsfgsf',
     assignedto: 'You & Vijay',
     level: 'Very Urgent',
     remark: 'Completed by 5.30 PM (IST)',
-    progress: 'Completed',
+    progress: 'Completeddfs',
   },
 ];
 
@@ -41,7 +41,7 @@ export default function CompletedTasks() {
         </h3>
 
         <div className="flex items-center gap-3">
-          <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3">
+          <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-theme-sm font-medium text-gray-700  hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3">
             See all
           </button>
         </div>

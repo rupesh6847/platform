@@ -14,7 +14,7 @@ export default function CampaignFilter() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="relative">
           <input
-            className="appearance-none   pl-10   hover:border-gray-400 transition-colors       leading-tight   focus:border-gray-600 focus:shadow-outline w-full sm:w-80 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 p-3 text-sm text-gray-700 dark:text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
+            className="appearance-none   pl-10   hover:border-gray-400 transition-colors       leading-tight   focus:border-gray-600  w-full sm:w-80 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 p-3 text-sm text-gray-700 dark:text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
             id="username"
             type="text"
             placeholder="Search..."
