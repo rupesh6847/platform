@@ -439,7 +439,7 @@ const CampaignDetailPage = ({ campaignId }) => {
 
             {/* Upload Table */}
             <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Uploads
+             Uploads
             </h4>
             <div className="rounded-lg border border-gray-200 dark:border-gray-700  dark:bg-gray-800 text-sm p-4 lg:p-6">
               <div className="overflow-x-auto">
