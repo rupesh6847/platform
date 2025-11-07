@@ -7,9 +7,10 @@ import {
   TableRow,
 } from '../../../components/ui/table';
 import AppTooltip from '../../../lib/Tooltip';
-import { Slicestring } from '../../../lib/slicestring';
+
 import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
 import { useEffect, useState } from 'react';
+import { Slicestring } from '../../../lib/Slicestring';
 
 // const tableData = [
 //   {

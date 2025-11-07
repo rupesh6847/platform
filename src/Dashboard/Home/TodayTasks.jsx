@@ -7,8 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/table';
-import { Slicestring } from '../../lib/slicestring';
+
 import AppTooltip from '../../lib/Tooltip';
+import { Slicestring } from '../../lib/Slicestring';
 
 const tableData = [
   {

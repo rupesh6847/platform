@@ -1,4 +1,5 @@
-import { Slicestring } from '../../lib/slicestring';
+
+import { Slicestring } from '../../lib/Slicestring';
 import AppTooltip from '../../lib/Tooltip';
 
 const tableData = [

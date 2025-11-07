@@ -7,22 +7,76 @@ import {
   Upload,
 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import { Slicestring } from '../../../lib/slicestring';
+
 import AppTooltip from '../../../lib/Tooltip';
+import { Slicestring } from '../../../lib/Slicestring';
+
+
+function formatDate(dateString) {
+  if (!dateString) return "N/A";
+
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const year = date.getFullYear();
+
+  // Add ordinal suffix (1st, 2nd, 3rd, etc.)
+  const suffix =
+    day % 10 === 1 && day !== 11
+      ? "st"
+      : day % 10 === 2 && day !== 12
+      ? "nd"
+      : day % 10 === 3 && day !== 13
+      ? "rd"
+      : "th";
+
+  return `${day}${suffix} ${month} ${year}`;
+}
+
+function formatDueDate(dateString) {
+  const date = new Date(dateString);
+
+  // Day name (e.g., Wednesday)
+  const weekday = date.toLocaleDateString("en-GB", { weekday: "long" });
+
+  // Day number + ordinal suffix (1st, 2nd, 3rd, 4th...)
+  const day = date.getDate();
+  const suffix =
+    day % 10 === 1 && day !== 11
+      ? "st"
+      : day % 10 === 2 && day !== 12
+        ? "nd"
+        : day % 10 === 3 && day !== 13
+          ? "rd"
+          : "th";
+
+  // Month and Year
+  const month = date.toLocaleDateString("en-GB", { month: "long" });
+  const year = date.getFullYear();
+
+  return `${weekday}, ${day}${suffix} ${month} ${year}`;
+}
+
+
 
 const CampaignDetailPage = () => {
 
 
-const {campaignId} = useParams()
+  const { campaignId } = useParams()
 
-// console.log(campaignId,"campaignId")
+  // console.log(campaignId,"campaignId")
 
   const [campaign, setCamapign] = useState([])
-
+  const [volumes, setVolumes] = useState([]);
+  const [filesInfo, setFilesInfo] = useState([]);
+  const [updates, setUpdates] = useState([]);
+  const [content, setContent] = useState([]);
 
   useEffect(() => {
     fetchData()
   }, [])
+
+
 
 
 
@@ -32,6 +86,11 @@ const {campaignId} = useParams()
 
     console.log(response.data, "campaign")
     setCamapign(response.data)
+    setVolumes(response.data.volumes);
+    setContent(response.data.content);
+    setFilesInfo(response.data.filesInfo);
+    setContent(response.data.content)
+    setUpdates(response.data.updates)
   }
 
 
@@ -165,19 +224,19 @@ const {campaignId} = useParams()
           </Link>
 
           <span className="font-medium text-gray-700 dark:text-gray-300">
-            slack ph/26563174060
+            {campaign.name}
           </span>
         </div>
       </div>
 
       <div className="px-4 lg:px-0">
         <h2 className="text-xl font-normal mb-2 text-gray-900 dark:text-white">
-          Slack | Double Touch | NAM/26563174060
+          {campaign?.name}
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Total Leads:
           <span className="font-semibold text-gray-700 dark:text-gray-300">
-            1091
+            {campaign?.leadgoal}
           </span>
         </p>
       </div>
@@ -191,12 +250,10 @@ const {campaignId} = useParams()
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
             Lead Totals
           </h4>
-          <div className="grid grid-cols-2 md:grid-cols-5 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm  dark:bg-gray-800 justify-center  ">
+          <div className="grid grid-cols-2 md:grid-cols-3 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm  dark:bg-gray-800 justify-center  ">
             {[
-              { label: 'SUBMITTED', value: 191 },
               { label: 'PENDING REVIEW', value: 0 },
-              { label: 'ACCEPTED', value: 79 },
-              { label: 'UPLOAD ERRORS', value: 10 },
+              { label: 'ACCEPTED', value: campaign?.completed },
               { label: 'REJECTIONS', value: 99 },
             ].map((item) => (
               <div
@@ -218,10 +275,7 @@ const {campaignId} = useParams()
             Delivery Schedule
           </h4>
           <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4">
-            {[
-              'Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25',
-              'Slack | FY25Q3 Central EMEA (Germany/Switzerland) | NAM/26563174060 EP25',
-            ].map((delivery, i) => (
+            {volumes?.map((delivery, i) => (
               <div
                 key={i}
                 className="border-b border-gray-200 dark:border-gray-700 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4"
@@ -231,7 +285,7 @@ const {campaignId} = useParams()
                     <AppTooltip message={delivery}>
                       <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
                         {/* {task.program} */}
-                        {Slicestring(delivery, 1, 25)}
+                        {Slicestring(delivery.name, 1, 25)}
                         {delivery.length > 25 && '...'}
                       </p>
                     </AppTooltip>
@@ -242,23 +296,23 @@ const {campaignId} = useParams()
                         VALID
                       </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
-                        191
+                        {delivery.completed}
                       </p>
                     </div>
-                    <div className="border-r border-gray-200 dark:border-gray-700 px-2">
+                    {/* <div className="border-r border-gray-200 dark:border-gray-700 px-2">
                       <p className="text-gray-500 dark:text-gray-400 text-xs">
                         INVALID
                       </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
                         0
                       </p>
-                    </div>
+                    </div> */}
                     <div className="border-r border-gray-200 dark:border-gray-700 px-2">
                       <p className="text-gray-500 dark:text-gray-400 text-xs">
                         PENDING
                       </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
-                        454
+                        {delivery.pending}
                       </p>
                     </div>
                     <div className="border-r border-gray-200 dark:border-gray-700 px-2">
@@ -266,7 +320,7 @@ const {campaignId} = useParams()
                         TOTAL
                       </p>
                       <p className="font-semibold text-gray-900 dark:text-white">
-                        5411
+                        {delivery.leadGoal}
                       </p>
                     </div>
                   </div>
@@ -284,53 +338,58 @@ const {campaignId} = useParams()
           </h4>
           <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6">
             <ul className="space-y-3 text-sm">
-              {files.map((f, i) => (
+              {filesInfo.map((f, i) => (
                 <li
-                  key={i}
+                  key={f.id || i}
                   className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
                 >
-                  <span className="text-gray-900 dark:text-white mb-2 sm:mb-0 break-all">
-                    {f}
-                  </span>
-                  <button className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-2 justify-end">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                    <span className="text-gray-900 dark:text-white break-all">{f.name}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-300">{f.date}</span>
+                  </div>
+
+                  <a
+                    href={f.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-2 justify-end mt-2 sm:mt-0"
+                  >
                     <Download size={16} /> Download
-                  </button>
+                  </a>
                 </li>
               ))}
+
             </ul>
           </div>
 
           {/* Content Section */}
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-            Content (5)
+            Content ({content.reduce((sum, cat) => sum + cat.content.length, 0)})
           </h4>
-          <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4 text-sm">
-            <div>
-              <p className="font-medium text-gray-900 dark:text-white">
-                Central EMEA:-
-              </p>
-              <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
-                <li>Mit Slack ineffektive Meetings zu ersetzen</li>
-                <li>Was ist Slack?</li>
-              </ol>
-            </div>
-            <div>
-              <p className="font-medium text-gray-900 dark:text-white mt-4">
-                North EMEA:-
-              </p>
-              <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
-                <li>
-                  IDC MarketScape Worldwide Team Collaboration Applications 2024
-                  Vendor Assessment
-                </li>
-                <li>
-                  Slack City Tour: The Future of Human-Centric, Agent-Powered
-                  Work Is Here
-                </li>
-                <li>What is Slack?</li>
-              </ol>
-            </div>
+
+          <div className="dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4 text-sm">
+            {content.map((category) => (
+              <div key={category.categoryName}>
+                {/* Category Name */}
+                <p className="font-medium text-gray-900 dark:text-white">
+                  {category.categoryName}:-
+                </p>
+
+                {/* Content List */}
+                <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
+                  {category.content.map((item) => (
+                    <li key={item.id}>
+                      {item.title}
+                      <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                        ({item.type} | {item.optinType}  |   Approved: {item.approveDate ? formatDate(item.approveDate) : "N/A"})
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
           </div>
+
 
           {/* Additional Info */}
           <h4 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -500,7 +559,7 @@ const {campaignId} = useParams()
                 Program Status
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
-                <CirclePause size={16} strokeWidth={0.5} /> Paused
+                <CirclePause size={16} strokeWidth={0.5} /> {campaign.status}
               </p>
             </div>
 
@@ -508,19 +567,21 @@ const {campaignId} = useParams()
               <h3 className="font-semibold text-gray-800 dark:text-white">
                 Lead Volumes
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Central EMEA: 546
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                North EMEA: 545
-              </p>
+              {volumes.map((v) => (
+                <p
+                  key={v.name}
+                  className="text-sm text-gray-600 dark:text-gray-400 mt-1 first:mt-0"
+                >
+                  {v.name}: {v.leadGoal}
+                </p>
+              ))}
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 dark:text-white">
                 Program Type
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Double Touch
+                Double Touch // example
               </p>
             </div>
             <div>
@@ -528,7 +589,7 @@ const {campaignId} = useParams()
                 First Upload
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Wednesday, 27th August 2025
+                Wednesday, 27th August 2025 // example
               </p>
             </div>
             <div>
@@ -536,7 +597,7 @@ const {campaignId} = useParams()
                 Deadline
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Wednesday, 12th November 2025
+                {formatDueDate(campaign.duedate)}
               </p>
             </div>
             <div>
@@ -544,7 +605,7 @@ const {campaignId} = useParams()
                 Weekly Upload Day
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Tuesday & Thursday
+                Tuesday & Thursday // example
               </p>
             </div>
             <div>
@@ -552,14 +613,14 @@ const {campaignId} = useParams()
                 Pacing
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                23 leads per split, per upload
+                23 leads per split, per upload //example
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-gray-800 dark:text-white">
-                CPC
+                CPC 
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">7</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">7 // example</p>
             </div>
           </div>
 
@@ -569,8 +630,8 @@ const {campaignId} = useParams()
             </h3>
 
             <div>
-              {activities.map((item, index) => (
-                <div key={index} className="flex gap-x-3">
+              {updates?.map((item, index) => (
+                <div key={item.id || index} className="flex gap-x-3">
                   {/* Timeline Dot + Line */}
                   <div className="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-gray-600">
                     <div className="relative z-10 size-7 flex justify-center items-center">
@@ -584,8 +645,13 @@ const {campaignId} = useParams()
                       {item.date}
                     </h3>
                     <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
-                      {item.message}
+                      {item.title}
                     </p>
+                    {item.description && (
+                      <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

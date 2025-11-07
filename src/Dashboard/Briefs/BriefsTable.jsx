@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Clock, Download, FileText, Globe, Watch } from 'lucide-react';
 import AppTooltip from '../../lib/Tooltip';
-import { Slicestring } from '../../lib/slicestring';
+
 import {
   motion,
   useAnimate,
@@ -9,6 +9,7 @@ import {
   useMotionValue,
 } from 'framer-motion';
 import useMeasure from 'react-use-measure';
+import { Slicestring } from '../../lib/Slicestring';
 
 const tableData = [
   {
