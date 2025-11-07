@@ -66,6 +66,8 @@ const CampaignDetailPage = ({ campaignId }) => {
   const [filesInfo, setFilesInfo] = useState([]);
   const [updates, setUpdates] = useState([]);
   const [content, setContent] = useState([]);
+  const [campaignDeliveries, setCamapignDeliveries] = useState([]);
+
   //   const [openPacings, setOpenPacings] = useState(false);
   const [selectedVolumeId, setSelectedVolumeId] = useState(null);
   useEffect(() => {
@@ -85,6 +87,8 @@ const CampaignDetailPage = ({ campaignId }) => {
     setFilesInfo(response.data.filesInfo);
     setContent(response.data.content);
     setUpdates(response.data.updates);
+    console.log(response.data.campaignDeliveries)
+    setCamapignDeliveries(response.data.campaignDeliveries)
   };
 
   const [files] = useState([
@@ -452,9 +456,12 @@ const CampaignDetailPage = ({ campaignId }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {uploads.map((u, i) => (
+                 
+
+
+                    {campaignDeliveries?.map((u) => (
                       <tr
-                        key={i}
+                        key={u.id}
                         className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                       >
                         <td className="p-3">
@@ -462,12 +469,12 @@ const CampaignDetailPage = ({ campaignId }) => {
                             <AppTooltip message={u.name}>
                               <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
                                 {/* {task.program} */}
-                                {Slicestring(u.name, 1, 25)}
-                                {u.name.length > 25 && '...'}
+                                {Slicestring(u.fileName, 1, 25)}
+                                {u.fileName.length > 25 && '...'}
                               </p>
                             </AppTooltip>
                             <span className="text-gray-500 dark:text-gray-400 text-xs mt-1">
-                              {u.time}
+                              {u.date}
                             </span>
                           </div>
                         </td>
