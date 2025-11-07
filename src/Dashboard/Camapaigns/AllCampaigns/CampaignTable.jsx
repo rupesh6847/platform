@@ -13,23 +13,33 @@ import { Slicestring } from '../../../lib/Slicestring';
 
 export default function CampaignTable() {
   const [allCampaigns, setAllCamapigns] = useState([]);
-
+  const [filter, setFilter] = useState("All")
   useEffect(() => {
+    console.log(filter, 'filter changed')
     fetchData();
-  }, []);
-// `${
-//             import.meta.env.VITE_BASE_URL
-//           }/leads/unassigned/pacing/${pacingId}`
+  }, [filter]);
+
+
+  // `${
+  //             import.meta.env.VITE_BASE_URL
+  //           }/leads/unassigned/pacing/${pacingId}`
   const fetchData = async () => {
-    const res = await fetch('http://192.168.29.121:3000/campaigns');
+    const res = await fetch(`http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filter)}`);
     const response = await res.json();
 
     console.log(response.data, 'allCampaigns');
     setAllCamapigns(response.data);
   };
 
-  // useEffect(()=>{
 
+
+  const filterChange=(f)=>{
+    console.log(f,'filter changed')
+    setFilter(f)
+  }
+
+
+  // useEffect(()=>{
   //   fetch("http://localhost:3000/campaigns").then((res)=>{
   //     const data = req.json().then((res) =>{
   //       setAllCamapigns(res.data)
@@ -61,7 +71,8 @@ export default function CampaignTable() {
               ].map((header) => (
                 <th
                   key={header}
-                  className="p-2 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap"
+                  className="p-2 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap cursor-pointer"
+                  onClick={() => filterChange(header)}
                 >
                   <AppTooltip message={header}>
                     <span>{header}</span>
