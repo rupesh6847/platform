@@ -11,12 +11,12 @@ import Process from './Dashboard/Process';
 import BriefsPage from './Dashboard/Briefs';
 import CampaignsPage from './Dashboard/Camapaigns/AllCampaigns';
 import CampaignLayout from './Dashboard/Camapaigns/AllCampaigns/CampaignLayout';
-import CampaignDetailPage from './Dashboard/Camapaigns/CampaignDetailPage';
 import Signin from './Dashboard/auth/Signin';
 import CheckUpdate from './Dashboard/CheckUpdate';
 
 import HomeLayout from './Dashboard/Home/HomeLayout';
 import Task from './Dashboard/Home/Tasks';
+import CamapignDetail from './Dashboard/Camapaigns/CampaignDetailPage';
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
 
             <Route path="campaigns" element={<CampaignsPage />}>
               <Route index element={<CampaignLayout />} />
-              <Route path=":campaignId" element={<CampaignDetailPage />} />
+              <Route path=":campaignId" element={<CamapignDetail />} />
             </Route>
 
             <Route path="/briefs" element={<BriefsPage />} />
