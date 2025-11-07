@@ -7,32 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/table';
-
 import AppTooltip from '../../lib/Tooltip';
 import { Slicestring } from '../../lib/Slicestring';
-
-const tableData = [
-  {
-    id: 1,
-    program: 'Legrand Cabinets & Containment | Q4 Campaign',
-    type: 'Campaign',
-    assignedto: 'You & Rahul',
-    level: 'urgent',
-    remark: '35 leads by 5.00 PM (IST)',
-    progress: 'Not Started',
-  },
-  {
-    id: 2,
-    program: '29846592635926',
-    type: 'Brief',
-    assignedto: 'You & Vijay',
-    level: 'Very Urgent',
-    remark: 'Completed by 5.30 PM (IST)',
-    progress: 'Completed',
-  },
-];
+import { fetcher } from '../../lib/Fetcher';
+import useSWR from 'swr';
 
 export default function TodayTasks() {
+  const { data, error } = useSWR(
+    `http://192.168.29.121:3000/tasks/user-tasks?userId=3`,
+    fetcher
+  );
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
   return (
     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-4 pb-3 pt-4 dark:border-gray-800 dark:bg-white/3 sm:px-6">
       {/* === Header === */}
@@ -60,7 +46,7 @@ export default function TodayTasks() {
               {[
                 'Task',
                 'Type',
-                'Assign To',
+                'Assign By',
                 'Level',
                 'Remark',
                 'Progress',
@@ -78,29 +64,26 @@ export default function TodayTasks() {
           </TableHeader>
 
           <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {tableData.map((task) => (
+            {data?.data?.map((task) => (
               <TableRow key={task.id}>
                 <TableCell className="py-3 w-[250px] max-w-[250px] text-gray-700 text-xs dark:text-gray-300 truncate">
-                  <AppTooltip message={task.program}>
+                  <AppTooltip message={task.name}>
                     <div className="truncate cursor-pointer text-sm font-medium text-zinc-800 dark:text-gray-200">
-                      {Slicestring(task.program, 1, 25)}
-                      {task.program.length > 25 && '...'}
+                      {Slicestring(task.name, 1, 25)}
+                      {task.name.length > 25 && '...'}
                     </div>
                   </AppTooltip>
                 </TableCell>
-
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
                   {task.type}
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
-                  {task.assignedto}
+                  {task.assignedBy}
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
                   <StatusBadge status={task.level} />
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
-                  {/* {task.remark} */}
-
                   <AppTooltip message={task.remark}>
                     <div className="truncate cursor-pointer text-sm font-medium text-zinc-800 dark:text-gray-200">
                       {Slicestring(task.remark, 1, 25)}
@@ -109,11 +92,11 @@ export default function TodayTasks() {
                   </AppTooltip>
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
-                  {task.progress}
+                  {task.status}
                 </TableCell>
                 <TableCell className="py-3 text-gray-500 text-xs dark:text-gray-400">
                   <Link
-                    to={`/tasks/1`}
+                    to={`/tasks/${task.id}`}
                     className="text-blue-600 hover:underline dark:text-blue-400"
                   >
                     Work

@@ -9,8 +9,9 @@ import {
 import { Link, useParams } from 'react-router-dom';
 
 import AppTooltip from '../../../lib/Tooltip';
-import { Slicestring } from '../../../lib/Slicestring';
+
 import Pacings from './Pacings/Pacings';
+import { Slicestring } from '../../../lib/Slicestring';
 
 function formatDate(dateString) {
   if (!dateString) return 'N/A';
@@ -105,14 +106,13 @@ const CampaignDetailPage = ({ campaignId }) => {
     },
   ];
 
-
- 
-
   if (selectedVolumeId) {
     return (
       <Pacings
         volumeId={selectedVolumeId}
-        onBack={(()=>{setSelectedVolumeId(null)})}
+        onBack={() => {
+          setSelectedVolumeId(null);
+        }}
       />
     );
   }

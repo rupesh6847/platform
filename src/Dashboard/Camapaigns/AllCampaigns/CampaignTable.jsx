@@ -7,95 +7,28 @@ import {
   TableRow,
 } from '../../../components/ui/table';
 import AppTooltip from '../../../lib/Tooltip';
-
 import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
 import { useEffect, useState } from 'react';
 import { Slicestring } from '../../../lib/Slicestring';
 
-// const tableData = [
-//   {
-//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
-//     programType: 'Email Campaign',
-//     reference: 'LPM/NA/16107',
-//     status: 'Active',
-//     total: 75,
-//     accepted: 0,
-//     remaining: 0,
-//     working: 0,
-//     assignTo: 'John Doe',
-//     pocs: 1,
-//     overdueBy: '0 days',
-//   },
-//   {
-//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
-//     programType: 'Email Campaign',
-//     reference: 'LPM/NA/16108',
-//     status: 'Paused',
-//     total: 50,
-//     accepted: 10,
-//     remaining: 20,
-//     working: 5,
-//     assignTo: 'Jane Smith',
-//     pocs: 2,
-//     overdueBy: '2 days',
-//   },
-//   {
-//     program: 'Legrand Cabinets & Containment | Q4 Campaign',
-//     programType: 'Email Campaign',
-//     reference: 'LPM/NA/16109',
-//     status: 'Active',
-//     total: 100,
-//     accepted: 25,
-//     remaining: 60,
-//     working: 10,
-//     assignTo: 'John Doe',
-//     pocs: 1,
-//     overdueBy: '0 days',
-//   },
-// ];
-
 export default function CampaignTable() {
-
-
-
-  const [allCampaigns, setAllCamapigns] = useState([])
-
+  const [allCampaigns, setAllCamapigns] = useState([]);
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
-
-
+    fetchData();
+  }, []);
+// `${
+//             import.meta.env.VITE_BASE_URL
+//           }/leads/unassigned/pacing/${pacingId}`
   const fetchData = async () => {
-    const res = await fetch("http://192.168.29.121:3000/campaigns");
+    const res = await fetch('http://192.168.29.121:3000/campaigns');
     const response = await res.json();
 
-    console.log(response.data, "allCampaigns")
-    setAllCamapigns(response.data)
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    console.log(response.data, 'allCampaigns');
+    setAllCamapigns(response.data);
+  };
 
   // useEffect(()=>{
-
-
-
-
-
-
 
   //   fetch("http://localhost:3000/campaigns").then((res)=>{
   //     const data = req.json().then((res) =>{
@@ -103,11 +36,6 @@ export default function CampaignTable() {
   //     })
   //   })
   // },[])
-
-
-
-
-
 
   return (
     <>
@@ -163,7 +91,9 @@ export default function CampaignTable() {
 
                 <TableCell className="p-2 ">
                   <AppTooltip message={`${row.client.name}/${row.code}`}>
-                    <span>{row.client.name}/{row.code}</span>
+                    <span>
+                      {row.client.name}/{row.code}
+                    </span>
                   </AppTooltip>
                 </TableCell>
 
@@ -175,9 +105,10 @@ export default function CampaignTable() {
                 <TableCell className="p-2 ">{row.completed}</TableCell>
                 <TableCell className="p-2 ">{row.pending}</TableCell>
                 {/* <TableCell className="p-2 ">{row.working}</TableCell> */}
-                <TableCell className="p-2 "> {row.assignTo?.length
-                  ? row.assignTo.join(", ")
-                  : "-"}</TableCell>
+                <TableCell className="p-2 ">
+                  {' '}
+                  {row.assignTo?.length ? row.assignTo.join(', ') : '-'}
+                </TableCell>
                 {/* <TableCell className="p-2 ">{row.pocs}</TableCell> */}
                 <TableCell className="p-2 ">{row.duedate}</TableCell>
 

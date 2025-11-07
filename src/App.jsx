@@ -16,7 +16,8 @@ import CheckUpdate from './Dashboard/CheckUpdate';
 
 import HomeLayout from './Dashboard/Home/HomeLayout';
 import Task from './Dashboard/Home/Tasks';
-import CamapignDetail from './Dashboard/Camapaigns/CampaignDetailPage';
+import CampaignDetail from './Dashboard/Camapaigns/CampaignDetailPage';
+import SinglePacing from './Dashboard/Camapaigns/CampaignDetailPage/Pacings/SinglePacing/SinglePacing';
 
 function App() {
   return (
@@ -34,8 +35,11 @@ function App() {
 
             <Route path="campaigns" element={<CampaignsPage />}>
               <Route index element={<CampaignLayout />} />
-              <Route path=":campaignId" element={<CamapignDetail />} />
+
+              <Route path=":campaignId" element={<CampaignDetail />} />
             </Route>
+
+            {/* <Route path="/demo" element={<SinglePacing />} /> */}
 
             <Route path="/briefs" element={<BriefsPage />} />
             <Route path="/profile" element={<UserProfiles />} />
