@@ -30,7 +30,7 @@ const Pacings = ({ volumeId, onBack }) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/pacings/volume/${volumeId}`
+          `http://localhost:3000/pacings/volume/${volumeId}`
           // { headers: { Authorization: `Bearer ${user.token}` } },
         );
         if (!response.ok) throw new Error('Failed to fetch pacings');

@@ -34,9 +34,7 @@ export default function SinglePacing({ pacingId, onBack }) {
         if (!pacingId) return;
 
         const response = await fetch(
-          `${
-            import.meta.env.VITE_BASE_URL
-          }/volumes/available-validations?pacingId=${pacingId}`
+          `http://localhost:3000/volumes/available-validations?pacingId=${pacingId}`
           //   { headers: { Authorization: `Bearer ${user.token}` } }
         );
 
@@ -66,7 +64,7 @@ export default function SinglePacing({ pacingId, onBack }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/leads/assigned/pacing/${pacingId}`,
+          `http://localhost:3000/leads/assigned/pacing/${pacingId}`,
           {
             // headers: {
             //   Authorization: `Bearer ${user.token}`,
@@ -92,8 +90,8 @@ export default function SinglePacing({ pacingId, onBack }) {
 
   return (
     <>
-      <PageMeta title="SinglePacing" />
-      <PageBreadcrumb pageTitle="SinglePacing" />
+      {/* <PageMeta title="SinglePacing" />
+      <PageBreadcrumb pageTitle="SinglePacing" /> */}
 
       <div className="rounded-2xl border border-gray-200 bg-white p-5">
         {/* BACK */}
