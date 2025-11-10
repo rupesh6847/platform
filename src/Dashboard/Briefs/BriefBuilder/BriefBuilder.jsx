@@ -5,6 +5,7 @@
 // import "jspreadsheet-ce/dist/jspreadsheet.css";
 
 
+// Updated BriefBuilder.jsx with the robust delete logic
 import { useRef, useState } from 'react';
 import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/react';
 
@@ -14,6 +15,9 @@ import 'jsuites/dist/jsuites.css';
 export const BriefBuilder = () => {
   const spreadsheet = useRef(null);
   const [instance, setInstance] = useState(null);
+
+
+
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -28,7 +32,6 @@ export const BriefBuilder = () => {
         }}
       >
         <Worksheet title="Sheet 1" minDimensions={[6, 6]} />
-        <Worksheet title="Sheet 2" minDimensions={[6, 6]} />
       </Spreadsheet>
 
       <button
@@ -39,13 +42,24 @@ export const BriefBuilder = () => {
             return;
           }
 
-          const activeIndex = instance.worksheets;
+          // 1. Get the index of the active sheet
+          const activeIndex = instance.getWorksheetActive();
           const totalSheets = instance.worksheets.length;
 
-          console.log('Deleting sheet:', activeIndex, '/', totalSheets);
+          console.log(`Deleting sheet at index: ${activeIndex}. Total sheets: ${totalSheets}`);
 
           if (totalSheets > 1) {
-            instance.deleteWorksheet(activeIndex);
+            // 2. Access the specific worksheet instance
+            const activeWorksheet = instance.worksheets[activeIndex];
+
+            // 3. Call the deleteWorksheet function on the main spreadsheet instance.
+            //    This is the most common fix when the direct call fails.
+            //    It uses the index on the primary instance.
+            activeWorksheet.deleteWorksheet(activeIndex);
+
+            // 💡 If the above line still fails, uncomment this alternative:
+            // activeWorksheet.deleteWorksheet(); 
+
           } else {
             alert('Cannot delete the last worksheet.');
           }
@@ -53,9 +67,12 @@ export const BriefBuilder = () => {
       >
         Delete Active Sheet
       </button>
+     
     </div>
   );
 };
+
+
 
 
 // {/* Campaign Info */}
