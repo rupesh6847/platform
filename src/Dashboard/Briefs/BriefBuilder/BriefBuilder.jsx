@@ -4,7 +4,6 @@
 // import "jsuites/dist/jsuites.css";
 // import "jspreadsheet-ce/dist/jspreadsheet.css";
 
-
 // Updated BriefBuilder.jsx with the robust delete logic
 import { useRef, useState } from 'react';
 import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/react';
@@ -15,9 +14,6 @@ import 'jsuites/dist/jsuites.css';
 export const BriefBuilder = () => {
   const spreadsheet = useRef(null);
   const [instance, setInstance] = useState(null);
-
-
-
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -46,7 +42,9 @@ export const BriefBuilder = () => {
           const activeIndex = instance.getWorksheetActive();
           const totalSheets = instance.worksheets.length;
 
-          console.log(`Deleting sheet at index: ${activeIndex}. Total sheets: ${totalSheets}`);
+          console.log(
+            `Deleting sheet at index: ${activeIndex}. Total sheets: ${totalSheets}`
+          );
 
           if (totalSheets > 1) {
             // 2. Access the specific worksheet instance
@@ -58,8 +56,7 @@ export const BriefBuilder = () => {
             activeWorksheet.deleteWorksheet(activeIndex);
 
             // 💡 If the above line still fails, uncomment this alternative:
-            // activeWorksheet.deleteWorksheet(); 
-
+            // activeWorksheet.deleteWorksheet();
           } else {
             alert('Cannot delete the last worksheet.');
           }
@@ -67,13 +64,9 @@ export const BriefBuilder = () => {
       >
         Delete Active Sheet
       </button>
-     
     </div>
   );
 };
-
-
-
 
 // {/* Campaign Info */}
 // <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

@@ -432,11 +432,13 @@
 // };
 
 // export default CampaignBuilder;
-import { useState, useCallback, useRef } from 'react';
+import { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Select from 'react-select';
 import { toast } from 'react-hot-toast';
+import { useDropboxUpload } from '../../../../hooks/useDropboxUpload';
+import { Content } from './Content';
 
 const dayOptions = [
   { value: 'Monday', label: 'Monday' },
@@ -453,211 +455,6 @@ const clients = [
   { value: 'PH', label: 'PH' },
   { value: 'LPM', label: 'LPM' },
 ];
-
-// Dropbox upload hook
-const useDropboxUpload = () => {
-  const [uploadProgress, setUploadProgress] = useState({});
-  const [isUploading, setIsUploading] = useState(false);
-
-  const refreshAccessToken = async () => {
-    const params = new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token:
-        'Ff0cBVnofU4AAAAAAAAAAUdSbY-ni54OXM66OQFPtLTK5jTvh4IhZ_MzY76WpMOI',
-      client_id: '7vv35hpzk53zf9e',
-      client_secret: 'b37u7y698fad99s',
-    });
-
-    const response = await fetch('https://api.dropbox.com/oauth2/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params,
-    });
-
-    if (!response.ok) throw new Error('Failed to refresh token');
-    return (await response.json()).access_token;
-  };
-
-  const uploadFileToDropbox = useCallback(
-    async (file, folderPath, onProgress) => {
-      try {
-        const token = await refreshAccessToken();
-
-        // Convert file to array buffer
-        const arrayBuffer = await file.arrayBuffer();
-
-        const path = `${folderPath}/${file.name}`;
-
-        const response = await fetch(
-          'https://content.dropboxapi.com/2/files/upload',
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/octet-stream',
-              'Dropbox-API-Arg': JSON.stringify({
-                path: path,
-                mode: 'add',
-                autorename: true,
-                mute: false,
-              }),
-            },
-            body: arrayBuffer,
-          }
-        );
-
-        if (!response.ok) throw new Error('Upload failed');
-
-        const result = await response.json();
-
-        // Create shared link
-        const shareResponse = await fetch(
-          'https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings',
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              path: result.path_lower,
-              settings: {
-                requested_visibility: 'public',
-              },
-            }),
-          }
-        );
-
-        let shareLink;
-        if (shareResponse.ok) {
-          const shareResult = await shareResponse.json();
-          shareLink = shareResult.url.replace('dl=0', 'raw=1');
-        } else {
-          // Try to get existing link
-          const listResponse = await fetch(
-            'https://api.dropboxapi.com/2/sharing/list_shared_links',
-            {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                path: result.path_lower,
-                direct_only: true,
-              }),
-            }
-          );
-
-          if (listResponse.ok) {
-            const listResult = await listResponse.json();
-            shareLink = listResult.links[0]?.url.replace('dl=0', 'raw=1');
-          }
-        }
-
-        return {
-          name: file.name,
-          link:
-            shareLink ||
-            `https://www.dropbox.com/scl/fi/${result.id}?rlkey=download&raw=1`,
-          date: new Date().toISOString(),
-          size: file.size,
-          type: file.type,
-        };
-      } catch (error) {
-        console.error('Upload error:', error);
-        throw error;
-      }
-    },
-    []
-  );
-
-  const createFolder = useCallback(async (folderPath) => {
-    try {
-      const token = await refreshAccessToken();
-
-      const response = await fetch(
-        'https://api.dropboxapi.com/2/files/create_folder_v2',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            path: folderPath,
-            autorename: false,
-          }),
-        }
-      );
-
-      // If folder already exists (409), that's fine
-      if (!response.ok && response.status !== 409) {
-        throw new Error('Failed to create folder');
-      }
-
-      return true;
-    } catch (error) {
-      console.error('Folder creation error:', error);
-      throw error;
-    }
-  }, []);
-
-  const uploadFiles = useCallback(
-    async (files, folderName) => {
-      if (!files || files.length === 0) return [];
-
-      setIsUploading(true);
-      setUploadProgress({});
-
-      const folderPath = `/${folderName}`;
-
-      try {
-        // Create folder first
-        await createFolder(folderPath);
-
-        const uploadPromises = files.map(async (file, index) => {
-          try {
-            const result = await uploadFileToDropbox(
-              file,
-              folderPath,
-              (progress) => {
-                setUploadProgress((prev) => ({
-                  ...prev,
-                  [file.name]: progress,
-                }));
-              }
-            );
-
-            setUploadProgress((prev) => ({
-              ...prev,
-              [file.name]: 100,
-            }));
-
-            return result;
-          } catch (error) {
-            console.error(`Failed to upload ${file.name}:`, error);
-            throw error;
-          }
-        });
-
-        const results = await Promise.all(uploadPromises);
-        setIsUploading(false);
-        return results;
-      } catch (error) {
-        setIsUploading(false);
-        throw error;
-      }
-    },
-    [createFolder, uploadFileToDropbox]
-  );
-
-  return {
-    uploadFiles,
-    uploadProgress,
-    isUploading,
-  };
-};
 
 const CampaignBuilder = () => {
   const [campaign, setCampaign] = useState({
@@ -678,6 +475,7 @@ const CampaignBuilder = () => {
     Files: [],
     DescriptionOfFilesAttached: '',
   });
+  const [content, setContent] = useState([{ category: '', titles: [''] }])
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -866,6 +664,21 @@ const CampaignBuilder = () => {
     return '📎';
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
       <h2 className="text-xl font-semibold mb-6">Campaign Builder</h2>
@@ -928,7 +741,6 @@ const CampaignBuilder = () => {
             />
           </div>
         </div>
-
         {/* Dates */}
         <div className="grid grid-cols-2 gap-4">
           <label className="text-sm">
@@ -950,7 +762,6 @@ const CampaignBuilder = () => {
             />
           </label>
         </div>
-
         {/* Weekly Upload Days */}
         <div>
           <label className="text-sm font-medium">Weekly Upload Days</label>
@@ -972,7 +783,6 @@ const CampaignBuilder = () => {
             }
           />
         </div>
-
         {/* Volumes */}
         <div>
           <div className="flex justify-between items-center">
@@ -1012,8 +822,7 @@ const CampaignBuilder = () => {
           ))}
         </div>
 
-        {/* Content */}
-        <div>
+        {/* <div>
           <div className="flex justify-between items-center">
             <h3 className="font-medium">Content</h3>
             <button
@@ -1024,6 +833,7 @@ const CampaignBuilder = () => {
               + Add
             </button>
           </div>
+
           {campaign.Content.map((c, i) => (
             <div key={i} className="border p-3 rounded mt-2 space-y-2">
               <input
@@ -1034,6 +844,7 @@ const CampaignBuilder = () => {
                   handleContentChange(i, 'category', e.target.value)
                 }
               />
+
               {c.titles.map((t, ti) => (
                 <div key={ti} className="flex gap-2">
                   <input
@@ -1053,6 +864,7 @@ const CampaignBuilder = () => {
                   )}
                 </div>
               ))}
+
               <button
                 type="button"
                 onClick={() => addTitle(i)}
@@ -1060,6 +872,7 @@ const CampaignBuilder = () => {
               >
                 + Add Title
               </button>
+
               {i > 0 && (
                 <button
                   type="button"
@@ -1072,6 +885,60 @@ const CampaignBuilder = () => {
             </div>
           ))}
         </div>
+        Example Format:-
+        <div className="border rounded p-4 bg-gray-600 text-white overflow-auto">
+          <table className="w-full border-collapse">
+            
+            <thead>
+              <tr className="border-b">
+                <th className="text-left p-2 border-r">TITLE</th>
+                <th className="text-left p-2 border-r">TYPE</th>
+                <th className="text-left p-2 border-r">APPROVEDATE</th>
+                <th className="text-left p-2 border-r">OPTINTYPE</th>
+                <th className="text-left p-2">CATEGORY</th>
+              </tr>
+            </thead>
+
+       
+            <tbody>
+              <tr className="border-b">
+                <td className="p-2 border-r">
+                  Shifting Data Attitudes: The 10th Annual Dun & Bradstreet B2B
+                  Data Report
+                </td>
+                <td className="p-2 border-r">whitepaper</td>
+                <td className="p-2 border-r">2025-10-01</td>
+                <td className="p-2 border-r">single</td>
+                <td className="p-2">Global</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={handleCSVUpload}
+            class="w-full text-slate-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
+          />
+        </div> */}
+
+
+
+
+
+
+
+<div>
+  <Content  content={ content} setContent={setContent}  />
+</div>
+
+
+
+
+
+
 
         {/* Files Upload Section */}
         <div>
@@ -1160,6 +1027,21 @@ const CampaignBuilder = () => {
             </div>
           )}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* Already Uploaded Files */}
           {campaign.Files.length > 0 && (
             <div className="mt-4 space-y-2">
@@ -1186,7 +1068,6 @@ const CampaignBuilder = () => {
             </div>
           )}
         </div>
-
         {/* Additional Information */}
         <div>
           <h3 className="font-medium mb-2">Additional Information</h3>
@@ -1198,7 +1079,6 @@ const CampaignBuilder = () => {
             placeholder="Type or paste formatted content..."
           />
         </div>
-
         <div>
           <h3 className="font-medium">Description of Files Attached</h3>
           <ReactQuill
@@ -1211,7 +1091,6 @@ const CampaignBuilder = () => {
             placeholder="Type or paste formatted content..."
           />
         </div>
-
         {/* Submit Button */}
         <button
           type="submit"

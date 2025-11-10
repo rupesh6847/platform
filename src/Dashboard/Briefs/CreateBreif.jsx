@@ -1,53 +1,53 @@
-import React, { useState } from "react";
-import Spreadsheet from "react-spreadsheet";
-import axios from "axios";
+import React, { useState } from 'react';
+import Spreadsheet from 'react-spreadsheet';
+import axios from 'axios';
 
 export default function BriefCreator() {
   const [campaignInfo, setCampaignInfo] = useState({
-    name: "LeadGen Campaign 2025",
-    arrivedOn: "2025-11-07",
-    due: "2025-11-14",
-    status: "New",
-    type: "LEADGEN",
-    remark: "Test campaign for Q4 leads",
-    briefHyperlink: "https://example.com/brief",
+    name: 'LeadGen Campaign 2025',
+    arrivedOn: '2025-11-07',
+    due: '2025-11-14',
+    status: 'New',
+    type: 'LEADGEN',
+    remark: 'Test campaign for Q4 leads',
+    briefHyperlink: 'https://example.com/brief',
   });
 
   const [leadSheet, setLeadSheet] = useState([
     [
-      { value: "ST" },
-      { value: "ST+ PQ" },
-      { value: "ST+ QQ" },
-      { value: "BANT" },
-      { value: "DT" },
-      { value: "DT+ PQ" },
-      { value: "DT+ QQ" },
+      { value: 'ST' },
+      { value: 'ST+ PQ' },
+      { value: 'ST+ QQ' },
+      { value: 'BANT' },
+      { value: 'DT' },
+      { value: 'DT+ PQ' },
+      { value: 'DT+ QQ' },
     ],
     [
-      { value: "100" },
-      { value: "80" },
-      { value: "60" },
-      { value: "40" },
-      { value: "120" },
-      { value: "90" },
-      { value: "50" },
+      { value: '100' },
+      { value: '80' },
+      { value: '60' },
+      { value: '40' },
+      { value: '120' },
+      { value: '90' },
+      { value: '50' },
     ],
   ]);
 
   const [quoteSheet, setQuoteSheet] = useState([
     [
-      { value: "quotedOn" },
-      { value: "volume" },
-      { value: "remark" },
-      { value: "ST" },
-      { value: "DT" },
+      { value: 'quotedOn' },
+      { value: 'volume' },
+      { value: 'remark' },
+      { value: 'ST' },
+      { value: 'DT' },
     ],
     [
-      { value: "2025-11-06" },
-      { value: "5000" },
-      { value: "Initial quote" },
-      { value: "2000" },
-      { value: "3000" },
+      { value: '2025-11-06' },
+      { value: '5000' },
+      { value: 'Initial quote' },
+      { value: '2000' },
+      { value: '3000' },
     ],
   ]);
 
@@ -72,12 +72,12 @@ export default function BriefCreator() {
       const quote = {};
       const leadCounts = {};
       headers.forEach((key, i) => {
-        const val = row[i]?.value?.trim?.() || "";
-        if (["quotedOn", "volume", "remark"].includes(key)) {
-          if (key === "volume") quote[key] = Number(val) || 0;
-          else if (key === "quotedOn") quote[key] = new Date(val).toISOString();
+        const val = row[i]?.value?.trim?.() || '';
+        if (['quotedOn', 'volume', 'remark'].includes(key)) {
+          if (key === 'volume') quote[key] = Number(val) || 0;
+          else if (key === 'quotedOn') quote[key] = new Date(val).toISOString();
           else quote[key] = val;
-        } else if (val !== "") {
+        } else if (val !== '') {
           leadCounts[key] = Number(val) || 0;
         }
       });
@@ -90,16 +90,16 @@ export default function BriefCreator() {
   const handleGenerateJSON = () => {
     const leadDetails = [
       {
-        clientCode: "C1234",
-        priority: "High",
-        assignedTo: ["Sales Team A"],
-        regions: ["North America"],
-        audiences: ["B2B", "IT Managers"],
-        leadType: "Qualified",
-        qualifiers: { budget: "Confirmed" },
-        profilers: "Email Outreach",
+        clientCode: 'C1234',
+        priority: 'High',
+        assignedTo: ['Sales Team A'],
+        regions: ['North America'],
+        audiences: ['B2B', 'IT Managers'],
+        leadType: 'Qualified',
+        qualifiers: { budget: 'Confirmed' },
+        profilers: 'Email Outreach',
         deadline: campaignInfo.due,
-        fileAttached: "brief_v1.pdf",
+        fileAttached: 'brief_v1.pdf',
         leadCountDetails: buildLeadCountDetails(leadSheet),
       },
     ];
@@ -119,27 +119,27 @@ export default function BriefCreator() {
 
   const handleSubmit = async () => {
     if (!Object.keys(payload).length)
-      return alert("⚠️ Please generate JSON first");
+      return alert('⚠️ Please generate JSON first');
     setLoading(true);
     try {
-      await axios.post("http://localhost:3000/briefs", payload);
-      alert("✅ Brief created successfully!");
+      await axios.post('http://localhost:3000/briefs', payload);
+      alert('✅ Brief created successfully!');
       setPayload({});
     } catch (err) {
       console.error(err);
-      alert("❌ Error creating brief");
+      alert('❌ Error creating brief');
     } finally {
       setLoading(false);
     }
   };
 
   const addColumn = (sheetSetter, sheetData) => {
-    const newHeader = prompt("Enter new column name:");
+    const newHeader = prompt('Enter new column name:');
     if (!newHeader) return;
     const updated = [...sheetData];
     updated[0] = [...updated[0], { value: newHeader }];
     for (let i = 1; i < updated.length; i++) {
-      updated[i] = [...updated[i], { value: "" }];
+      updated[i] = [...updated[i], { value: '' }];
     }
     sheetSetter(updated);
   };
@@ -165,13 +165,13 @@ export default function BriefCreator() {
               </label>
               <input
                 type={
-                  key.toLowerCase().includes("on") || key === "due"
-                    ? "date"
-                    : "text"
+                  key.toLowerCase().includes('on') || key === 'due'
+                    ? 'date'
+                    : 'text'
                 }
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
                 value={
-                  key.toLowerCase().includes("on") || key === "due"
+                  key.toLowerCase().includes('on') || key === 'due'
                     ? campaignInfo[key].slice(0, 10)
                     : campaignInfo[key]
                 }
@@ -234,10 +234,10 @@ export default function BriefCreator() {
             disabled={loading}
             onClick={handleSubmit}
             className={`px-6 py-2.5 rounded-lg font-medium text-white   ${
-              loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+              loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'
             }`}
           >
-            {loading ? "Submitting..." : "🚀 Submit to API"}
+            {loading ? 'Submitting...' : '🚀 Submit to API'}
           </button>
         </div>
 
