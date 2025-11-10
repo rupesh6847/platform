@@ -174,7 +174,7 @@
 // //         onClick={onClose}
 // //       ></div>
 
-// //       <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-6xl max-h-[95vh] overflow-hidden z-10">
+// //       <div className="relative bg-white dark:bg-gray-900 rounded-xl   w-full max-w-6xl max-h-[95vh] overflow-hidden z-10">
 // //         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
 // //           <div >
 // //             <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
@@ -766,7 +766,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
         onClick={onClose}
       ></div>
 
-      <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-6xl max-h-[95vh] overflow-hidden z-10">
+      <div className="relative bg-white dark:bg-gray-900 rounded-xl   w-full max-w-6xl max-h-[95vh] overflow-hidden z-10">
         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
           <div>
             <h2 className="text-xl font-semibold text-gray-800 dark:text-white">

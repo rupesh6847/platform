@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Coffee, Heart, UserCheck, Users } from 'lucide-react';
+import { Coffee, Heart, Plus, UserCheck, Users } from 'lucide-react';
 import BriefsFilterTableLayout from './BriefsFilterTableLayout';
+import { Drawer } from '../../lib/Drawer';
+import { BriefBuilder } from './BriefBuilder/BriefBuilder';
 
 const stats = [
   {
@@ -47,6 +49,7 @@ const quickActions = [
 
 const BriefsLayout = () => {
   const [activeSection, setActiveSection] = useState('total-briefs');
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleQuickAction = (actionId) => {
     setActiveSection(activeSection === actionId ? null : actionId);
@@ -73,9 +76,30 @@ const BriefsLayout = () => {
         return null;
     }
   };
-
+  const handleCreateBriefClick = () => {
+    setIsDrawerOpen(true);
+  };
   return (
     <div>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Brief Queue
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Here you can explore the status of your Brief with Revknew Media
+          </p>
+        </div>
+
+        <div>
+          <button
+            onClick={handleCreateBriefClick}
+            className="flex items-center gap-2 rounded-lg border p-3 text-xs hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+          >
+            <Plus size={14} /> Create Brief
+          </button>
+        </div>
+      </div>
       {/* Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {stats.map((stat, index) => {
@@ -129,6 +153,13 @@ const BriefsLayout = () => {
 
       {/* Dynamic Section Content */}
       {renderActiveSection()}
+
+      {/* Drawer */}
+      {isDrawerOpen && (
+        <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen}>
+          <BriefBuilder />
+        </Drawer>
+      )}
     </div>
   );
 };

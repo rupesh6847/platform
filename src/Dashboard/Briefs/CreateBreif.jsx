@@ -146,7 +146,7 @@ export default function BriefCreator() {
 
   return (
     <div className="w-full flex justify-center bg-gray-50 min-h-screen py-10">
-      <div className="w-full max-w-6xl bg-white p-8 rounded-2xl shadow-md border border-gray-200 space-y-8">
+      <div className="w-full max-w-6xl bg-white p-8 rounded-2xl  border border-gray-200 space-y-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-800 mb-1">
             📋 Create Lead Brief
@@ -226,14 +226,14 @@ export default function BriefCreator() {
         <div className="flex flex-wrap gap-4">
           <button
             onClick={handleGenerateJSON}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium shadow-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium  "
           >
             ⚙️ Generate JSON
           </button>
           <button
             disabled={loading}
             onClick={handleSubmit}
-            className={`px-6 py-2.5 rounded-lg font-medium text-white shadow-sm ${
+            className={`px-6 py-2.5 rounded-lg font-medium text-white   ${
               loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
             }`}
           >

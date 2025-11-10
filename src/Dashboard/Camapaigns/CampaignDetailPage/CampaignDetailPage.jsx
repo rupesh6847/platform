@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   ChevronRight,
+  CircleCheckBig,
   CirclePause,
   Download,
   Star,
@@ -58,7 +59,7 @@ function formatDueDate(dateString) {
   return `${weekday}, ${day}${suffix} ${month} ${year}`;
 }
 
-const CampaignDetailPage = ({ campaignId }) => {
+const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
   //   const { campaignId } = useParams();
 
   const [campaign, setCamapign] = useState([]);
@@ -87,8 +88,8 @@ const CampaignDetailPage = ({ campaignId }) => {
     setFilesInfo(response.data.filesInfo);
     setContent(response.data.content);
     setUpdates(response.data.updates);
-    console.log(response.data.campaignDeliveries)
-    setCamapignDeliveries(response.data.campaignDeliveries)
+    console.log(response.data.campaignDeliveries);
+    setCamapignDeliveries(response.data.campaignDeliveries);
   };
 
   const [files] = useState([
@@ -168,20 +169,23 @@ const CampaignDetailPage = ({ campaignId }) => {
     <>
       <div className=" dark:bg-gray-900 min-h-screen">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8 p-4 lg:p-0">
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-            <Link
-              to="/campaigns"
-              className="flex items-center text-sm text-gray-500 dark:text-gray-400"
-            >
-              Campaigns <ChevronRight size={20} strokeWidth={1} />
-            </Link>
 
-            <span className="font-medium text-gray-700 dark:text-gray-300">
-              {campaign.name}
-            </span>
+        {PageBreadcrumb && (
+          <div className="flex justify-between items-center mb-8 p-4 lg:p-0">
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              <Link
+                to="/campaigns"
+                className="flex items-center text-sm text-gray-500 dark:text-gray-400"
+              >
+                Campaigns <ChevronRight size={20} strokeWidth={1} />
+              </Link>
+
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                {campaign.name}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="px-4 lg:px-0">
           <h2 className="text-xl font-normal mb-2 text-gray-900 dark:text-white">
@@ -439,7 +443,7 @@ const CampaignDetailPage = ({ campaignId }) => {
 
             {/* Upload Table */}
             <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-             Uploads
+              Uploads
             </h4>
             <div className="rounded-lg border border-gray-200 dark:border-gray-700  dark:bg-gray-800 text-sm p-4 lg:p-6">
               <div className="overflow-x-auto">
@@ -456,9 +460,6 @@ const CampaignDetailPage = ({ campaignId }) => {
                     </tr>
                   </thead>
                   <tbody>
-                 
-
-
                     {campaignDeliveries?.map((u) => (
                       <tr
                         key={u.id}
@@ -479,24 +480,7 @@ const CampaignDetailPage = ({ campaignId }) => {
                           </div>
                         </td>
                         <td className="p-3 text-center text-gray-400">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            x="0px"
-                            y="0px"
-                            width="30"
-                            height="30"
-                            viewBox="0 0 48 48"
-                          >
-                            <path
-                              fill="#00D100"
-                              d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
-                            ></path>
-
-                            <path
-                              fill="#ffffff"
-                              d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z"
-                            ></path>
-                          </svg>
+                          <CircleCheckBig color="#00D100" />
                         </td>
                         <td className="p-3 text-center text-gray-900 dark:text-white">
                           {u.submitted}

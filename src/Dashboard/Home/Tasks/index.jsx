@@ -40,8 +40,8 @@ export default function Task() {
       task.status === 'In Progress'
         ? 'Completed'
         : task.status === 'Completed'
-        ? 'Not Started'
-        : 'In Progress';
+          ? 'Not Started'
+          : 'In Progress';
 
     try {
       const res = await fetch(
@@ -72,7 +72,6 @@ export default function Task() {
       </>
     );
   }
-  
 
   return (
     <>
@@ -140,7 +139,7 @@ export default function Task() {
           {/* Campaign details */}
           {task?.typeId && (
             <div className="col-span-12 xl:col-span-12">
-              <CampaignDetailPage campaignId={task.typeId} />
+              <CampaignDetailPage campaignId={task.typeId}  PageBreadcrumb={false} />
             </div>
           )}
         </div>

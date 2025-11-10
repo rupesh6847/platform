@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import PageBreadcrumb from '../../../../components/common/PageBreadCrumb';
 import PageMeta from '../../../../components/common/PageMeta';
 import { useEffect, useMemo, useState } from 'react';
-import { Calendar, ChartLine } from 'lucide-react';
+import { ArrowLeft, Calendar, ChartLine } from 'lucide-react';
 import SinglePacing from './SinglePacing/SinglePacing';
 
 const PACING_STATUS_MAP = {
@@ -30,7 +30,7 @@ const Pacings = ({ volumeId, onBack }) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:3000/pacings/volume/${volumeId}`
+          `http://192.168.29.121:3000/pacings/volume/${volumeId}`
           // { headers: { Authorization: `Bearer ${user.token}` } },
         );
         if (!response.ok) throw new Error('Failed to fetch pacings');
@@ -46,8 +46,6 @@ const Pacings = ({ volumeId, onBack }) => {
     };
     fetchPacings();
   }, [volumeId]);
-
-
 
   const groupedPacings = useMemo(() => {
     const groups = { Scheduled: [], Active: [], Completed: [] };
@@ -78,11 +76,6 @@ const Pacings = ({ volumeId, onBack }) => {
   }
   // console.log(pacings,"pacings")
 
-
-
-
-
-
   if (selectedPacingId) {
     return (
       <SinglePacing
@@ -94,25 +87,27 @@ const Pacings = ({ volumeId, onBack }) => {
     );
   }
 
-
-
-
-
   return (
     <>
-      <PageMeta title="Pacings" description="This is Pacings page." />
-      <PageBreadcrumb pageTitle="" />
+      {/* {PageBreadcrumb && (
+        <>
+          <PageMeta title="Pacings" description="This is Pacings page." />
+          <PageBreadcrumb pageTitle="Pacings" />
+        </>
+      )} */}
 
-      <button>
-        <h1
-          onClick={() => {
-            onBack();
-          }}
-        >
-          Back
-        </h1>
-      </button>
-      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/3 lg:p-6">
+      <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/3 lg:p-6 space-y-8">
+        <button>
+          <h1
+            onClick={() => {
+              onBack();
+            }}
+            className="flex items-center px-3 py-1.5 text-sm rounded-md text-gray-600 hover:bg-gray-100"
+          >
+            <ArrowLeft className="mr-2" /> Back
+          </h1>
+        </button>
+
         {/* STATUS GROUP BLOCKS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {Object.entries(groupedPacings).map(([status, pacingList]) => (
@@ -143,7 +138,7 @@ const Pacings = ({ volumeId, onBack }) => {
                         <div
                           onClick={() => setSelectedPacingId(pacing.id)}
                           key={pacing.id}
-                          className="block"
+                          className="block cursor-pointer"
                         >
                           <div className="p-3 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700  transition">
                             <div className="flex items-center mb-2">

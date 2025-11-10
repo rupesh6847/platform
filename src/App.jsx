@@ -17,7 +17,7 @@ import CheckUpdate from './Dashboard/CheckUpdate';
 import HomeLayout from './Dashboard/Home/HomeLayout';
 import Task from './Dashboard/Home/Tasks';
 
-import BriefCreator from './Dashboard/Briefs/CreateBreif';
+// import BriefCreator from './Dashboard/Briefs/CreateBreif';
 import CampaignDetail from './Dashboard/Camapaigns/CampaignDetailPage';
 
 
@@ -44,7 +44,7 @@ function App() {
             {/* <Route path="/demo" element={<SinglePacing />} /> */}
 
             <Route path="/briefs" element={<BriefsPage />} />
-             <Route path="/add-brief" element={<BriefCreator />} />
+             {/* <Route path="/add-brief" element={<BriefCreator />} /> */}
             <Route path="/profile" element={<UserProfiles />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/checkupdate" element={<CheckUpdate />} />

@@ -20,41 +20,40 @@ const tabs = [
 ];
 
 export default function CampaignLayout() {
-  const [selected, setSelected] = useState('Overdue');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [allCampaigns, setAllCamapigns] = useState([]);
-  const [filter, setFilter] = useState('All');
+  // const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
-  const [filtercount, setFilterCount] = useState(0);
-  useEffect(() => {
-    console.log(filter, 'filter changed');
+  const [filterNameCount, setFilterNameCount] = useState({
+    name: '',
+    count: 0,
+  });
 
+  useEffect(() => {
     fetchData();
-  }, [filter]);
+  }, [filterNameCount.name, search]);
 
   const fetchData = async () => {
     const res = await fetch(
-      `http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filter)}`
+      `http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filterNameCount.name)}&search=${search}`
     );
+
     const response = await res.json();
 
-    console.log(response.data, 'allCampaigns');
     setAllCamapigns(response.data);
-    setFilterCount(response.data.length);
-  };
 
-  const filterCount = (f) => {
-    console.log(f, 'filter changed');
-    setFilter(selected);
-    setFilterCount(f)
+    setFilterNameCount({
+      name: filterNameCount.name,
+      count: response.data.length,
+    });
   };
 
   const handleCreateCampaignClick = () => {
     setIsDrawerOpen(true);
   };
 
-  console.log(filtercount, 'filtercount');
-
+  console.log(filterNameCount.name, 'filterNameCount');
+  console.log(search, 'search');
   return (
     <>
       <PageMeta title="Programs" description="This is Programs page." />
@@ -92,25 +91,29 @@ export default function CampaignLayout() {
             {tabs.map((tab) => (
               <button
                 key={tab}
-                onClick={() => setFilter(tab)}
+                onClick={() => {
+                  // setFilter(tab)
+                  setFilterNameCount({ name: tab, count: 0 });
+                }}
                 className={`pb-3 text-xs sm:text-sm font-medium transition-colors duration-150 
-              ${
-                filter === tab
-                  ? 'text-black dark:text-white border-b-2 border-black dark:border-white'
-                  : 'text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white'
-              }`}
+      ${
+        filterNameCount.name === tab
+          ? 'text-black dark:text-white border-b-2 border-black dark:border-white'
+          : 'text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white'
+      }`}
               >
                 <div className="flex items-center whitespace-nowrap">
                   <span>{tab}</span>
                   <span
                     className={`ml-1 rounded-full px-2 text-[10px] sm:text-xs
-                  ${
-                    filter === tab
-                      ? 'bg-gray-200 text-black dark:bg-gray-600 dark:text-white'
-                      : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
-                  }`}
+          ${
+            filterNameCount.name === tab
+              ? 'bg-gray-200 text-black dark:bg-gray-600 dark:text-white'
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+          }`}
                   >
-                    {filtercount}
+                    {/* {filterNameCount.count} */}
+                    {filterNameCount.name === tab ? filterNameCount.count : 0}
                   </span>
                 </div>
               </button>
@@ -122,7 +125,7 @@ export default function CampaignLayout() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b pb-3">
             <div className="flex items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
               <SlidersHorizontal className="text-gray-500 h-4 w-4" />
-              <span className="font-medium">{filter}</span>
+              <span className="font-medium">{filterNameCount.name}</span>
             </div>
           </div>
 
@@ -130,14 +133,14 @@ export default function CampaignLayout() {
             <div className="relative">
               <input
                 className="appearance-none   pl-10   hover:border-gray-400 transition-colors       leading-tight   focus:border-gray-600  w-full sm:w-80 rounded-lg border border-gray-300 bg-white dark:bg-gray-900 p-3 text-sm text-gray-700 dark:text-gray-200 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-600"
-                id="username"
-                type="text"
-                value={() => setSearch(e.target.value)}
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search..."
               />
-              <div className="absolute right-0 inset-y-0 flex items-center">
+              {/* <div className="absolute right-0 inset-y-0 flex items-center">
                 <X className="-ml-1 mr-3 h-5 w-5 text-gray-400 hover:text-gray-500" />
-              </div>
+              </div> */}
 
               <div className="absolute left-0 inset-y-0 flex items-center">
                 <Search className="h-6 w-6 ml-3 text-gray-400 hover:text-gray-500" />

@@ -369,7 +369,7 @@ const LeadsTable = ({ headers, leads }) => {
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full           dark:bg-gray-800 dark:border-gray-700 py-10">
       {/* Table Header with Stats */}
       <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
         <div>
@@ -440,7 +440,7 @@ const LeadsTable = ({ headers, leads }) => {
                 onClick={() => setCurrentPage(page)}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   page === currentPage
-                    ? "bg-blue-600 text-white shadow-sm"
+                    ? "bg-blue-600 text-white  "
                     : "text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
