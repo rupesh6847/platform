@@ -11,41 +11,28 @@ import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
 import { useEffect, useState } from 'react';
 import { Slicestring } from '../../../lib/Slicestring';
 
-export default function CampaignTable() {
-  const [allCampaigns, setAllCamapigns] = useState([]);
-  const [filter, setFilter] = useState("All")
-  useEffect(() => {
-    console.log(filter, 'filter changed')
-    fetchData();
-  }, [filter]);
+export default function CampaignTable({tableData}) {
+  // const [allCampaigns, setAllCamapigns] = useState([]);
+  // const [filter, setFilter] = useState('All');
+  // useEffect(() => {
+  //   console.log(filter, 'filter changed');
+  //   fetchData();
+  // }, [filter]);
 
+  // const fetchData = async () => {
+  //   const res = await fetch(
+  //     `http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filter)}`
+  //   );
+  //   const response = await res.json();
 
-  // `${
-  //             import.meta.env.VITE_BASE_URL
-  //           }/leads/unassigned/pacing/${pacingId}`
-  const fetchData = async () => {
-    const res = await fetch(`http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filter)}`);
-    const response = await res.json();
+  //   console.log(response.data, 'allCampaigns');
+  //   setAllCamapigns(response.data);
+  // };
 
-    console.log(response.data, 'allCampaigns');
-    setAllCamapigns(response.data);
-  };
-
-
-
-  const filterChange=(f)=>{
-    console.log(f,'filter changed')
-    setFilter(f)
-  }
-
-
-  // useEffect(()=>{
-  //   fetch("http://localhost:3000/campaigns").then((res)=>{
-  //     const data = req.json().then((res) =>{
-  //       setAllCamapigns(res.data)
-  //     })
-  //   })
-  // },[])
+  // const filterChange = (f) => {
+  //   console.log(f, 'filter changed');
+  //   setFilter(f);
+  // };
 
   return (
     <>
@@ -84,7 +71,7 @@ export default function CampaignTable() {
 
           {/* Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/10 text-xs">
-            {allCampaigns?.map((row, i) => (
+            {tableData?.map((row, i) => (
               <TableRow
                 key={i}
                 className="hover:bg-gray-50/70 dark:hover:bg-gray-800/60"
@@ -138,7 +125,7 @@ export default function CampaignTable() {
       </div>
 
       {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-600 dark:text-gray-400 gap-3">
+      {/* <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-600 dark:text-gray-400 gap-3">
         <div className="flex items-center gap-2">
           <label htmlFor="pageSize">Page Size:</label>
           <select
@@ -162,7 +149,7 @@ export default function CampaignTable() {
             »
           </button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
