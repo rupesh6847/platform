@@ -262,8 +262,8 @@
 // };
 
 // export default LeadsTable;
-import { useState, useMemo, useCallback } from "react";
-import Spreadsheet from "react-spreadsheet";
+import { useState, useMemo, useCallback } from 'react';
+import Spreadsheet from 'react-spreadsheet';
 
 const LeadsTable = ({ headers, leads }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -281,20 +281,16 @@ const LeadsTable = ({ headers, leads }) => {
 
       const onMouseMove = (moveEvent) => {
         const delta = moveEvent.clientX - startX;
-        setColWidths((prev) =>
-          prev.map((w, i) =>
-            i === index ? Math.max(60, startWidth + delta) : w
-          )
-        );
+        setColWidths((prev) => prev.map((w, i) => (i === index ? Math.max(60, startWidth + delta) : w)));
       };
 
       const onMouseUp = () => {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
       };
 
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     },
     [colWidths]
   );
@@ -309,14 +305,14 @@ const LeadsTable = ({ headers, leads }) => {
     const headerRow = headers.map((h) => ({
       value: h[1],
       readOnly: true,
-      className: "header-cell",
+      className: 'header-cell',
     }));
 
     const rows = paginatedLeads.map((lead, rowIndex) =>
       headers.map((h) => ({
-        value: lead.data?.[h[0]] ?? lead[h[0]] ?? "",
+        value: lead.data?.[h[0]] ?? lead[h[0]] ?? '',
         readOnly: true,
-        className: `data-cell ${rowIndex % 2 === 0 ? "even-row" : "odd-row"}`,
+        className: `data-cell ${rowIndex % 2 === 0 ? 'even-row' : 'odd-row'}`,
       }))
     );
 
@@ -343,7 +339,7 @@ const LeadsTable = ({ headers, leads }) => {
 
     if (startPage > 1) {
       pages.push(1);
-      if (startPage > 2) pages.push("...");
+      if (startPage > 2) pages.push('...');
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -351,7 +347,7 @@ const LeadsTable = ({ headers, leads }) => {
     }
 
     if (endPage < totalPages) {
-      if (endPage < totalPages - 1) pages.push("...");
+      if (endPage < totalPages - 1) pages.push('...');
       pages.push(totalPages);
     }
 
@@ -373,12 +369,9 @@ const LeadsTable = ({ headers, leads }) => {
       {/* Table Header with Stats */}
       <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-            Leads
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Leads</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Showing {(currentPage - 1) * leadsPerPage + 1} to{" "}
-            {Math.min(currentPage * leadsPerPage, leads.length)} of{" "}
+            Showing {(currentPage - 1) * leadsPerPage + 1} to {Math.min(currentPage * leadsPerPage, leads.length)} of{' '}
             {leads.length} entries
           </p>
         </div>
@@ -427,11 +420,8 @@ const LeadsTable = ({ headers, leads }) => {
 
         <div className="flex items-center space-x-1">
           {visiblePages.map((page, index) =>
-            page === "..." ? (
-              <span
-                key={`ellipsis-${index}`}
-                className="px-3 py-2 text-gray-500"
-              >
+            page === '...' ? (
+              <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-500">
                 ...
               </span>
             ) : (
@@ -440,8 +430,8 @@ const LeadsTable = ({ headers, leads }) => {
                 onClick={() => setCurrentPage(page)}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   page === currentPage
-                    ? "bg-blue-600 text-white  "
-                    : "text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? 'bg-blue-600 text-white  '
+                    : 'text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700'
                 }`}
               >
                 {page}
@@ -465,8 +455,7 @@ const LeadsTable = ({ headers, leads }) => {
       <style jsx global>{`
         .enhanced-spreadsheet {
           font-size: 0.75rem;
-          font-family:
-            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         .enhanced-spreadsheet .Spreadsheet__cell {
@@ -530,9 +519,7 @@ const LeadsTable = ({ headers, leads }) => {
             background-color: #ffffff;
           }
 
-          .enhanced-spreadsheet
-            .Spreadsheet__row:first-child
-            .Spreadsheet__cell {
+          .enhanced-spreadsheet .Spreadsheet__row:first-child .Spreadsheet__cell {
             background-color: #ffffff;
             color: #000000;
             border-color: #374151;

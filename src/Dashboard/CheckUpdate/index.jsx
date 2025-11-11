@@ -25,12 +25,10 @@ export default function CheckUpdate() {
     if (!window.electronAPI) return;
 
     const handleUpdateAvailable = () => setUpdateStatus('update-available');
-    const handleUpdateNotAvailable = () =>
-      setUpdateStatus('update-not-available');
+    const handleUpdateNotAvailable = () => setUpdateStatus('update-not-available');
     const handleUpdateDownloaded = () => setUpdateStatus('update-downloaded');
     const handleUpdateError = (_, error) => setUpdateStatus(`error: ${error}`);
-    const handleDownloadProgress = (_, progressObj) =>
-      setProgress(Math.round(progressObj.percent));
+    const handleDownloadProgress = (_, progressObj) => setProgress(Math.round(progressObj.percent));
 
     window.electronAPI.onUpdateAvailable(handleUpdateAvailable);
     window.electronAPI.onUpdateNotAvailable(handleUpdateNotAvailable);
@@ -56,10 +54,8 @@ export default function CheckUpdate() {
     setUpdateStatus('checking...');
     const result = await window.electronAPI.checkForUpdates();
 
-    if (result.status === 'dev')
-      setUpdateStatus('Running in development mode - updates disabled');
-    else if (result.status === 'checked')
-      setUpdateStatus('Update check completed');
+    if (result.status === 'dev') setUpdateStatus('Running in development mode - updates disabled');
+    else if (result.status === 'checked') setUpdateStatus('Update check completed');
     else setUpdateStatus(`Check failed: ${result.error}`);
   };
 
@@ -99,9 +95,7 @@ export default function CheckUpdate() {
           {/* Version */}
           <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
             Current Version:
-            <span className="font-medium text-gray-800 dark:text-gray-200">
-              {appVersion}
-            </span>
+            <span className="font-medium text-gray-800 dark:text-gray-200">{appVersion}</span>
           </p>
 
           {/* Status Message */}
@@ -140,9 +134,7 @@ export default function CheckUpdate() {
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
               }`}
             >
-              {updateStatus === 'checking...'
-                ? 'Checking...'
-                : 'Check for Updates'}
+              {updateStatus === 'checking...' ? 'Checking...' : 'Check for Updates'}
             </button>
 
             {updateStatus === 'update-available' && (

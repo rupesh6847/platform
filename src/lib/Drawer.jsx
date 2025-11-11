@@ -1,9 +1,4 @@
-import {
-  motion,
-  useAnimate,
-  useDragControls,
-  useMotionValue,
-} from 'framer-motion';
+import { motion, useAnimate, useDragControls, useMotionValue } from 'framer-motion';
 import useMeasure from 'react-use-measure';
 
 export function Drawer({ open, setOpen, children }) {
@@ -37,7 +32,7 @@ export function Drawer({ open, setOpen, children }) {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             transition={{ ease: 'easeInOut' }}
-            className="absolute right-0 top-0 h-full w-full max-w-7xl overflow-hidden bg-white dark:bg-neutral-900"
+            className="absolute right-0 top-0 h-full w-full max-w-[90%] overflow-hidden bg-white dark:bg-neutral-900"
             style={{ x }}
             drag="x"
             dragControls={controls}
@@ -57,9 +52,7 @@ export function Drawer({ open, setOpen, children }) {
             </div>
 
             {/* Drawer Content */}
-            <div className="relative z-0 h-full overflow-y-auto p-6 space-y-6">
-              {children}
-            </div>
+            <div className="relative z-0 h-full overflow-y-auto p-6 space-y-6">{children}</div>
           </motion.div>
         </motion.div>
       )}

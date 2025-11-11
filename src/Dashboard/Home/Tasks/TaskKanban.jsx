@@ -7,34 +7,10 @@ export const Board = () => {
 
   return (
     <div className="flex gap-3 min-h-screen text-neutral-100">
-      <Column
-        title="Tasks"
-        column="task"
-        headingColor="text-neutral-500"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="TODO"
-        column="todo"
-        headingColor="text-yellow-500"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="In Progress"
-        column="doing"
-        headingColor="text-blue-500"
-        cards={cards}
-        setCards={setCards}
-      />
-      <Column
-        title="Complete"
-        column="done"
-        headingColor="text-emerald-500"
-        cards={cards}
-        setCards={setCards}
-      />
+      <Column title="Tasks" column="task" headingColor="text-neutral-500" cards={cards} setCards={setCards} />
+      <Column title="TODO" column="todo" headingColor="text-yellow-500" cards={cards} setCards={setCards} />
+      <Column title="In Progress" column="doing" headingColor="text-blue-500" cards={cards} setCards={setCards} />
+      <Column title="Complete" column="done" headingColor="text-emerald-500" cards={cards} setCards={setCards} />
     </div>
   );
 };
@@ -120,8 +96,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     );
   };
 
-  const getIndicators = () =>
-    Array.from(document.querySelectorAll(`[data-column="${column}"]`));
+  const getIndicators = () => Array.from(document.querySelectorAll(`[data-column="${column}"]`));
 
   const filteredCards = cards.filter((c) => c.column === column);
 

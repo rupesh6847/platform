@@ -7,9 +7,7 @@ export default function NotFound() {
       <PageMeta title="404 Dashboard" description="This is Dashboard page." />
       <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
         <div className="mx-auto w-full max-w-[242px] text-center sm:max-w-[472px]">
-          <h1 className="mb-8 font-bold text-gray-800 text-title-md dark:text-white/90 xl:text-title-2xl">
-            ERROR
-          </h1>
+          <h1 className="mb-8 font-bold text-gray-800 text-title-md dark:text-white/90 xl:text-title-2xl">ERROR</h1>
 
           <img
             src="https://www.dropbox.com/scl/fi/08bunkevu4w88hyze7eys/404.svg?rlkey=k9d264v4f9xfgbit497c8ajkl&st=5rxrcflx&raw=1"

@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  ChevronRight,
-  CircleCheckBig,
-  CirclePause,
-  Download,
-  Star,
-  Upload,
-} from 'lucide-react';
+import { ChevronRight, CircleCheckBig, CirclePause, Download, Star, Upload } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
 import AppTooltip from '../../../lib/Tooltip';
@@ -76,26 +69,19 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
   }, []);
 
   const fetchData = async () => {
-    const res = await fetch(
-      `http://192.168.29.121:3000/campaigns/${campaignId}`
-    );
+    const res = await fetch(`http://192.168.29.121:3000/campaigns/${campaignId}`);
     const response = await res.json();
 
-    console.log(response.data, 'campaign');
     setCamapign(response.data);
     setVolumes(response.data.volumes);
     setContent(response.data.content);
     setFilesInfo(response.data.filesInfo);
     setContent(response.data.content);
     setUpdates(response.data.updates);
-    console.log(response.data.campaignDeliveries);
     setCamapignDeliveries(response.data.campaignDeliveries);
   };
 
-  const [files] = useState([
-    'TAL_CENTRAL_WorkOS_PL_PTBA-1 P198',
-    'TAL_NORTH_WorkOS_PL_PTBA-4 359',
-  ]);
+  const [files] = useState(['TAL_CENTRAL_WorkOS_PL_PTBA-1 P198', 'TAL_NORTH_WorkOS_PL_PTBA-4 359']);
   const activities = [
     {
       date: 'SEPTEMBER 5, 2025 | 03:47 PM (IST)',
@@ -173,29 +159,20 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
         {PageBreadcrumb && (
           <div className="flex justify-between items-center mb-8 p-4 lg:p-0">
             <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Link
-                to="/campaigns"
-                className="flex items-center text-sm text-gray-500 dark:text-gray-400"
-              >
+              <Link to="/campaigns" className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                 Campaigns <ChevronRight size={20} strokeWidth={1} />
               </Link>
 
-              <span className="font-medium text-gray-700 dark:text-gray-300">
-                {campaign.name}
-              </span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">{campaign.name}</span>
             </div>
           </div>
         )}
 
         <div className="px-4 lg:px-0">
-          <h2 className="text-xl font-normal mb-2 text-gray-900 dark:text-white">
-            {campaign?.name}
-          </h2>
+          <h2 className="text-xl font-normal mb-2 text-gray-900 dark:text-white">{campaign?.name}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
             Total Leads:
-            <span className="font-semibold text-gray-700 dark:text-gray-300">
-              {campaign?.leadgoal}
-            </span>
+            <span className="font-semibold text-gray-700 dark:text-gray-300">{campaign?.leadgoal}</span>
           </p>
         </div>
 
@@ -205,9 +182,7 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
             {/* Program Info */}
 
             {/* Lead Totals */}
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Lead Totals
-            </h4>
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">Lead Totals</h4>
             <div className="grid grid-cols-2 md:grid-cols-3 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden text-sm  dark:bg-gray-800 justify-center  ">
               {[
                 { label: 'PENDING REVIEW', value: 0 },
@@ -218,20 +193,14 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                   key={item.label}
                   className="border-r border-gray-200 dark:border-gray-700 last:border-none py-3 px-4 lg:px-4 "
                 >
-                  <p className="text-xs text-gray-500 dark:text-gray-400 ">
-                    {item.label}
-                  </p>
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {item.value}
-                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 ">{item.label}</p>
+                  <p className="text-lg font-semibold text-gray-900 dark:text-white">{item.value}</p>
                 </div>
               ))}
             </div>
 
             {/* Delivery Schedules */}
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Delivery Schedule
-            </h4>
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">Delivery Schedule</h4>
             <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4">
               {volumes?.map((delivery, i) => (
                 <div
@@ -250,12 +219,8 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                     </p>
                     <div className="grid grid-cols-4 gap-2 lg:gap-4 text-sm text-center    mt-2">
                       <div className="border-x border-gray-200 dark:border-gray-700 px-2">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs">
-                          VALID
-                        </p>
-                        <p className="font-semibold text-gray-900 dark:text-white">
-                          {delivery.completed}
-                        </p>
+                        <p className="text-gray-500 dark:text-gray-400 text-xs">VALID</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{delivery.completed}</p>
                       </div>
                       {/* <div className="border-r border-gray-200 dark:border-gray-700 px-2">
                       <p className="text-gray-500 dark:text-gray-400 text-xs">
@@ -266,20 +231,12 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                       </p>
                     </div> */}
                       <div className="border-r border-gray-200 dark:border-gray-700 px-2">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs">
-                          PENDING
-                        </p>
-                        <p className="font-semibold text-gray-900 dark:text-white">
-                          {delivery.pending}
-                        </p>
+                        <p className="text-gray-500 dark:text-gray-400 text-xs">PENDING</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{delivery.pending}</p>
                       </div>
                       <div className="border-r border-gray-200 dark:border-gray-700 px-2">
-                        <p className="text-gray-500 dark:text-gray-400 text-xs">
-                          TOTAL
-                        </p>
-                        <p className="font-semibold text-gray-900 dark:text-white">
-                          {delivery.leadGoal}
-                        </p>
+                        <p className="text-gray-500 dark:text-gray-400 text-xs">TOTAL</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{delivery.leadGoal}</p>
                       </div>
                     </div>
                   </div>
@@ -294,9 +251,7 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
             </div>
 
             {/* Attached Files */}
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Files Attached (2)
-            </h4>
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">Files Attached (2)</h4>
             <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6">
               <ul className="space-y-3 text-sm">
                 {filesInfo.map((f, i) => (
@@ -305,12 +260,8 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                     className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                      <span className="text-gray-900 dark:text-white break-all">
-                        {f.name}
-                      </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-300">
-                        {f.date}
-                      </span>
+                      <span className="text-gray-900 dark:text-white break-all">{f.name}</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-300">{f.date}</span>
                     </div>
 
                     <a
@@ -328,17 +279,14 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
 
             {/* Content Section */}
             <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Content (
-              {content.reduce((sum, cat) => sum + cat.content.length, 0)})
+              Content ({content.reduce((sum, cat) => sum + cat.content.length, 0)})
             </h4>
 
             <div className="dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 space-y-4 text-sm">
               {content.map((category) => (
                 <div key={category.categoryName}>
                   {/* Category Name */}
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {category.categoryName}:-
-                  </p>
+                  <p className="font-medium text-gray-900 dark:text-white">{category.categoryName}:-</p>
 
                   {/* Content List */}
                   <ol className="list-disc ml-5 mt-2 space-y-2 text-gray-700 dark:text-gray-300">
@@ -347,10 +295,7 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                         {item.title}
                         <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
                           ({item.type} | {item.optinType} | Approved:{' '}
-                          {item.approveDate
-                            ? formatDate(item.approveDate)
-                            : 'N/A'}
-                          )
+                          {item.approveDate ? formatDate(item.approveDate) : 'N/A'})
                         </span>
                       </li>
                     ))}
@@ -360,91 +305,55 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
             </div>
 
             {/* Additional Info */}
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Additional Information
-            </h4>
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">Additional Information</h4>
             <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
               <p className="text-gray-700 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-white">
-                  Audience:
-                </span>
+                <span className="font-medium text-gray-900 dark:text-white">Audience:</span>
                 IT, Operations, Sales, Service, Developer
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-white">
-                  Employee Size:
-                </span>
+                <span className="font-medium text-gray-900 dark:text-white">Employee Size:</span>
                 Qualification: TAL
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-white">
-                  Industry Qualifier:
-                </span>
+                <span className="font-medium text-gray-900 dark:text-white">Industry Qualifier:</span>
                 TAL
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-white">
-                  Job Title Qualifier:
-                </span>
+                <span className="font-medium text-gray-900 dark:text-white">Job Title Qualifier:</span>
                 Director+
               </p>
 
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="text-gray-900 dark:text-white">
-                    1. What is your biggest pain point in team communication and
-                    collaboration?
+                    1. What is your biggest pain point in team communication and collaboration?
                   </p>
                   <ul className="text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                    <li>
-                      - Ensuring efficient communication and collaboration
-                    </li>
-                    <li>
-                      - Accelerating knowledge-sharing and problem-solving
-                    </li>
+                    <li>- Ensuring efficient communication and collaboration</li>
+                    <li>- Accelerating knowledge-sharing and problem-solving</li>
                     <li>- Connecting teams, customers, and partners</li>
-                    <li>
-                      - We don't have any communication and collaboration pain
-                      points (DNQ)
-                    </li>
+                    <li>- We don't have any communication and collaboration pain points (DNQ)</li>
                   </ul>
                 </div>
                 <div>
                   <p className="text-gray-900 dark:text-white">
-                    2. Where does your organization currently stand when it
-                    comes to improving communication workflows (e.g. with
-                    platforms like Slack)?
+                    2. Where does your organization currently stand when it comes to improving communication workflows
+                    (e.g. with platforms like Slack)?
                   </p>
                   <ul className="text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-                    <li>
-                      -Just starting to explore tools to improve team
-                      communication and productivity
-                    </li>
-                    <li>
-                      -Passively evaluating ways to streamline collaboration and
-                      reduce tool fatigue
-                    </li>
-                    <li>
-                      -Actively working to solve internal communication or
-                      workflow challenges
-                    </li>
-                    <li>
-                      -Nearing a decision or implementation for a new
-                      collaboration platform or upgrade
-                    </li>
-                    <li>
-                      -No current needs-just keeping up with the latest tools,
-                      features, and best practices (DNQ)
-                    </li>
+                    <li>-Just starting to explore tools to improve team communication and productivity</li>
+                    <li>-Passively evaluating ways to streamline collaboration and reduce tool fatigue</li>
+                    <li>-Actively working to solve internal communication or workflow challenges</li>
+                    <li>-Nearing a decision or implementation for a new collaboration platform or upgrade</li>
+                    <li>-No current needs-just keeping up with the latest tools, features, and best practices (DNQ)</li>
                   </ul>
                 </div>
               </div>
             </div>
 
             {/* Upload Table */}
-            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-              Uploads
-            </h4>
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">Uploads</h4>
             <div className="rounded-lg border border-gray-200 dark:border-gray-700  dark:bg-gray-800 text-sm p-4 lg:p-6">
               <div className="overflow-x-auto">
                 <table className="w-full rounded-lg   dark:border-gray-700 text-left text-sm">
@@ -474,26 +383,16 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                                 {u.fileName.length > 25 && '...'}
                               </p>
                             </AppTooltip>
-                            <span className="text-gray-500 dark:text-gray-400 text-xs mt-1">
-                              {u.date}
-                            </span>
+                            <span className="text-gray-500 dark:text-gray-400 text-xs mt-1">{u.date}</span>
                           </div>
                         </td>
                         <td className="p-3 text-center text-gray-400">
                           <CircleCheckBig color="#00D100" />
                         </td>
-                        <td className="p-3 text-center text-gray-900 dark:text-white">
-                          {u.submitted}
-                        </td>
-                        <td className="p-3 text-center text-gray-900 dark:text-white">
-                          {u.accepted}
-                        </td>
-                        <td className="p-3 text-center text-gray-900 dark:text-white">
-                          {u.errors}
-                        </td>
-                        <td className="p-3 text-center text-gray-900 dark:text-white">
-                          {u.rejections}
-                        </td>
+                        <td className="p-3 text-center text-gray-900 dark:text-white">{u.submitted}</td>
+                        <td className="p-3 text-center text-gray-900 dark:text-white">{u.accepted}</td>
+                        <td className="p-3 text-center text-gray-900 dark:text-white">{u.errors}</td>
+                        <td className="p-3 text-center text-gray-900 dark:text-white">{u.rejections}</td>
                         <td className="p-3 text-center text-blue-600 dark:text-blue-400 cursor-pointer hover:underline">
                           View
                         </td>
@@ -510,81 +409,50 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
             {/* Program Status */}
             <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm space-y-4">
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Program Status
-                </h3>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Program Status</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2 mt-1">
                   <CirclePause size={16} strokeWidth={0.5} /> {campaign.status}
                 </p>
               </div>
 
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Lead Volumes
-                </h3>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Lead Volumes</h3>
                 {volumes.map((v) => (
-                  <p
-                    key={v.name}
-                    className="text-sm text-gray-600 dark:text-gray-400 mt-1 first:mt-0"
-                  >
+                  <p key={v.name} className="text-sm text-gray-600 dark:text-gray-400 mt-1 first:mt-0">
                     {v.name}: {v.leadGoal}
                   </p>
                 ))}
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Program Type
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Double Touch // example
-                </p>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Program Type</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Double Touch // example</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  First Upload
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Wednesday, 27th August 2025 // example
-                </p>
+                <h3 className="font-semibold text-gray-800 dark:text-white">First Upload</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Wednesday, 27th August 2025 // example</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Deadline
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  {formatDueDate(campaign.duedate)}
-                </p>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Deadline</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{formatDueDate(campaign.duedate)}</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Weekly Upload Day
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Tuesday & Thursday // example
-                </p>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Weekly Upload Day</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Tuesday & Thursday // example</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  Pacing
-                </h3>
+                <h3 className="font-semibold text-gray-800 dark:text-white">Pacing</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                   23 leads per split, per upload //example
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800 dark:text-white">
-                  CPC
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  7 // example
-                </p>
+                <h3 className="font-semibold text-gray-800 dark:text-white">CPC</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">7 // example</p>
               </div>
             </div>
 
             <div className=" dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 lg:p-6 text-sm">
-              <h3 className="font-semibold text-gray-700 dark:text-white mb-4">
-                Activity
-              </h3>
+              <h3 className="font-semibold text-gray-700 dark:text-white mb-4">Activity</h3>
 
               <div>
                 {updates?.map((item, index) => (
@@ -601,13 +469,9 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
                       <h3 className="flex gap-x-1.5 font-semibold text-gray-800 dark:text-gray-200 text-[13px] leading-snug">
                         {item.date}
                       </h3>
-                      <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">
-                        {item.title}
-                      </p>
+                      <p className="mt-1 text-xs text-gray-600 dark:text-gray-400">{item.title}</p>
                       {item.description && (
-                        <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
-                          {item.description}
-                        </p>
+                        <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">{item.description}</p>
                       )}
                     </div>
                   </div>

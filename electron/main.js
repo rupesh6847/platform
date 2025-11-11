@@ -14,12 +14,7 @@ const RENDERER_DIST = join(APP_ROOT, 'dist');
 
 const preloadPath = isDev
   ? join(__dirname, 'preload.js')
-  : join(
-      process.resourcesPath,
-      'app.asar.unpacked',
-      'dist-electron',
-      'preload.js'
-    );
+  : join(process.resourcesPath, 'app.asar.unpacked', 'dist-electron', 'preload.js');
 
 let mainWindow;
 

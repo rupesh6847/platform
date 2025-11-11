@@ -114,10 +114,7 @@
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
 //     alert('Campaign created successfully!');
-//     console.log('Final Campaign Data:', campaign);
 //   };
-
-//   console.log(campaign, 'campaign');
 
 //   return (
 //     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -475,7 +472,7 @@ const CampaignBuilder = () => {
     Files: [],
     DescriptionOfFilesAttached: '',
   });
-  const [content, setContent] = useState([{ category: '', titles: [''] }])
+  const [content, setContent] = useState([{ category: '', titles: [''] }]);
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -606,10 +603,7 @@ const CampaignBuilder = () => {
     setIsSubmitting(true);
 
     try {
-      const folderName = `${campaign.CampaignName}_${campaign.Code}`.replace(
-        /[^a-zA-Z0-9_-]/g,
-        '_'
-      );
+      const folderName = `${campaign.CampaignName}_${campaign.Code}`.replace(/[^a-zA-Z0-9_-]/g, '_');
 
       toast.loading('Uploading files to Dropbox...', { id: 'upload' });
 
@@ -630,10 +624,6 @@ const CampaignBuilder = () => {
 
       toast.success('Campaign created and files uploaded successfully!', {
         id: 'upload',
-      });
-      console.log('Final Campaign Data:', {
-        ...campaign,
-        Files: uploadedFiles,
       });
     } catch (error) {
       console.error('Submission error:', error);
@@ -657,27 +647,10 @@ const CampaignBuilder = () => {
     if (fileType.includes('image')) return '🖼️';
     if (fileType.includes('pdf')) return '📄';
     if (fileType.includes('word') || fileType.includes('document')) return '📝';
-    if (fileType.includes('excel') || fileType.includes('spreadsheet'))
-      return '📊';
-    if (fileType.includes('zip') || fileType.includes('compressed'))
-      return '📦';
+    if (fileType.includes('excel') || fileType.includes('spreadsheet')) return '📊';
+    if (fileType.includes('zip') || fileType.includes('compressed')) return '📦';
     return '📎';
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -732,12 +705,7 @@ const CampaignBuilder = () => {
               classNamePrefix="select"
               placeholder="Select one or more clients..."
               value={clients.filter((d) => campaign.clients?.includes(d.value))}
-              onChange={(selected) =>
-                handleChange(
-                  'clients',
-                  selected ? selected.map((s) => s.value) : []
-                )
-              }
+              onChange={(selected) => handleChange('clients', selected ? selected.map((s) => s.value) : [])}
             />
           </div>
         </div>
@@ -772,26 +740,15 @@ const CampaignBuilder = () => {
             className="basic-multi-select mt-1"
             classNamePrefix="select"
             placeholder="Select one or more days..."
-            value={dayOptions.filter((d) =>
-              campaign.WeeklyUploadDay?.includes(d.value)
-            )}
-            onChange={(selected) =>
-              handleChange(
-                'WeeklyUploadDay',
-                selected ? selected.map((s) => s.value) : []
-              )
-            }
+            value={dayOptions.filter((d) => campaign.WeeklyUploadDay?.includes(d.value))}
+            onChange={(selected) => handleChange('WeeklyUploadDay', selected ? selected.map((s) => s.value) : [])}
           />
         </div>
         {/* Volumes */}
         <div>
           <div className="flex justify-between items-center">
             <h3 className="font-medium">Volumes</h3>
-            <button
-              type="button"
-              onClick={() => addField('Volumes')}
-              className="text-blue-500 text-sm"
-            >
+            <button type="button" onClick={() => addField('Volumes')} className="text-blue-500 text-sm">
               + Add
             </button>
           </div>
@@ -810,11 +767,7 @@ const CampaignBuilder = () => {
                 onChange={(e) => handleVolumeChange(i, 'value', e.target.value)}
               />
               {i > 0 && (
-                <button
-                  type="button"
-                  onClick={() => removeField('Volumes', i)}
-                  className="text-red-500"
-                >
+                <button type="button" onClick={() => removeField('Volumes', i)} className="text-red-500">
                   ✕
                 </button>
               )}
@@ -924,29 +877,15 @@ const CampaignBuilder = () => {
           />
         </div> */}
 
-
-
-
-
-
-
-<div>
-  <Content  content={ content} setContent={setContent}  />
-</div>
-
-
-
-
-
-
+        <div>
+          <Content content={content} setContent={setContent} />
+        </div>
 
         {/* Files Upload Section */}
         <div>
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-medium">Files</h3>
-            <span className="text-sm text-gray-500">
-              {selectedFiles.length} file(s) selected
-            </span>
+            <span className="text-sm text-gray-500">{selectedFiles.length} file(s) selected</span>
           </div>
 
           {/* File Drop Zone */}
@@ -957,19 +896,10 @@ const CampaignBuilder = () => {
             onClick={() => fileInputRef.current?.click()}
           >
             <p className="text-gray-600">
-              Drag & drop files here or{' '}
-              <span className="text-blue-600 underline">browse</span>
+              Drag & drop files here or <span className="text-blue-600 underline">browse</span>
             </p>
-            <p className="text-sm text-gray-400 mt-1">
-              Supports multiple files selection
-            </p>
-            <input
-              ref={fileInputRef}
-              type="file"
-              multiple
-              className="hidden"
-              onChange={handleFileInputChange}
-            />
+            <p className="text-sm text-gray-400 mt-1">Supports multiple files selection</p>
+            <input ref={fileInputRef} type="file" multiple className="hidden" onChange={handleFileInputChange} />
           </div>
 
           {/* Selected Files List */}
@@ -977,19 +907,12 @@ const CampaignBuilder = () => {
             <div className="mt-4 space-y-2">
               <h4 className="font-medium text-sm">Selected Files:</h4>
               {selectedFiles.map((file) => (
-                <div
-                  key={file.id}
-                  className="flex items-center justify-between p-3 border rounded-lg bg-gray-50"
-                >
+                <div key={file.id} className="flex items-center justify-between p-3 border rounded-lg bg-gray-50">
                   <div className="flex items-center space-x-3 flex-1">
                     <span className="text-lg">{getFileIcon(file.type)}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {file.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {formatFileSize(file.size)}
-                      </p>
+                      <p className="text-sm font-medium truncate">{file.name}</p>
+                      <p className="text-xs text-gray-500">{formatFileSize(file.size)}</p>
                     </div>
                   </div>
 
@@ -1027,30 +950,12 @@ const CampaignBuilder = () => {
             </div>
           )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           {/* Already Uploaded Files */}
           {campaign.Files.length > 0 && (
             <div className="mt-4 space-y-2">
               <h4 className="font-medium text-sm">Uploaded Files:</h4>
               {campaign.Files.map((file, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center p-2 border rounded"
-                >
+                <div key={index} className="flex justify-between items-center p-2 border rounded">
                   <div className="flex items-center space-x-2">
                     <span>{getFileIcon(file.type)}</span>
                     <span className="text-sm">{file.name}</span>
@@ -1084,9 +989,7 @@ const CampaignBuilder = () => {
           <ReactQuill
             theme="snow"
             value={campaign.DescriptionOfFilesAttached}
-            onChange={(value) =>
-              handleChange('DescriptionOfFilesAttached', value)
-            }
+            onChange={(value) => handleChange('DescriptionOfFilesAttached', value)}
             className="bg-white rounded"
             placeholder="Type or paste formatted content..."
           />
@@ -1105,14 +1008,7 @@ const CampaignBuilder = () => {
                 fill="none"
                 viewBox="0 0 24 24"
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path
                   className="opacity-75"
                   fill="currentColor"

@@ -43,14 +43,9 @@ const Signin = () => {
         </div>
 
         <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-8 w-[380px] text-center  transition-colors duration-300">
-          <h2 className="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-100">
-            Please Sign In to Continue.
-          </h2>
+          <h2 className="text-lg font-semibold mb-6 text-gray-800 dark:text-gray-100">Please Sign In to Continue.</h2>
 
-          <form
-            onSubmit={handleLogin}
-            className="flex flex-col space-y-5 text-left"
-          >
+          <form onSubmit={handleLogin} className="flex flex-col space-y-5 text-left">
             <div>
               <label className="block text-xs font-semibold mb-1 text-gray-600 dark:text-gray-300">
                 USER NAME/EMAIL
@@ -67,9 +62,7 @@ const Signin = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold mb-1 text-gray-600 dark:text-gray-300">
-                PASSWORD
-              </label>
+              <label className="block text-xs font-semibold mb-1 text-gray-600 dark:text-gray-300">PASSWORD</label>
               <input
                 type="password"
                 id="password"
@@ -91,11 +84,7 @@ const Signin = () => {
           </form>
 
           {/* Error */}
-          {error && (
-            <p className="text-center text-red-500">
-              {error?.data?.message || 'Invalid login credentials'}
-            </p>
-          )}
+          {error && <p className="text-center text-red-500">{error?.data?.message || 'Invalid login credentials'}</p>}
         </div>
         <div>
           <a href="/">Go Back</a>

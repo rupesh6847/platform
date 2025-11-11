@@ -564,25 +564,18 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/leadUploads/pacing/${pacingId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/leadUploads/pacing/${pacingId}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
-        if (!response.ok)
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const res = await response.json();
         const uploadsWithParsedResults = res.uploads.map((upload) => ({
           ...upload,
-          results:
-            typeof upload.results === 'string'
-              ? JSON.parse(upload.results)
-              : upload.results,
+          results: typeof upload.results === 'string' ? JSON.parse(upload.results) : upload.results,
         }));
 
         // Set the most recent upload as current
@@ -638,10 +631,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
       const result = await response.json();
 
       if (response.ok) {
-        const parsedResults =
-          typeof result.data === 'string'
-            ? JSON.parse(result.data)
-            : result.data;
+        const parsedResults = typeof result.data === 'string' ? JSON.parse(result.data) : result.data;
 
         setHasUploaded(true);
         setCurrentUpload({
@@ -709,25 +699,12 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
     const errors = currentUpload.results.errors;
 
     // Define headers
-    const headers = [
-      'Row',
-      'First Name',
-      'Last Name',
-      'Email',
-      'Company',
-      'Job Title',
-      'Errors',
-    ];
+    const headers = ['Row', 'First Name', 'Last Name', 'Email', 'Company', 'Job Title', 'Errors'];
 
     // Map data
     const rows = errors.map((err) => {
       const errorMessages = Object.entries(err._errors)
-        .map(
-          ([field, messages]) =>
-            `${field}: ${
-              Array.isArray(messages) ? messages.join(', ') : messages
-            }`
-        )
+        .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
         .join(' | ');
 
       return [
@@ -743,9 +720,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
 
     // Convert to CSV string
     const csvContent = [headers, ...rows]
-      .map((row) =>
-        row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(',')
-      )
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
       .join('\n');
 
     // Create and trigger download
@@ -761,29 +736,19 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div
-        className="absolute inset-0 bg-black bg-opacity-50"
-        onClick={onClose}
-      ></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
 
       <div className="relative bg-white dark:bg-gray-900 rounded-xl   w-full max-w-6xl max-h-[95vh] overflow-hidden z-10">
         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
-              Lead Upload Results
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              View upload results and history
-            </p>
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Lead Upload Results</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">View upload results and history</p>
           </div>
 
           <div className="text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">
             {tabName}
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-          >
+          <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
             <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
           </button>
         </div>
@@ -822,10 +787,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
           </div>
         </div>
 
-        <div
-          className="overflow-y-auto p-6"
-          style={{ maxHeight: 'calc(90vh - 150px)' }}
-        >
+        <div className="overflow-y-auto p-6" style={{ maxHeight: 'calc(90vh - 150px)' }}>
           {activeTab === 'current' ? (
             <>
               <div className="flex flex-col gap-4 mb-6">
@@ -855,9 +817,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
                 <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
                   <div className="flex justify-between items-start">
                     <div className="flex gap-6 items-center">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        {currentUpload.filename}
-                      </h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{currentUpload.filename}</h4>
                       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                         Uploaded at {formatDate(currentUpload.created_at)}
                       </p>
@@ -873,32 +833,25 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
-                      <p className="text-xs font-medium text-green-800 dark:text-green-200">
-                        Valid Rows
-                      </p>
+                      <p className="text-xs font-medium text-green-800 dark:text-green-200">Valid Rows</p>
                       <p className="text-xl font-bold text-green-900 dark:text-green-100 mt-1">
                         {currentUpload.results.validRowsCount}
                       </p>
                     </div>
 
                     <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
-                      <p className="text-xs font-medium text-red-800 dark:text-red-200">
-                        Error Rows
-                      </p>
+                      <p className="text-xs font-medium text-red-800 dark:text-red-200">Error Rows</p>
                       <p className="text-xl font-bold text-red-900 dark:text-red-100 mt-1">
                         {currentUpload.results.errorRowsCount}
                       </p>
                     </div>
 
                     <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                      <p className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                        Success Rate
-                      </p>
+                      <p className="text-xs font-medium text-gray-800 dark:text-gray-200">Success Rate</p>
                       <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">
                         {Math.round(
                           (currentUpload.results.validRowsCount /
-                            (currentUpload.results.validRowsCount +
-                              currentUpload.results.errorRowsCount)) *
+                            (currentUpload.results.validRowsCount + currentUpload.results.errorRowsCount)) *
                             100
                         )}
                         %
@@ -917,73 +870,40 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
                         <table className="w-full text-sm">
                           <thead className="bg-red-50 dark:bg-red-900/20 text-left">
                             <tr>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Row
-                              </th>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Name
-                              </th>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Email
-                              </th>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Company
-                              </th>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Job Title
-                              </th>
-                              <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                Errors
-                              </th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Row</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Name</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Email</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Company</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Job Title</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Errors</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-red-100 dark:divide-red-800">
-                            {currentUpload.results.errors.map(
-                              (errorLead, index) => (
-                                <tr
-                                  key={index}
-                                  className="hover:bg-red-50 dark:hover:bg-red-900/10"
-                                >
-                                  <td className="p-2 text-red-700 dark:text-red-300">
-                                    {errorLead.index}
-                                  </td>
-                                  <td className="p-2">
-                                    <div className="flex flex-col">
-                                      <span className="font-medium text-red-800 dark:text-red-200">
-                                        {errorLead.firstName}
-                                        {errorLead.lastName}
-                                      </span>
-                                    </div>
-                                  </td>
-                                  <td className="p-2 text-red-700 dark:text-red-300">
-                                    {errorLead.email}
-                                  </td>
-                                  <td className="p-2 text-red-700 dark:text-red-300">
-                                    {errorLead.company}
-                                  </td>
-                                  <td className="p-2 text-red-700 dark:text-red-300">
-                                    {errorLead.jobTitle}
-                                  </td>
-                                  <td className="p-2">
-                                    <ul className="space-y-1">
-                                      {Object.entries(errorLead._errors).map(
-                                        ([field, errors]) => (
-                                          <li
-                                            key={field}
-                                            className="text-xs text-red-600 dark:text-red-400"
-                                          >
-                                            • {field}:
-                                            {Array.isArray(errors)
-                                              ? errors.join(', ')
-                                              : errors}
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </td>
-                                </tr>
-                              )
-                            )}
+                            {currentUpload.results.errors.map((errorLead, index) => (
+                              <tr key={index} className="hover:bg-red-50 dark:hover:bg-red-900/10">
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.index}</td>
+                                <td className="p-2">
+                                  <div className="flex flex-col">
+                                    <span className="font-medium text-red-800 dark:text-red-200">
+                                      {errorLead.firstName}
+                                      {errorLead.lastName}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.email}</td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.company}</td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.jobTitle}</td>
+                                <td className="p-2">
+                                  <ul className="space-y-1">
+                                    {Object.entries(errorLead._errors).map(([field, errors]) => (
+                                      <li key={field} className="text-xs text-red-600 dark:text-red-400">
+                                        • {field}:{Array.isArray(errors) ? errors.join(', ') : errors}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </td>
+                              </tr>
+                            ))}
                           </tbody>
                         </table>
                       </div>
@@ -995,9 +915,7 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
           ) : (
             <>
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-medium text-gray-800 dark:text-white">
-                  Upload History
-                </h3>
+                <h3 className="text-lg font-medium text-gray-800 dark:text-white">Upload History</h3>
               </div>
 
               <div className="space-y-4">
@@ -1005,18 +923,12 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
                 {/* {uploadHistory.length > 0 && (.map((history) => ( */}
                 {uploadHistory.length > 0 &&
                   uploadHistory.map((history) => (
-                    <div
-                      key={history.id}
-                      className="border border-gray-200 dark:border-gray-700 rounded-lg p-4"
-                    >
+                    <div key={history.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-medium text-gray-900 dark:text-white">
-                            {history.filename}
-                          </h4>
+                          <h4 className="font-medium text-gray-900 dark:text-white">{history.filename}</h4>
                           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Uploaded by {history.uploader?.name} •
-                            {formatDate(history.created_at)}
+                            Uploaded by {history.uploader?.name} •{formatDate(history.created_at)}
                           </p>
                         </div>
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200">
@@ -1026,32 +938,25 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                         <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
-                          <p className="text-xs font-medium text-green-800 dark:text-green-200">
-                            Valid Rows
-                          </p>
+                          <p className="text-xs font-medium text-green-800 dark:text-green-200">Valid Rows</p>
                           <p className="text-xl font-bold text-green-900 dark:text-green-100 mt-1">
                             {history.results.validRowsCount}
                           </p>
                         </div>
 
                         <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
-                          <p className="text-xs font-medium text-red-800 dark:text-red-200">
-                            Error Rows
-                          </p>
+                          <p className="text-xs font-medium text-red-800 dark:text-red-200">Error Rows</p>
                           <p className="text-xl font-bold text-red-900 dark:text-red-100 mt-1">
                             {history.results.errorRowsCount}
                           </p>
                         </div>
 
                         <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                          <p className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                            Success Rate
-                          </p>
+                          <p className="text-xs font-medium text-gray-800 dark:text-gray-200">Success Rate</p>
                           <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">
                             {Math.round(
                               (history.results.validRowsCount /
-                                (history.results.validRowsCount +
-                                  history.results.errorRowsCount)) *
+                                (history.results.validRowsCount + history.results.errorRowsCount)) *
                                 100
                             )}
                             %
@@ -1070,73 +975,40 @@ const LeadResultUploadModal = ({ onClose, tabName, pacingId, user }) => {
                             <table className="w-full text-sm">
                               <thead className="bg-red-50 dark:bg-red-900/20 text-left">
                                 <tr>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Row
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Name
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Email
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Company
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Job Title
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Errors
-                                  </th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Row</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Name</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Email</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Company</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Job Title</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Errors</th>
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-red-100 dark:divide-red-800">
-                                {history.results.errors.map(
-                                  (errorLead, index) => (
-                                    <tr
-                                      key={index}
-                                      className="hover:bg-red-50 dark:hover:bg-red-900/10"
-                                    >
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.index}
-                                      </td>
-                                      <td className="p-2">
-                                        <div className="flex flex-col">
-                                          <span className="font-medium text-red-800 dark:text-red-200">
-                                            {errorLead.firstName}
-                                            {errorLead.lastName}
-                                          </span>
-                                        </div>
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.email}
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.company}
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.jobTitle}
-                                      </td>
-                                      <td className="p-2">
-                                        <ul className="space-y-1">
-                                          {Object.entries(
-                                            errorLead._errors
-                                          ).map(([field, errors]) => (
-                                            <li
-                                              key={field}
-                                              className="text-xs text-red-600 dark:text-red-400"
-                                            >
-                                              • {field}:
-                                              {Array.isArray(errors)
-                                                ? errors.join(', ')
-                                                : errors}
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  )
-                                )}
+                                {history.results.errors.map((errorLead, index) => (
+                                  <tr key={index} className="hover:bg-red-50 dark:hover:bg-red-900/10">
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.index}</td>
+                                    <td className="p-2">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium text-red-800 dark:text-red-200">
+                                          {errorLead.firstName}
+                                          {errorLead.lastName}
+                                        </span>
+                                      </div>
+                                    </td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.email}</td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.company}</td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.jobTitle}</td>
+                                    <td className="p-2">
+                                      <ul className="space-y-1">
+                                        {Object.entries(errorLead._errors).map(([field, errors]) => (
+                                          <li key={field} className="text-xs text-red-600 dark:text-red-400">
+                                            • {field}:{Array.isArray(errors) ? errors.join(', ') : errors}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
                           </div>

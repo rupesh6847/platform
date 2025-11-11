@@ -14,8 +14,7 @@ const PACING_STATUS_MAP = {
 const STATUS_COLORS = {
   Scheduled:
     'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-200 dark:border-yellow-800',
-  Active:
-    'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-800',
+  Active: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-800',
   Completed:
     'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-200 dark:border-green-800',
 };
@@ -37,7 +36,6 @@ const Pacings = ({ volumeId, onBack }) => {
         const res = await response.json();
         setVolumeName(res.data.name);
         setPacings(res.data.pacings || []);
-        console.log(res.data.pacings, 'pacing');
       } catch (e) {
         console.error('Fetch pacings error:', e);
       } finally {
@@ -64,17 +62,13 @@ const Pacings = ({ volumeId, onBack }) => {
           <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-700 rounded" />
           <div className="grid gap-4 md:grid-cols-3">
             {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="h-32 bg-gray-200 dark:bg-gray-700 rounded"
-              />
+              <div key={i} className="h-32 bg-gray-200 dark:bg-gray-700 rounded" />
             ))}
           </div>
         </div>
       </div>
     );
   }
-  // console.log(pacings,"pacings")
 
   if (selectedPacingId) {
     return (
@@ -130,9 +124,7 @@ const Pacings = ({ volumeId, onBack }) => {
                       const completed = pacing.actualLeads;
                       const goal = pacing.leadGoal;
                       const pending = Math.max(0, goal - completed);
-                      const progressPercentage = Math.round(
-                        Math.min(100, (completed / goal) * 100)
-                      );
+                      const progressPercentage = Math.round(Math.min(100, (completed / goal) * 100));
 
                       return (
                         <div
@@ -144,9 +136,7 @@ const Pacings = ({ volumeId, onBack }) => {
                             <div className="flex items-center mb-2">
                               <Calendar className="text-gray-400 mr-2 text-xs" />
                               <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                {new Date(
-                                  pacing.scheduledFor
-                                ).toLocaleDateString('en-US', {
+                                {new Date(pacing.scheduledFor).toLocaleDateString('en-US', {
                                   weekday: 'short',
                                   month: 'short',
                                   day: 'numeric',
@@ -166,11 +156,7 @@ const Pacings = ({ volumeId, onBack }) => {
                                   style={{
                                     width: `${progressPercentage}%`,
                                     backgroundColor:
-                                      status === 'Completed'
-                                        ? '#10B981'
-                                        : status === 'Active'
-                                          ? '#3B82F6'
-                                          : '#F59E0B',
+                                      status === 'Completed' ? '#10B981' : status === 'Active' ? '#3B82F6' : '#F59E0B',
                                   }}
                                 />
                               </div>
@@ -182,9 +168,7 @@ const Pacings = ({ volumeId, onBack }) => {
                             </div>
 
                             <div className="mt-3 pt-2 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                              <span className="text-xs text-gray-400 dark:text-gray-500">
-                                View Details
-                              </span>
+                              <span className="text-xs text-gray-400 dark:text-gray-500">View Details</span>
                               <ChartLine className="text-gray-400 text-xs" />
                             </div>
                           </div>

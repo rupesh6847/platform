@@ -1,11 +1,5 @@
 import { CheckCircle2, XCircle } from 'lucide-react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from '../../components/ui/table';
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../components/ui/table';
 
 const leaveHistory = [
   {
@@ -64,10 +58,7 @@ const LeaveSummary = () => {
 
   const ProgressBar = ({ percentage }) => (
     <div className="w-full bg-gray-200 rounded-full h-2">
-      <div
-        className="h-2 rounded-full bg-blue-500 transition-all duration-300"
-        style={{ width: `${percentage}%` }}
-      />
+      <div className="h-2 rounded-full bg-blue-500 transition-all duration-300" style={{ width: `${percentage}%` }} />
     </div>
   );
 
@@ -84,12 +75,8 @@ const LeaveSummary = () => {
     };
 
     return (
-      <span
-        className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles()}`}
-      >
-        {status === 'Approved' && (
-          <CheckCircle2 className="w-3 h-3 inline mr-1" />
-        )}
+      <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles()}`}>
+        {status === 'Approved' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
         {status === 'Rejected' && <XCircle className="w-3 h-3 inline mr-1" />}
         {status}
       </span>
@@ -108,9 +95,7 @@ const LeaveSummary = () => {
                 {leave.available}/{leave.total}
               </h3>
               <ProgressBar percentage={percentage} />
-              <p className="text-xs text-gray-500 mt-2">
-                {leave.available} days remaining
-              </p>
+              <p className="text-xs text-gray-500 mt-2">{leave.available} days remaining</p>
             </div>
           );
         })}

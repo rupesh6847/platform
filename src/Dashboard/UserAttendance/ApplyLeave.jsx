@@ -20,9 +20,7 @@ const ApplyLeave = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Leave Type
-            </label>
+            <label className="text-sm font-medium text-gray-700">Leave Type</label>
             <select
               value={leaveType}
               onChange={(e) => setLeaveType(e.target.value)}
@@ -34,9 +32,7 @@ const ApplyLeave = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              Duration
-            </label>
+            <label className="text-sm font-medium text-gray-700">Duration</label>
             <select
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
@@ -51,9 +47,7 @@ const ApplyLeave = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
-              From Date
-            </label>
+            <label className="text-sm font-medium text-gray-700">From Date</label>
             <div className="relative">
               <input
                 type="date"

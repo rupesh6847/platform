@@ -7,13 +7,10 @@ const electronAPI = {
   getAppVersion: () => ipcRenderer.invoke('get-version'),
 
   onUpdateAvailable: (callback) => ipcRenderer.on('update-available', callback),
-  onUpdateNotAvailable: (callback) =>
-    ipcRenderer.on('update-not-available', callback),
-  onUpdateDownloaded: (callback) =>
-    ipcRenderer.on('update-downloaded', callback),
+  onUpdateNotAvailable: (callback) => ipcRenderer.on('update-not-available', callback),
+  onUpdateDownloaded: (callback) => ipcRenderer.on('update-downloaded', callback),
   onUpdateError: (callback) => ipcRenderer.on('update-error', callback),
-  onDownloadProgress: (callback) =>
-    ipcRenderer.on('download-progress', callback),
+  onDownloadProgress: (callback) => ipcRenderer.on('download-progress', callback),
 
   removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
 };

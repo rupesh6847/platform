@@ -46,7 +46,7 @@ const AppHeader = () => {
             isApplicationMenuOpen ? 'flex' : 'hidden'
           } items-center justify-between w-full gap-4 px-5 lg:flex lg:justify-end lg:px-0    `}
         >
-          <TaskSession/>
+          <TaskSession />
           <TimeZone />
         </div>
       </div>

@@ -79,7 +79,6 @@
 //         ref={spreadsheet}
 //         tabs={true}
 //         onload={(jspreadsheetInstance) => {
-//           console.log('✅ Spreadsheet instance ready:', jspreadsheetInstance);
 //           setInstance(jspreadsheetInstance);
 //         }}
 //       >
@@ -97,10 +96,6 @@
 //           // 1. Get the index of the active sheet
 //           const activeIndex = instance.getWorksheetActive();
 //           const totalSheets = instance.worksheets.length;
-
-//           console.log(
-//             `Deleting sheet at index: ${activeIndex}. Total sheets: ${totalSheets}`
-//           );
 
 //           if (totalSheets > 1) {
 //             // 2. Access the specific worksheet instance
@@ -134,8 +129,6 @@ import 'jsuites/dist/jsuites.css';
 export const Content = ({ content, setContent }) => {
   const spreadsheet = useRef(null);
   const [instance, setInstance] = useState(null);
-
-
 
   // The column headers must match the uppercase keys used in conversion
   const initialData = [
@@ -191,23 +184,24 @@ export const Content = ({ content, setContent }) => {
    * This is called by both onload and onchanges.
    * @param {object} currentInstance - The jspreadsheet instance.
    */
-  const updateContent = useCallback((currentInstance) => {
-    if (!currentInstance) return;
+  const updateContent = useCallback(
+    (currentInstance) => {
+      if (!currentInstance) return;
 
-    // Get the current active sheet (even though you only have one)
-    const activeSheetIndex = currentInstance.getWorksheetActive();
-    const sheet = currentInstance.worksheets[activeSheetIndex];
+      // Get the current active sheet (even though you only have one)
+      const activeSheetIndex = currentInstance.getWorksheetActive();
+      const sheet = currentInstance.worksheets[activeSheetIndex];
 
-    // Get the raw data
-    const data = sheet.getData();
-  
+      // Get the raw data
+      const data = sheet.getData();
 
-    // Convert and update state
-    const json = convertSheetToContentJSON(data);
-    console.log(json, 'content json');
+      // Convert and update state
+      const json = convertSheetToContentJSON(data);
 
-    setContent(json);
-  }, [convertSheetToContentJSON, setContent]);
+      setContent(json);
+    },
+    [convertSheetToContentJSON, setContent]
+  );
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -217,30 +211,28 @@ export const Content = ({ content, setContent }) => {
         ref={spreadsheet}
         tabs={false}
         onload={(jspreadsheetInstance) => {
-          console.log('✅ Spreadsheet instance ready:', jspreadsheetInstance);
           setInstance(jspreadsheetInstance);
-          
+
           // Initialize content state on load
-          updateContent(jspreadsheetInstance); 
+          updateContent(jspreadsheetInstance);
         }}
       >
-        <Worksheet 
-          title="Content Input" 
-          minDimensions={[6, 6]} 
-          data={initialData} 
-          columnHeaders={['TITLE', 'TYPE', 'APPROVEDATE', 'OPTINTYPE', 'CATEGORY']} 
+        <Worksheet
+          title="Content Input"
+          minDimensions={[6, 6]}
+          data={initialData}
+          columnHeaders={['TITLE', 'TYPE', 'APPROVEDATE', 'OPTINTYPE', 'CATEGORY']}
         />
       </Spreadsheet>
-      
+
       {/* 🚀 FIXED: Call updateContent and pass the spreadsheet instance from state */}
-      <button 
+      <button
         className="mt-4 rounded bg-green-500 text-white px-4 py-2 hover:bg-green-600"
         onClick={() => updateContent(instance)}
       >
         Save Content
       </button>
 
-     
       {/* <pre className="mt-4 bg-gray-100 text-sm p-3 rounded h-72 overflow-auto">
         {JSON.stringify(content, null, 2)}
       </pre> */}

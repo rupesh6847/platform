@@ -38,8 +38,7 @@ export default function SinglePacing({ pacingId, onBack }) {
           //   { headers: { Authorization: `Bearer ${user.token}` } }
         );
 
-        if (!response.ok)
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const data = await response.json();
 
@@ -63,17 +62,13 @@ export default function SinglePacing({ pacingId, onBack }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/leads/assigned/pacing/${pacingId}`,
-          {
-            // headers: {
-            //   Authorization: `Bearer ${user.token}`,
-            // },
-          }
-        );
+        const response = await fetch(`http://localhost:3000/leads/assigned/pacing/${pacingId}`, {
+          // headers: {
+          //   Authorization: `Bearer ${user.token}`,
+          // },
+        });
 
-        if (!response.ok)
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const res = await response.json();
 

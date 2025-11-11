@@ -19,9 +19,7 @@ export default function Task() {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(
-        `http://192.168.29.121:3000/tasks/user-tasks?userId=${userId}&taskId=${taskId}`
-      );
+      const res = await fetch(`http://192.168.29.121:3000/tasks/user-tasks?userId=${userId}&taskId=${taskId}`);
       const response = await res.json();
 
       if (response?.data) {
@@ -37,21 +35,14 @@ export default function Task() {
     if (!task) return;
 
     const newStatus =
-      task.status === 'In Progress'
-        ? 'Completed'
-        : task.status === 'Completed'
-          ? 'Not Started'
-          : 'In Progress';
+      task.status === 'In Progress' ? 'Completed' : task.status === 'Completed' ? 'Not Started' : 'In Progress';
 
     try {
-      const res = await fetch(
-        `http://192.168.29.121:3000/tasks/user-tasks?userId=${userId}&taskId=${taskId}`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
+      const res = await fetch(`http://192.168.29.121:3000/tasks/user-tasks?userId=${userId}&taskId=${taskId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
 
       if (res.ok) {
         setTask((prev) => ({ ...prev, status: newStatus }));
@@ -86,17 +77,13 @@ export default function Task() {
                   {/* Type */}
                   <div>
                     <p className="text-gray-500 text-sm">Type</p>
-                    <p className="text-gray-800 dark:text-gray-200">
-                      {task.type}
-                    </p>
+                    <p className="text-gray-800 dark:text-gray-200">{task.type}</p>
                   </div>
 
                   {/* Assigned By */}
                   <div>
                     <p className="text-gray-500 text-sm">Assigned By</p>
-                    <p className="text-gray-800 dark:text-gray-200">
-                      {assignedBy}
-                    </p>
+                    <p className="text-gray-800 dark:text-gray-200">{assignedBy}</p>
                   </div>
 
                   {/* Status Toggle */}
@@ -111,25 +98,19 @@ export default function Task() {
                       />
                       <div className="w-9 h-5 bg-gray-200 hover:bg-gray-300 peer-focus:outline-none peer-focus:ring-transparent rounded-full peer transition-all ease-in-out duration-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 hover:peer-checked:bg-indigo-700"></div>
                     </label>
-                    <p className="text-sm text-gray-700 mt-1">
-                      {task.status || 'Not Started'}
-                    </p>
+                    <p className="text-sm text-gray-700 mt-1">{task.status || 'Not Started'}</p>
                   </div>
 
                   {/* Level */}
                   <div>
                     <p className="text-gray-500 text-sm">Level</p>
-                    <p className="text-gray-800 dark:text-gray-200">
-                      {task.level}
-                    </p>
+                    <p className="text-gray-800 dark:text-gray-200">{task.level}</p>
                   </div>
 
                   {/* Remark */}
                   <div className="sm:col-span-2">
                     <p className="text-gray-500 text-sm">Remark</p>
-                    <p className="text-gray-800 dark:text-gray-200">
-                      {task.remark || '—'}
-                    </p>
+                    <p className="text-gray-800 dark:text-gray-200">{task.remark || '—'}</p>
                   </div>
                 </div>
               </div>
@@ -139,7 +120,7 @@ export default function Task() {
           {/* Campaign details */}
           {task?.typeId && (
             <div className="col-span-12 xl:col-span-12">
-              <CampaignDetailPage campaignId={task.typeId}  PageBreadcrumb={false} />
+              <CampaignDetailPage campaignId={task.typeId} PageBreadcrumb={false} />
             </div>
           )}
         </div>

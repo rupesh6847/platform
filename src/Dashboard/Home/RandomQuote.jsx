@@ -57,10 +57,7 @@ const RandomQuote = () => {
       ) : quote ? (
         <>
           <p className="text-gray-800 text-3xl lg:text-xl">“{quote}”</p>
-          <span className=" font-normal text-gray-600 italic mt-2 ">
-            {' '}
-            —{author}
-          </span>
+          <span className=" font-normal text-gray-600 italic mt-2 "> —{author}</span>
         </>
       ) : (
         <p>Loading...</p>

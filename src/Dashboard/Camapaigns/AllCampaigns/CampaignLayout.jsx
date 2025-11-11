@@ -52,8 +52,6 @@ export default function CampaignLayout() {
     setIsDrawerOpen(true);
   };
 
-  console.log(filterNameCount.name, 'filterNameCount');
-  console.log(search, 'search');
   return (
     <>
       <PageMeta title="Programs" description="This is Programs page." />
@@ -62,12 +60,9 @@ export default function CampaignLayout() {
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/5 lg:p-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-              Program Queue
-            </h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Program Queue</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Here you can explore the status of your programs with Revknew
-              Media
+              Here you can explore the status of your programs with Revknew Media
             </p>
           </div>
 
@@ -152,9 +147,7 @@ export default function CampaignLayout() {
             <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
               <ListFilter className="text-gray-500 h-4 w-4" />
               <span className="font-medium">Filters:</span>
-              <span className="text-gray-500 dark:text-gray-400">
-                No filters currently active
-              </span>
+              <span className="text-gray-500 dark:text-gray-400">No filters currently active</span>
             </div>
 
             <button
@@ -187,9 +180,7 @@ export default function CampaignLayout() {
                 «
               </button>
               <span>Page 1 of 2</span>
-              <button className="border rounded-md px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">
-                »
-              </button>
+              <button className="border rounded-md px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">»</button>
             </div>
           </div>
         </div>

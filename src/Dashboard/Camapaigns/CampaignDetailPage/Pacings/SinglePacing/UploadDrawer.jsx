@@ -26,16 +26,12 @@ export default function UploadDrawer({ pacingId }) {
           // }
         );
 
-        if (!response.ok)
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const res = await response.json();
         const uploadsWithParsedResults = res.uploads.map((upload) => ({
           ...upload,
-          results:
-            typeof upload.results === 'string'
-              ? JSON.parse(upload.results)
-              : upload.results,
+          results: typeof upload.results === 'string' ? JSON.parse(upload.results) : upload.results,
         }));
 
         // Set the most recent upload as current
@@ -91,10 +87,7 @@ export default function UploadDrawer({ pacingId }) {
       const result = await response.json();
 
       if (response.ok) {
-        const parsedResults =
-          typeof result.data === 'string'
-            ? JSON.parse(result.data)
-            : result.data;
+        const parsedResults = typeof result.data === 'string' ? JSON.parse(result.data) : result.data;
 
         setHasUploaded(true);
         setCurrentUpload({
@@ -162,25 +155,12 @@ export default function UploadDrawer({ pacingId }) {
     const errors = currentUpload.results.errors;
 
     // Define headers
-    const headers = [
-      'Row',
-      'First Name',
-      'Last Name',
-      'Email',
-      'Company',
-      'Job Title',
-      'Errors',
-    ];
+    const headers = ['Row', 'First Name', 'Last Name', 'Email', 'Company', 'Job Title', 'Errors'];
 
     // Map data
     const rows = errors.map((err) => {
       const errorMessages = Object.entries(err._errors)
-        .map(
-          ([field, messages]) =>
-            `${field}: ${
-              Array.isArray(messages) ? messages.join(', ') : messages
-            }`
-        )
+        .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
         .join(' | ');
 
       return [
@@ -196,9 +176,7 @@ export default function UploadDrawer({ pacingId }) {
 
     // Convert to CSV string
     const csvContent = [headers, ...rows]
-      .map((row) =>
-        row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(',')
-      )
+      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
       .join('\n');
 
     // Create and trigger download
@@ -217,8 +195,7 @@ export default function UploadDrawer({ pacingId }) {
       <PageMeta title="UploadDrawer" description="This is UploadDrawer page." />
       <PageBreadcrumb pageTitle="UploadDrawer" />
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/3 lg:p-6">
-       
-              {/* <div>
+        {/* <div>
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                   Lead Upload Results
                 </h2>
@@ -227,127 +204,218 @@ export default function UploadDrawer({ pacingId }) {
                 </p>
               </div> */}
 
-            
-              {/* <button
+        {/* <button
               
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
               >
                 <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               </button> */}
-            {/* </div> */}
+        {/* </div> */}
 
-            <div className="border-b border-gray-200 dark:border-gray-700">
-              <div className="flex px-6">
-                <button
-                  className={`px-4 py-3 font-medium text-sm flex items-center border-b-2 transition-all ${
-                    activeTab === 'current'
-                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                  }`}
-                  onClick={() => setActiveTab('current')}
-                >
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Upload
-                  <span className="ml-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">
-                    {(hasUploaded && currentUpload?.results?.errors?.length) ||
-                      0}
-                    errors
-                  </span>
-                </button>
-                <button
-                  className={`px-4 py-3 font-medium text-sm flex items-center border-b-2 transition-all ${
-                    activeTab === 'history'
-                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                  }`}
-                  onClick={() => setActiveTab('history')}
-                >
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  Upload History
-                  <span className="ml-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs px-2 py-0.5 rounded-full">
-                    {uploadHistory.length}
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <div
-              className="overflow-y-auto p-6"
-              style={{ maxHeight: 'calc(90vh - 150px)' }}
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="flex px-6">
+            <button
+              className={`px-4 py-3 font-medium text-sm flex items-center border-b-2 transition-all ${
+                activeTab === 'current'
+                  ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+              onClick={() => setActiveTab('current')}
             >
-              {activeTab === 'current' ? (
-                <>
-                  <div className="flex flex-col gap-4 mb-6">
-                    <div className="flex items-center gap-4">
-                      <input
-                        type="file"
-                        accept=".csv"
-                        onChange={handleFileChange}
-                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                      />
-                      <button
-                        onClick={handleUpload}
-                        disabled={isUploading || !uploadFile}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                      >
-                        {isUploading ? 'Uploading...' : 'Upload'}
-                      </button>
-                    </div>
-                    {uploadFile && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Selected file: <strong>{uploadFile.name}</strong>
+              <CheckCircle className="w-4 h-4 mr-2" />
+              Upload
+              <span className="ml-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full">
+                {(hasUploaded && currentUpload?.results?.errors?.length) || 0}
+                errors
+              </span>
+            </button>
+            <button
+              className={`px-4 py-3 font-medium text-sm flex items-center border-b-2 transition-all ${
+                activeTab === 'history'
+                  ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+              onClick={() => setActiveTab('history')}
+            >
+              <AlertCircle className="w-4 h-4 mr-2" />
+              Upload History
+              <span className="ml-2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-xs px-2 py-0.5 rounded-full">
+                {uploadHistory.length}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div className="overflow-y-auto p-6" style={{ maxHeight: 'calc(90vh - 150px)' }}>
+          {activeTab === 'current' ? (
+            <>
+              <div className="flex flex-col gap-4 mb-6">
+                <div className="flex items-center gap-4">
+                  <input
+                    type="file"
+                    accept=".csv"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <button
+                    onClick={handleUpload}
+                    disabled={isUploading || !uploadFile}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  >
+                    {isUploading ? 'Uploading...' : 'Upload'}
+                  </button>
+                </div>
+                {uploadFile && (
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Selected file: <strong>{uploadFile.name}</strong>
+                  </p>
+                )}
+              </div>
+              {hasUploaded && currentUpload && (
+                // {currentUpload && (
+                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
+                  <div className="flex justify-between items-start">
+                    <div className="flex gap-6 items-center">
+                      <h4 className="font-medium text-gray-900 dark:text-white">{currentUpload.filename}</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Uploaded at {formatDate(currentUpload.created_at)}
                       </p>
-                    )}
+                    </div>
+                    <button
+                      onClick={exportToCSV}
+                      className="flex items-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                    >
+                      <Download className="w-4 h-4 mr-1" />
+                      Export Error Report
+                    </button>
                   </div>
-                  {hasUploaded && currentUpload && (
-                    // {currentUpload && (
-                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
+                      <p className="text-xs font-medium text-green-800 dark:text-green-200">Valid Rows</p>
+                      <p className="text-xl font-bold text-green-900 dark:text-green-100 mt-1">
+                        {currentUpload.results.validRowsCount}
+                      </p>
+                    </div>
+
+                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
+                      <p className="text-xs font-medium text-red-800 dark:text-red-200">Error Rows</p>
+                      <p className="text-xl font-bold text-red-900 dark:text-red-100 mt-1">
+                        {currentUpload.results.errorRowsCount}
+                      </p>
+                    </div>
+
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+                      <p className="text-xs font-medium text-gray-800 dark:text-gray-200">Success Rate</p>
+                      <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">
+                        {Math.round(
+                          (currentUpload.results.validRowsCount /
+                            (currentUpload.results.validRowsCount + currentUpload.results.errorRowsCount)) *
+                            100
+                        )}
+                        %
+                      </p>
+                    </div>
+                  </div>
+
+                  {currentUpload.results.errors.length > 0 && (
+                    <div className="mt-6">
+                      <div className="flex items-center text-sm font-medium text-red-700 dark:text-red-300 mb-2">
+                        <AlertCircle className="w-4 h-4 mr-1" />
+                        Error Leads ({currentUpload.results.errors.length})
+                      </div>
+
+                      <div className="overflow-x-auto border border-red-200 dark:border-red-800 rounded-lg">
+                        <table className="w-full text-sm">
+                          <thead className="bg-red-50 dark:bg-red-900/20 text-left">
+                            <tr>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Row</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Name</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Email</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Company</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Job Title</th>
+                              <th className="p-2 font-medium text-red-800 dark:text-red-200">Errors</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-red-100 dark:divide-red-800">
+                            {currentUpload.results.errors.map((errorLead, index) => (
+                              <tr key={index} className="hover:bg-red-50 dark:hover:bg-red-900/10">
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.index}</td>
+                                <td className="p-2">
+                                  <div className="flex flex-col">
+                                    <span className="font-medium text-red-800 dark:text-red-200">
+                                      {errorLead.firstName}
+                                      {errorLead.lastName}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.email}</td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.company}</td>
+                                <td className="p-2 text-red-700 dark:text-red-300">{errorLead.jobTitle}</td>
+                                <td className="p-2">
+                                  <ul className="space-y-1">
+                                    {Object.entries(errorLead._errors).map(([field, errors]) => (
+                                      <li key={field} className="text-xs text-red-600 dark:text-red-400">
+                                        • {field}:{Array.isArray(errors) ? errors.join(', ') : errors}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-medium text-gray-800 dark:text-white">Upload History</h3>
+              </div>
+
+              <div className="space-y-4">
+                {/* {Object.values(uploadHistory).map((history) => ( */}
+                {/* {uploadHistory.length > 0 && (.map((history) => ( */}
+                {uploadHistory.length > 0 &&
+                  uploadHistory.map((history) => (
+                    <div key={history.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                       <div className="flex justify-between items-start">
-                        <div className="flex gap-6 items-center">
-                          <h4 className="font-medium text-gray-900 dark:text-white">
-                            {currentUpload.filename}
-                          </h4>
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-white">{history.filename}</h4>
                           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Uploaded at {formatDate(currentUpload.created_at)}
+                            Uploaded by {history.uploader?.name} •{formatDate(history.created_at)}
                           </p>
                         </div>
-                        <button
-                          onClick={exportToCSV}
-                          className="flex items-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-                        >
-                          <Download className="w-4 h-4 mr-1" />
-                          Export Error Report
-                        </button>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200">
+                          Pacing #{history.pacingId}
+                        </span>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                         <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
-                          <p className="text-xs font-medium text-green-800 dark:text-green-200">
-                            Valid Rows
-                          </p>
+                          <p className="text-xs font-medium text-green-800 dark:text-green-200">Valid Rows</p>
                           <p className="text-xl font-bold text-green-900 dark:text-green-100 mt-1">
-                            {currentUpload.results.validRowsCount}
+                            {history.results.validRowsCount}
                           </p>
                         </div>
 
                         <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
-                          <p className="text-xs font-medium text-red-800 dark:text-red-200">
-                            Error Rows
-                          </p>
+                          <p className="text-xs font-medium text-red-800 dark:text-red-200">Error Rows</p>
                           <p className="text-xl font-bold text-red-900 dark:text-red-100 mt-1">
-                            {currentUpload.results.errorRowsCount}
+                            {history.results.errorRowsCount}
                           </p>
                         </div>
 
                         <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                          <p className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                            Success Rate
-                          </p>
+                          <p className="text-xs font-medium text-gray-800 dark:text-gray-200">Success Rate</p>
                           <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">
                             {Math.round(
-                              (currentUpload.results.validRowsCount /
-                                (currentUpload.results.validRowsCount +
-                                  currentUpload.results.errorRowsCount)) *
+                              (history.results.validRowsCount /
+                                (history.results.validRowsCount + history.results.errorRowsCount)) *
                                 100
                             )}
                             %
@@ -355,251 +423,65 @@ export default function UploadDrawer({ pacingId }) {
                         </div>
                       </div>
 
-                      {currentUpload.results.errors.length > 0 && (
-                        <div className="mt-6">
+                      {history.results.errors.length > 0 && (
+                        <div className="mt-4">
                           <div className="flex items-center text-sm font-medium text-red-700 dark:text-red-300 mb-2">
                             <AlertCircle className="w-4 h-4 mr-1" />
-                            Error Leads ({currentUpload.results.errors.length})
+                            Error Leads ({history.results.errors.length})
                           </div>
 
                           <div className="overflow-x-auto border border-red-200 dark:border-red-800 rounded-lg">
                             <table className="w-full text-sm">
                               <thead className="bg-red-50 dark:bg-red-900/20 text-left">
                                 <tr>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Row
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Name
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Email
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Company
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Job Title
-                                  </th>
-                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                    Errors
-                                  </th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Row</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Name</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Email</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Company</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Job Title</th>
+                                  <th className="p-2 font-medium text-red-800 dark:text-red-200">Errors</th>
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-red-100 dark:divide-red-800">
-                                {currentUpload.results.errors.map(
-                                  (errorLead, index) => (
-                                    <tr
-                                      key={index}
-                                      className="hover:bg-red-50 dark:hover:bg-red-900/10"
-                                    >
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.index}
-                                      </td>
-                                      <td className="p-2">
-                                        <div className="flex flex-col">
-                                          <span className="font-medium text-red-800 dark:text-red-200">
-                                            {errorLead.firstName}
-                                            {errorLead.lastName}
-                                          </span>
-                                        </div>
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.email}
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.company}
-                                      </td>
-                                      <td className="p-2 text-red-700 dark:text-red-300">
-                                        {errorLead.jobTitle}
-                                      </td>
-                                      <td className="p-2">
-                                        <ul className="space-y-1">
-                                          {Object.entries(
-                                            errorLead._errors
-                                          ).map(([field, errors]) => (
-                                            <li
-                                              key={field}
-                                              className="text-xs text-red-600 dark:text-red-400"
-                                            >
-                                              • {field}:
-                                              {Array.isArray(errors)
-                                                ? errors.join(', ')
-                                                : errors}
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      </td>
-                                    </tr>
-                                  )
-                                )}
+                                {history.results.errors.map((errorLead, index) => (
+                                  <tr key={index} className="hover:bg-red-50 dark:hover:bg-red-900/10">
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.index}</td>
+                                    <td className="p-2">
+                                      <div className="flex flex-col">
+                                        <span className="font-medium text-red-800 dark:text-red-200">
+                                          {errorLead.firstName}
+                                          {errorLead.lastName}
+                                        </span>
+                                      </div>
+                                    </td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.email}</td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.company}</td>
+                                    <td className="p-2 text-red-700 dark:text-red-300">{errorLead.jobTitle}</td>
+                                    <td className="p-2">
+                                      <ul className="space-y-1">
+                                        {Object.entries(errorLead._errors).map(([field, errors]) => (
+                                          <li key={field} className="text-xs text-red-600 dark:text-red-400">
+                                            • {field}:{Array.isArray(errors) ? errors.join(', ') : errors}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
                           </div>
                         </div>
                       )}
                     </div>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-medium text-gray-800 dark:text-white">
-                      Upload History
-                    </h3>
-                  </div>
-
-                  <div className="space-y-4">
-                    {/* {Object.values(uploadHistory).map((history) => ( */}
-                    {/* {uploadHistory.length > 0 && (.map((history) => ( */}
-                    {uploadHistory.length > 0 &&
-                      uploadHistory.map((history) => (
-                        <div
-                          key={history.id}
-                          className="border border-gray-200 dark:border-gray-700 rounded-lg p-4"
-                        >
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h4 className="font-medium text-gray-900 dark:text-white">
-                                {history.filename}
-                              </h4>
-                              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                Uploaded by {history.uploader?.name} •
-                                {formatDate(history.created_at)}
-                              </p>
-                            </div>
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200">
-                              Pacing #{history.pacingId}
-                            </span>
-                          </div>
-
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-100 dark:border-green-900/30">
-                              <p className="text-xs font-medium text-green-800 dark:text-green-200">
-                                Valid Rows
-                              </p>
-                              <p className="text-xl font-bold text-green-900 dark:text-green-100 mt-1">
-                                {history.results.validRowsCount}
-                              </p>
-                            </div>
-
-                            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-100 dark:border-red-900/30">
-                              <p className="text-xs font-medium text-red-800 dark:text-red-200">
-                                Error Rows
-                              </p>
-                              <p className="text-xl font-bold text-red-900 dark:text-red-100 mt-1">
-                                {history.results.errorRowsCount}
-                              </p>
-                            </div>
-
-                            <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
-                              <p className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                                Success Rate
-                              </p>
-                              <p className="text-xl font-bold text-gray-900 dark:text-white mt-1">
-                                {Math.round(
-                                  (history.results.validRowsCount /
-                                    (history.results.validRowsCount +
-                                      history.results.errorRowsCount)) *
-                                    100
-                                )}
-                                %
-                              </p>
-                            </div>
-                          </div>
-
-                          {history.results.errors.length > 0 && (
-                            <div className="mt-4">
-                              <div className="flex items-center text-sm font-medium text-red-700 dark:text-red-300 mb-2">
-                                <AlertCircle className="w-4 h-4 mr-1" />
-                                Error Leads ({history.results.errors.length})
-                              </div>
-
-                              <div className="overflow-x-auto border border-red-200 dark:border-red-800 rounded-lg">
-                                <table className="w-full text-sm">
-                                  <thead className="bg-red-50 dark:bg-red-900/20 text-left">
-                                    <tr>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Row
-                                      </th>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Name
-                                      </th>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Email
-                                      </th>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Company
-                                      </th>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Job Title
-                                      </th>
-                                      <th className="p-2 font-medium text-red-800 dark:text-red-200">
-                                        Errors
-                                      </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-red-100 dark:divide-red-800">
-                                    {history.results.errors.map(
-                                      (errorLead, index) => (
-                                        <tr
-                                          key={index}
-                                          className="hover:bg-red-50 dark:hover:bg-red-900/10"
-                                        >
-                                          <td className="p-2 text-red-700 dark:text-red-300">
-                                            {errorLead.index}
-                                          </td>
-                                          <td className="p-2">
-                                            <div className="flex flex-col">
-                                              <span className="font-medium text-red-800 dark:text-red-200">
-                                                {errorLead.firstName}
-                                                {errorLead.lastName}
-                                              </span>
-                                            </div>
-                                          </td>
-                                          <td className="p-2 text-red-700 dark:text-red-300">
-                                            {errorLead.email}
-                                          </td>
-                                          <td className="p-2 text-red-700 dark:text-red-300">
-                                            {errorLead.company}
-                                          </td>
-                                          <td className="p-2 text-red-700 dark:text-red-300">
-                                            {errorLead.jobTitle}
-                                          </td>
-                                          <td className="p-2">
-                                            <ul className="space-y-1">
-                                              {Object.entries(
-                                                errorLead._errors
-                                              ).map(([field, errors]) => (
-                                                <li
-                                                  key={field}
-                                                  className="text-xs text-red-600 dark:text-red-400"
-                                                >
-                                                  • {field}:
-                                                  {Array.isArray(errors)
-                                                    ? errors.join(', ')
-                                                    : errors}
-                                                </li>
-                                              ))}
-                                            </ul>
-                                          </td>
-                                        </tr>
-                                      )
-                                    )}
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                </>
-              )}
-            </div>
-          {/* </div> */}
-        {/* </div> */}
+                  ))}
+              </div>
+            </>
+          )}
         </div>
+        {/* </div> */}
+        {/* </div> */}
+      </div>
     </>
   );
 }

@@ -1,21 +1,14 @@
 import { Link } from 'react-router-dom';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from '../../../components/ui/table';
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../../components/ui/table';
 import AppTooltip from '../../../lib/Tooltip';
 import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
 import { useEffect, useState } from 'react';
 import { Slicestring } from '../../../lib/Slicestring';
 
-export default function CampaignTable({tableData}) {
+export default function CampaignTable({ tableData }) {
   // const [allCampaigns, setAllCamapigns] = useState([]);
   // const [filter, setFilter] = useState('All');
   // useEffect(() => {
-  //   console.log(filter, 'filter changed');
   //   fetchData();
   // }, [filter]);
 
@@ -25,12 +18,10 @@ export default function CampaignTable({tableData}) {
   //   );
   //   const response = await res.json();
 
-  //   console.log(response.data, 'allCampaigns');
   //   setAllCamapigns(response.data);
   // };
 
   // const filterChange = (f) => {
-  //   console.log(f, 'filter changed');
   //   setFilter(f);
   // };
 
@@ -72,10 +63,7 @@ export default function CampaignTable({tableData}) {
           {/* Body */}
           <TableBody className="divide-y divide-gray-100 dark:divide-white/10 text-xs">
             {tableData?.map((row, i) => (
-              <TableRow
-                key={i}
-                className="hover:bg-gray-50/70 dark:hover:bg-gray-800/60"
-              >
+              <TableRow key={i} className="hover:bg-gray-50/70 dark:hover:bg-gray-800/60">
                 <TableCell className="p-2 w-[200px]">
                   <AppTooltip message={row.name}>
                     <p className="font-medium text-gray-800 dark:text-white truncate">
@@ -103,18 +91,12 @@ export default function CampaignTable({tableData}) {
                 <TableCell className="p-2 ">{row.completed}</TableCell>
                 <TableCell className="p-2 ">{row.pending}</TableCell>
                 {/* <TableCell className="p-2 ">{row.working}</TableCell> */}
-                <TableCell className="p-2 ">
-                  {' '}
-                  {row.assignTo?.length ? row.assignTo.join(', ') : '-'}
-                </TableCell>
+                <TableCell className="p-2 "> {row.assignTo?.length ? row.assignTo.join(', ') : '-'}</TableCell>
                 {/* <TableCell className="p-2 ">{row.pocs}</TableCell> */}
                 <TableCell className="p-2 ">{row.duedate}</TableCell>
 
                 <TableCell className="p-2 ">
-                  <Link
-                    to={`/campaigns/${row.id}`}
-                    className="text-blue-600 hover:underline dark:text-blue-400"
-                  >
+                  <Link to={`/campaigns/${row.id}`} className="text-blue-600 hover:underline dark:text-blue-400">
                     View
                   </Link>
                 </TableCell>

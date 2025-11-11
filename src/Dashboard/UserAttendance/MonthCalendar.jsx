@@ -47,9 +47,7 @@ export default function MonthCalendar() {
 
   return (
     <div className="mt-6 lg:border rounded-2xl bg-white lg:p-6 dark:bg-gray-900">
-      <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
-        Calendar
-      </h2>
+      <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">Calendar</h2>
       <Calendar
         localizer={localizer}
         events={events}

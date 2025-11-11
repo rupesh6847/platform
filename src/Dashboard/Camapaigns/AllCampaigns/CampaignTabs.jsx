@@ -15,14 +15,14 @@
 //   return (
 //     <div>
 //       <div
-//         className="flex flex-wrap items-center gap-2 px-3 
+//         className="flex flex-wrap items-center gap-2 px-3
 //                     sm:gap-3 sm:px-4   md:gap-4 md:px-3 border-b border-gray-200 dark:border-gray-700"
 //       >
 //         {tabs.map((tab) => (
 //           <button
 //             key={tab}
 //             onClick={() => onSelect(tab)}
-//             className={`pb-3 text-xs sm:text-sm font-medium transition-colors duration-150 
+//             className={`pb-3 text-xs sm:text-sm font-medium transition-colors duration-150
 //               ${
 //                 selected === tab
 //                   ? 'text-black dark:text-white border-b-2 border-black dark:border-white'

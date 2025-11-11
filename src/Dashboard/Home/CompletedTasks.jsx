@@ -1,4 +1,3 @@
-
 import { Slicestring } from '../../lib/Slicestring';
 import AppTooltip from '../../lib/Tooltip';
 
@@ -37,9 +36,7 @@ export default function CompletedTasks() {
     <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/3 sm:p-6">
       {/* === Header === */}
       <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:justify-between">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-          Task Completed:
-        </h3>
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Task Completed:</h3>
 
         <div className="flex items-center gap-3">
           <button className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-theme-sm font-medium text-gray-700  hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3">
@@ -61,9 +58,7 @@ export default function CompletedTasks() {
                       {task.program.length > 40 && '...'}
                     </p>
                   </AppTooltip>
-                  <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                    {task.type}
-                  </span>
+                  <span className="block text-gray-500 text-theme-xs dark:text-gray-400">{task.type}</span>
                 </div>
               </div>
 
@@ -71,9 +66,7 @@ export default function CompletedTasks() {
                 <div className="relative block h-2 w-full max-w-[100px] rounded-sm bg-gray-200 dark:bg-gray-800">
                   <div className="absolute left-0 top-0 flex h-full w-[79%] items-center justify-center rounded-sm bg-brand-500 text-xs font-medium text-white"></div>
                 </div>
-                <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                  79%
-                </p>
+                <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">79%</p>
               </div>
             </div>
           );

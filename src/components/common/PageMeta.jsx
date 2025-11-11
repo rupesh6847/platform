@@ -7,8 +7,6 @@ const PageMeta = ({ title, description }) => (
   </Helmet>
 );
 
-export const AppWrapper = ({ children }) => (
-  <HelmetProvider>{children}</HelmetProvider>
-);
+export const AppWrapper = ({ children }) => <HelmetProvider>{children}</HelmetProvider>;
 
 export default PageMeta;

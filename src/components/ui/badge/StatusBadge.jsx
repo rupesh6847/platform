@@ -47,9 +47,7 @@ export const StatusBadge = ({ status = '' }) => {
   };
 
   return (
-    <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles()}`}
-    >
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyles()}`}>
       {getStatusIcon()}
       {status}
     </span>
