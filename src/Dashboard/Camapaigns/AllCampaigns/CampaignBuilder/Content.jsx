@@ -124,20 +124,27 @@
 
 //   )
 // }
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/react';
+
+// Import the required CSS files
+import 'jspreadsheet-ce/dist/jspreadsheet.css';
+import 'jsuites/dist/jsuites.css';
 
 export const Content = ({ content, setContent }) => {
   const spreadsheet = useRef(null);
   const [instance, setInstance] = useState(null);
 
-  useEffect(() => {
-    if (instance != null) {
-      console.log(instance.getData(), 'content');
-    }
-  }, [instance]);
 
-  const convertSheetToContentJSON = (data) => {
+
+  // The column headers must match the uppercase keys used in conversion
+  const initialData = [
+    ['TITLE', 'TYPE', 'APPROVEDATE', 'OPTINTYPE', 'CATEGORY'], // Header Row
+    // You can add an initial data row here if needed
+  ];
+
+  // Using useCallback for the conversion function is a good practice for performance
+  const convertSheetToContentJSON = useCallback((data) => {
     if (!data || data.length < 2) return [];
 
     const rows = data.map((row) => {
@@ -150,22 +157,26 @@ export const Content = ({ content, setContent }) => {
       };
     });
 
-    // Remove header row
+    // Remove the header row (the first row)
     rows.shift();
 
     const grouped = {};
 
     rows.forEach((row) => {
-      if (!row.category) return;
+      const categoryKey = row.CATEGORY.trim();
 
-      if (!grouped[row.category]) grouped[row.category] = [];
+      if (!categoryKey) return;
 
-      grouped[row.category].push({
+      if (!grouped[categoryKey]) {
+        grouped[categoryKey] = [];
+      }
+
+      grouped[categoryKey].push({
         id: Date.now() + Math.floor(Math.random() * 100000),
-        title: row.title,
-        type: row.type,
-        approveDate: row.approveDate,
-        optinType: row.optinType,
+        title: row.TITLE,
+        type: row.TYPE,
+        approveDate: row.APPROVEDATE,
+        optinType: row.OPTINTYPE,
       });
     });
 
@@ -173,7 +184,30 @@ export const Content = ({ content, setContent }) => {
       categoryName: category,
       content: grouped[category],
     }));
-  };
+  }, []);
+
+  /**
+   * Centralized function to get data, convert it, and update the state.
+   * This is called by both onload and onchanges.
+   * @param {object} currentInstance - The jspreadsheet instance.
+   */
+  const updateContent = useCallback((currentInstance) => {
+    if (!currentInstance) return;
+
+    // Get the current active sheet (even though you only have one)
+    const activeSheetIndex = currentInstance.getWorksheetActive();
+    const sheet = currentInstance.worksheets[activeSheetIndex];
+
+    // Get the raw data
+    const data = sheet.getData();
+  
+
+    // Convert and update state
+    const json = convertSheetToContentJSON(data);
+    console.log(json, 'content json');
+
+    setContent(json);
+  }, [convertSheetToContentJSON, setContent]);
 
   return (
     <div className="mt-6 border rounded-2xl bg-white p-6">
@@ -183,25 +217,30 @@ export const Content = ({ content, setContent }) => {
         ref={spreadsheet}
         tabs={false}
         onload={(jspreadsheetInstance) => {
+          console.log('✅ Spreadsheet instance ready:', jspreadsheetInstance);
           setInstance(jspreadsheetInstance);
-        }}
-        onafterchanges={() => {
-          if (!instance) return;
-
-          const activeSheetIndex = instance.getWorksheetActive();
-          const sheet = instance.worksheets[activeSheetIndex];
-
-          const data = sheet.getData();
-          const json = convertSheetToContentJSON(data);
-          console.log(json, 'content json');
-
-          setContent(json);
+          
+          // Initialize content state on load
+          updateContent(jspreadsheetInstance); 
         }}
       >
-        <Worksheet title="Sheet 1" minDimensions={[6, 6]} />
+        <Worksheet 
+          title="Content Input" 
+          minDimensions={[6, 6]} 
+          data={initialData} 
+          columnHeaders={['TITLE', 'TYPE', 'APPROVEDATE', 'OPTINTYPE', 'CATEGORY']} 
+        />
       </Spreadsheet>
+      
+      {/* 🚀 FIXED: Call updateContent and pass the spreadsheet instance from state */}
+      <button 
+        className="mt-4 rounded bg-green-500 text-white px-4 py-2 hover:bg-green-600"
+        onClick={() => updateContent(instance)}
+      >
+        Save Content
+      </button>
 
-      {/* Live JSON Preview */}
+     
       {/* <pre className="mt-4 bg-gray-100 text-sm p-3 rounded h-72 overflow-auto">
         {JSON.stringify(content, null, 2)}
       </pre> */}
