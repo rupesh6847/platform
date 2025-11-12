@@ -6,6 +6,7 @@ import AppTooltip from '../../../lib/Tooltip';
 
 import Pacings from './Pacings/Pacings';
 import { Slicestring } from '../../../lib/Slicestring';
+import { UploadDeliverySection } from './UploadDeliverySection';
 
 function formatDate(dateString) {
   if (!dateString) return 'N/A';
@@ -353,7 +354,14 @@ const CampaignDetailPage = ({ campaignId, PageBreadcrumb }) => {
             </div>
 
             {/* Upload Table */}
+<<<<<<< Updated upstream
             <h4 className="text-lg font-medium text-gray-900 dark:text-white">Uploads</h4>
+=======
+            <h4 className="text-lg font-medium text-gray-900 dark:text-white">
+              Uploads
+            </h4>
+            <UploadDeliverySection campaignId={campaignId}/>
+>>>>>>> Stashed changes
             <div className="rounded-lg border border-gray-200 dark:border-gray-700  dark:bg-gray-800 text-sm p-4 lg:p-6">
               <div className="overflow-x-auto">
                 <table className="w-full rounded-lg   dark:border-gray-700 text-left text-sm">

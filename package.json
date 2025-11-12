@@ -50,7 +50,8 @@
     "redux-persist": "^6.0.0",
     "socket.io-client": "^4.8.1",
     "swr": "^2.3.6",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",

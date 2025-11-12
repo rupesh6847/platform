@@ -128,6 +128,7 @@
 // };
 
 // export default LeadsTable;
+
 // import { useState, useMemo } from "react";
 // import Spreadsheet from "react-spreadsheet";
 
@@ -363,6 +364,9 @@ const LeadsTable = ({ headers, leads }) => {
   };
 
   const visiblePages = getVisiblePages();
+  
+
+
 
   return (
     <div className="w-full           dark:bg-gray-800 dark:border-gray-700 py-10">
@@ -543,4 +547,64 @@ const LeadsTable = ({ headers, leads }) => {
   );
 };
 
-export default LeadsTable;
+ export default LeadsTable;
+
+// import { useRef, useState, useEffect } from 'react';
+// import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/react';
+// import 'jspreadsheet-ce/dist/jspreadsheet.css';
+// import 'jsuites/dist/jsuites.css';
+
+// export default function LeadsTable({ headers, leads, isAdmin = false }) {
+//   const spreadsheet = useRef(null);
+//   const [instance, setInstance] = useState(null);
+//   const [data, setData] = useState([]);
+
+//   // 🔹 Format the leads into table-ready data
+//   useEffect(() => {
+//     const formatted = leads.map((lead) =>
+//       headers.map((h) => lead.data?.[h[0]] ?? lead[h[0]] ?? '')
+//     );
+//     setData(formatted);
+//   }, [leads, headers]);
+
+//   return (
+//     <div className="mt-6 border rounded-2xl bg-white p-6 shadow-sm">
+//       <h2 className="text-lg font-semibold mb-4">Leads (Full View)</h2>
+
+//       <Spreadsheet
+//         ref={spreadsheet}
+//         tabs={false} // single worksheet only
+//         editable={isAdmin} // allow edit only for admin
+//         onload={(jspreadsheetInstance) => {
+//           console.log('✅ Spreadsheet ready:', jspreadsheetInstance);
+//           setInstance(jspreadsheetInstance);
+//         }}
+//       >
+//         <Worksheet
+//           title="Leads"
+//           data={data}
+//           columns={headers.map((h) => ({
+//             title: h[1],
+//             width: 140,
+//           }))}
+//           minDimensions={[headers.length, Math.max(leads.length, 10)]}
+//         />
+//       </Spreadsheet>
+
+//       {/* Example save button */}
+//       <div className="mt-4 flex justify-end">
+//         <button
+//           onClick={() => {
+//             if (!instance) return alert('Spreadsheet not ready');
+//             const json = instance.worksheets[0].getJson();
+//             console.log('📦 Saved data:', json);
+//           }}
+//           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+//         >
+//           Save Data
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
