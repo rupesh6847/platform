@@ -1,17 +1,48 @@
-import { Clock, FileText, Watch } from 'lucide-react';
+import { ChevronRight, Clock, FileText } from 'lucide-react';
 import { Spreadsheet, Worksheet } from '@jspreadsheet-ce/react';
 import 'jspreadsheet-ce/dist/jspreadsheet.css';
 import 'jsuites/dist/jsuites.css';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { QuotesUpload } from './QuotesUpload';
+import { Link } from 'react-router-dom';
 
-const BriefDetail = ({ brief }) => {
+const BriefDetailPage = ({ briefId, PageBreadcrumb }) => {
   const leadSheetRef = useRef(null);
+
+  const [brief, setBrief] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const res = await fetch(`http://localhost:3000/briefs/${briefId}`);
+    const response = await res.json();
+
+    setBrief(response.data);
+  };
+
   return (
-    <div className="relative z-0 h-full overflow-y-auto p-6 space-y-6">
-      <div className="flex flex-wrap justify-between items-start gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+    // <div className="  z-0 h-full overflow-y-auto p-6 space-y-6">
+
+    <div className=" dark:bg-gray-900 min-h-screen">
+      {/* Header */}
+
+      {PageBreadcrumb && (
+        <div className="flex justify-between items-center mb-8 p-4 lg:p-0">
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <Link to="/briefs" className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+              Briefs <ChevronRight size={20} strokeWidth={1} />
+            </Link>
+
+            <span className="font-medium text-gray-700 dark:text-gray-300">{brief.name}</span>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-wrap justify-between items-start gap-4 pb-4   border-gray-200 dark:border-gray-700">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">{brief.name}</h2>
+          <h2 className="text-xl font-normal mb-2 text-gray-900 dark:text-white">{brief?.name}</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
             Client Code:{' '}
             <span className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200">
@@ -143,4 +174,4 @@ const BriefDetail = ({ brief }) => {
   );
 };
 
-export default BriefDetail;
+export default BriefDetailPage;

@@ -58,7 +58,7 @@
 // //         quotesDetails,
 // //       };
 
-// //       const response = await fetch('http://192.168.29.121:3000/briefs', {
+// //       const response = await fetch('http://localhost:3000/briefs', {
 // //         method: 'PUT',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(jsonData),
@@ -222,7 +222,7 @@
 
 //       console.log('Uploading JSON:', jsonData);
 
-//       const response = await fetch('http://192.168.29.121:3000/briefs', {
+//       const response = await fetch('http://localhost:3000/briefs', {
 //         method: 'PUT',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(jsonData),
@@ -381,7 +381,7 @@
 //       };
 
 //       const response = await fetch(
-//         `http://192.168.29.121:3000/briefs/${brief.id}`,
+//         `http://localhost:3000/briefs/${brief.id}`,
 //         {
 //           method: 'PUT',
 //           headers: { 'Content-Type': 'application/json' },
@@ -503,7 +503,7 @@ export const QuotesUpload = ({ brief }) => {
       console.log('📤 Upload JSON:', jsonData);
 
       const response = await fetch(
-        `http://192.168.29.121:3000/briefs/${brief.id}`,
+        `http://localhost:3000/briefs/${brief.id}`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },

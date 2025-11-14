@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import TimeZone from '../components/header/TimeZone';
 import { Grip } from 'lucide-react';
 import TaskSession from '../Dashboard/Session/TaskSession';
-const AppHeader = () => {
+const AppHeader = ({ user }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const toggleApplicationMenu = () => {
@@ -25,13 +25,15 @@ const AppHeader = () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
+
+  console.log(user, 'user');
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-99 dark:border-gray-800 dark:bg-gray-900 lg:border-b">
       <div className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6">
         <div className="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-gray-200 dark:border-gray-800 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
           <div>
             <h1 className="leading-snug">
-              Hello,<span className="font-semibold ">Rupesh</span>
+              Hello,<span className="font-semibold ">{user?.username}</span>
             </h1>
           </div>
           <button
@@ -46,7 +48,7 @@ const AppHeader = () => {
             isApplicationMenuOpen ? 'flex' : 'hidden'
           } items-center justify-between w-full gap-4 px-5 lg:flex lg:justify-end lg:px-0    `}
         >
-          <TaskSession />
+          {/* <TaskSession /> */}
           <TimeZone />
         </div>
       </div>

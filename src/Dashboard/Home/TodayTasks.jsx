@@ -7,7 +7,7 @@ import { fetcher } from '../../lib/Fetcher';
 import useSWR from 'swr';
 
 export default function TodayTasks() {
-  const { data, error } = useSWR(`http://192.168.29.121:3000/tasks/user-tasks?userId=3`, fetcher);
+  const { data, error } = useSWR(`http://localhost:3000/tasks/user-tasks?userId=3`, fetcher);
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (

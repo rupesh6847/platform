@@ -1,0 +1,344 @@
+[
+    {
+        "categoryName": "ENG",
+        "content": [
+            {
+                "id": 1759311186665,
+                "title": "6 Things to Consider When Deploying Cabinets for AI Applications",
+                "type": "Whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759311203169,
+                "title": "Specifying the Correct Cabinet for AI Compute Clusters: Considerations for Data Engineers",
+                "type": "Whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            }
+        ]
+    }
+]
+
+
+
+
+
+
+
+
+
+[
+    {
+        "categoryName": "Global",
+        "content": [
+            {
+                "id": 1759317199410,
+                "title": "Shifting Data Attitudes: The 10th Annual Dun & Bradstreet B2B Data Report",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317217399,
+                "title": "The Data-Driven Way to Build Deeper Customer Relationships",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317237393,
+                "title": "How Intent Data Can Unify Sales and Marketing",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317237547393,
+                "title": "fvsdfsdf",
+                "type": "sdfsfsf",
+                "approveDate": "2000-12-12T00:00:00.000Z",
+                "optinType": "sdfsfds"
+            },
+            {
+                "id": 1759317237567447300,
+                "title": "test",
+                "type": "test",
+                "approveDate": "2000-12-12T00:00:00.000Z",
+                "optinType": "test"
+            },
+            {
+                "id": 3463573735,
+                "title": "test3",
+                "type": "we",
+                "approveDate": "2000-12-12T00:00:00.000Z",
+                "optinType": "tttt"
+            }
+        ]
+    },
+    {
+        "categoryName": "global",
+        "content": [
+            {
+                "id": 456345735737,
+                "title": "ted",
+                "type": "dddd",
+                "approveDate": "2000-12-12T00:00:00.000Z",
+                "optinType": "dasdfsa"
+            }
+        ]
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+    {
+        "categoryName": "Compliance",
+        "content": [
+            {
+                "id": 1759338071300,
+                "title": "6 Key Steps for Resetting Your Anti-Bribery/Anti-Corruption (ABAC) Program",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            },
+            {
+                "id": 1759338078878,
+                "title": "How to Create an Effective Third-Party Risk Management Policy",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            },
+            {
+                "id": 1759338133895,
+                "title": "Credit Intelligence Product Brochure",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            }
+        ]
+    },
+    {
+        "categoryName": "Finance",
+        "content": [
+            {
+                "id": 1759338091620,
+                "title": "ERM, IRM, and GRC: Which Matters More and Why?",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            },
+            {
+                "id": 1759338106550,
+                "title": "Why Data Management Strategies Will Make or Break B2B Embedded Finance",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            }
+        ]
+    },
+    {
+        "categoryName": "Procurement",
+        "content": [
+            {
+                "id": 1759338149528,
+                "title": "How ESG Data Can Help You Build a Better Supplier Network",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            },
+            {
+                "id": 1759338174670,
+                "title": "Third-Party Risk & Compliance Solutions",
+                "type": "whitepaper",
+                "approveDate": "",
+                "optinType": "single"
+            }
+        ]
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+    {
+        "categoryName": "Global",
+        "content": [
+            {
+                "id": 1759425995417,
+                "title": "Gartner® Market Guide for AI Trust, Risk and Security Management",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426013291,
+                "title": "The State of Generative AI",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426023754,
+                "title": "Securing GenAI against prompt attacks",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426038289,
+                "title": "The Guardrail Trap: Why Existing AI Security Strategies Aren’t Enough",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426044990,
+                "title": "When AI Leaks: Containing and Preventing Sensitive Data Leaks",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426048962,
+                "title": "When Hidden Flaws Surface: Securing AI at Runtime",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            },
+            {
+                "id": 1759426056063,
+                "title": "Red Teaming Your AI Systems Before Attackers Do",
+                "type": "whitepaper",
+                "approveDate": "2025-10-02",
+                "optinType": "single"
+            }
+        ]
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+    {
+        "categoryName": "Global",
+        "content": [
+            {
+                "id": 1759317199410,
+                "title": "Shifting Data Attitudes: The 10th Annual Dun & Bradstreet B2B Data Report",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317217399,
+                "title": "The Data-Driven Way to Build Deeper Customer Relationships",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317237393,
+                "title": "How Intent Data Can Unify Sales and Marketing",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            }
+        ]
+    },
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[
+    {
+        "categoryName": "Global",
+        "content": [
+            {
+                "id": 1759317199410,
+                "title": "Shifting Data Attitudes: The 10th Annual Dun & Bradstreet B2B Data Report",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317217399,
+                "title": "The Data-Driven Way to Build Deeper Customer Relationships",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            },
+            {
+                "id": 1759317237393,
+                "title": "How Intent Data Can Unify Sales and Marketing",
+                "type": "whitepaper",
+                "approveDate": "2025-10-01",
+                "optinType": "single"
+            }
+        ]
+    }
+  
+    
+    
+    
+]

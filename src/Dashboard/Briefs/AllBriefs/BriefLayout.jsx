@@ -1,27 +1,24 @@
+// import { useEffect, useState } from 'react';
+// import PageBreadcrumb from '../../../components/common/PageBreadCrumb';
+// import PageMeta from '../../../components/common/PageMeta';
+// import { Plus, ListFilter, Search, SlidersHorizontal, X } from 'lucide-react';
+// import CampaignBuilder from './CampaignBuilder/CampaignBuilder';
+// import { Drawer } from '../../../lib/Drawer';
+// import CampaignTable from './CampaignTable';
+
 import { useEffect, useState } from 'react';
 import PageBreadcrumb from '../../../components/common/PageBreadCrumb';
 import PageMeta from '../../../components/common/PageMeta';
-import { Plus, ListFilter, Search, SlidersHorizontal, X } from 'lucide-react';
-import CampaignBuilder from './CampaignBuilder/CampaignBuilder';
+import { BriefBuilder } from './BriefBuilder/BriefBuilder';
 import { Drawer } from '../../../lib/Drawer';
-import CampaignTable from './CampaignTable';
+import { ListFilter, Plus, Search, SlidersHorizontal } from 'lucide-react';
+import BriefTable from './BriefTable';
 
-const tabs = [
-  'New',
-  'Due Today',
-  'Overdue',
-  'Upcoming',
-  'Recently Update',
-  'Active',
-  'Completed',
-  'Paused',
-  'All',
-  'Retouch',
-];
+const tabs = ['Total Briefs', 'Pending Briefs', 'In Progress', 'Complete', 'Recent Update'];
 
-export default function CampaignLayout() {
+export default function BriefLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [allCampaigns, setAllCamapigns] = useState([]);
+  const [allBriefs, setAllBriefs] = useState([]);
   // const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
   const [filterNameCount, setFilterNameCount] = useState({
@@ -34,13 +31,11 @@ export default function CampaignLayout() {
   }, [filterNameCount.name, search]);
 
   const fetchData = async () => {
-    const res = await fetch(
-      `http://localhost:3000/campaigns?filter=${encodeURIComponent(filterNameCount.name)}&search=${search}`
-    );
+    const res = await fetch(`http://localhost:3000/briefs`);
 
     const response = await res.json();
 
-    setAllCamapigns(response.data);
+    setAllBriefs(response.data);
 
     setFilterNameCount({
       name: filterNameCount.name,
@@ -48,30 +43,30 @@ export default function CampaignLayout() {
     });
   };
 
-  const handleCreateCampaignClick = () => {
+  const handleCreateBriefClick = () => {
     setIsDrawerOpen(true);
   };
 
   return (
     <>
-      <PageMeta title="Programs" description="This is Programs page." />
-      <PageBreadcrumb pageTitle="Programs" />
+      <PageMeta title="Briefs" description="This is Briefs page." />
+      <PageBreadcrumb pageTitle="Briefs" />
 
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/5 lg:p-6">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Program Queue</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Brief Queue</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Here you can explore the status of your programs with Revknew Media
+              Here you can explore the status of your Briefs with Revknew Media
             </p>
           </div>
 
           <div>
             <button
-              onClick={handleCreateCampaignClick}
+              onClick={handleCreateBriefClick}
               className="flex items-center gap-2 rounded-lg border p-3 text-xs hover:bg-gray-50 dark:hover:bg-gray-800 transition"
             >
-              <Plus size={14} /> Create Program
+              <Plus size={14} /> Create Brief
             </button>
           </div>
         </div>
@@ -107,7 +102,6 @@ export default function CampaignLayout() {
               : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
           }`}
                   >
-                    {/* {filterNameCount.count} */}
                     {filterNameCount.name === tab ? filterNameCount.count : 0}
                   </span>
                 </div>
@@ -158,7 +152,7 @@ export default function CampaignLayout() {
             </button>
           </div>
 
-          <CampaignTable tableData={allCampaigns} />
+          <BriefTable tableData={allBriefs} />
 
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-600 dark:text-gray-400 gap-3">
             <div className="flex items-center gap-2">
@@ -189,7 +183,7 @@ export default function CampaignLayout() {
       {/* Drawer */}
       {isDrawerOpen && (
         <Drawer open={isDrawerOpen} setOpen={setIsDrawerOpen}>
-          <CampaignBuilder />
+          <BriefBuilder />
         </Drawer>
       )}
     </>

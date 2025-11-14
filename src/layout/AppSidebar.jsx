@@ -31,10 +31,12 @@ const navItems = [
       },
     ],
   },
-  { icon: <GitCompareArrows />, name: 'Process', path: '/process' },
   { icon: <Megaphone />, name: 'Program', path: '/campaigns' },
   { icon: <FileSpreadsheet />, name: 'Briefs', path: '/briefs' },
-  { icon: <FolderSync />, name: 'Training', path: '/training' },
+  // { icon: <FileSpreadsheet />, name: 'Briefs', path: '/briefsss' },
+
+  // { icon: <GitCompareArrows />, name: 'Process', path: '/process' },
+  // { icon: <FolderSync />, name: 'Training', path: '/training' },
 ];
 
 const othersItems = [

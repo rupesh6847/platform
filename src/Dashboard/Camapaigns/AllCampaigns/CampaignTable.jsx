@@ -2,32 +2,11 @@ import { Link } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../../../components/ui/table';
 import AppTooltip from '../../../lib/Tooltip';
 import { StatusBadge } from '../../../components/ui/badge/StatusBadge';
-import { useEffect, useState } from 'react';
 import { Slicestring } from '../../../lib/Slicestring';
 
 export default function CampaignTable({ tableData }) {
-  // const [allCampaigns, setAllCamapigns] = useState([]);
-  // const [filter, setFilter] = useState('All');
-  // useEffect(() => {
-  //   fetchData();
-  // }, [filter]);
-
-  // const fetchData = async () => {
-  //   const res = await fetch(
-  //     `http://192.168.29.121:3000/campaigns?filter=${encodeURIComponent(filter)}`
-  //   );
-  //   const response = await res.json();
-
-  //   setAllCamapigns(response.data);
-  // };
-
-  // const filterChange = (f) => {
-  //   setFilter(f);
-  // };
-
   return (
     <>
-      {/* Table Container */}
       <div className="overflow-x-auto rounded  border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900/50">
         <Table className="min-w-full">
           {/* Header */}
@@ -35,15 +14,12 @@ export default function CampaignTable({ tableData }) {
             <TableRow>
               {[
                 'Program',
-                // 'Type',
                 'Reference',
                 'Status',
                 'Total',
                 'Accepted',
                 'Remaining',
-                // 'Working',
                 'Assign To',
-                // 'POCs',
                 'Overdue',
                 'Action',
               ].map((header) => (
@@ -73,8 +49,6 @@ export default function CampaignTable({ tableData }) {
                   </AppTooltip>
                 </TableCell>
 
-                {/* <TableCell className="p-2 ">{row.programType}</TableCell> */}
-
                 <TableCell className="p-2 ">
                   <AppTooltip message={`${row.client.name}/${row.code}`}>
                     <span>
@@ -90,9 +64,7 @@ export default function CampaignTable({ tableData }) {
                 <TableCell className="p-2 ">{row.leadgoal}</TableCell>
                 <TableCell className="p-2 ">{row.completed}</TableCell>
                 <TableCell className="p-2 ">{row.pending}</TableCell>
-                {/* <TableCell className="p-2 ">{row.working}</TableCell> */}
                 <TableCell className="p-2 "> {row.assignTo?.length ? row.assignTo.join(', ') : '-'}</TableCell>
-                {/* <TableCell className="p-2 ">{row.pocs}</TableCell> */}
                 <TableCell className="p-2 ">{row.duedate}</TableCell>
 
                 <TableCell className="p-2 ">
@@ -105,33 +77,6 @@ export default function CampaignTable({ tableData }) {
           </TableBody>
         </Table>
       </div>
-
-      {/* Pagination */}
-      {/* <div className="flex flex-col sm:flex-row justify-between items-center mt-4 text-sm text-gray-600 dark:text-gray-400 gap-3">
-        <div className="flex items-center gap-2">
-          <label htmlFor="pageSize">Page Size:</label>
-          <select
-            id="pageSize"
-            className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-400 dark:focus:ring-blue-600"
-          >
-            <option>10</option>
-            <option>20</option>
-          </select>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            disabled
-            className="border rounded-md px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            «
-          </button>
-          <span>Page 1 of 2</span>
-          <button className="border rounded-md px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800">
-            »
-          </button>
-        </div>
-      </div> */}
     </>
   );
 }

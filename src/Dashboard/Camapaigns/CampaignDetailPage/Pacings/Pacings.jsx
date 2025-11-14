@@ -29,7 +29,7 @@ const Pacings = ({ volumeId, onBack }) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://192.168.29.121:3000/pacings/volume/${volumeId}`
+          `http://localhost:3000/pacings/volume/${volumeId}`
           // { headers: { Authorization: `Bearer ${user.token}` } },
         );
         if (!response.ok) throw new Error('Failed to fetch pacings');

@@ -1936,7 +1936,7 @@ export const BriefBuilder = () => {
         leadDetails,
       };
 
-      const response = await fetch('http://192.168.29.121:3000/briefs', {
+      const response = await fetch('http://localhost:3000/briefs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(jsonData),

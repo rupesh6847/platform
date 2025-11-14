@@ -3,14 +3,15 @@ import Backdrop from './Backdrop';
 import AppSidebar from './AppSidebar';
 import { SidebarProvider, useSidebar } from '../context/SidebarContext';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const LayoutContent = () => {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
-
+const user = useSelector((state) => state.user.value);
   return (
     <div className="min-h-screen xl:flex bg-white dark:bg-gray-900">
       <div>
-        <AppSidebar />
+        <AppSidebar user={user}/>
         <Backdrop />
       </div>
       <div
@@ -18,7 +19,7 @@ const LayoutContent = () => {
           isExpanded || isHovered ? 'lg:ml-60' : 'lg:ml-20'
         } ${isMobileOpen ? 'ml-0' : ''}`}
       >
-        <AppHeader />
+        <AppHeader user={user}/>
         <div className=" p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6 ">
           <Outlet />
         </div>
